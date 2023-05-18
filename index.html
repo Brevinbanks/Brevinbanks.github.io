@@ -459,7 +459,9 @@
                   document.getElementById("back-to-top").classList.remove('animate__animated', 'animate__backOutDown');
                   document.getElementById("back-to-top").classList.add('animate__animated', 'animate__backInUp');
               }
+              document.getElementById("back-to-top").textContent = "Back to Top" +$win.scrollTop()
           });
+          
       });
     </script>
 
