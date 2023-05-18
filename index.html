@@ -435,7 +435,7 @@
 
     <!-- Scroll to top -->
   
-    <div id="back-to-top" class="back-to-top animate__animated animate__backInUp">Back to Top</div>
+    <div id="back-to-top" class="back-to-top animate__animated animate__backOutDown">Back to Top</div>
 
 
     <!-- Website scripts -->
@@ -453,15 +453,17 @@
 
           $win.scroll(function () {
               if ($win.scrollTop() < 5){
+                  document.getElementById("back-to-top").classList.remove('back-to-top:hover');
                   document.getElementById("back-to-top").classList.remove('animate__animated', 'animate__backInUp');
                   document.getElementById("back-to-top").classList.add('animate__animated', 'animate__backOutDown');
                 }
                   else{
+                  document.getElementById("back-to-top").classList.add('back-to-top:hover');
                   document.getElementById("back-to-top").classList.remove('animate__animated', 'animate__backOutDown');
                   document.getElementById("back-to-top").classList.add('animate__animated', 'animate__backInUp');
               }
-              document.getElementById("back-to-top").textContent = "Back to Top " +$win.scrollTop()
-          });
+              
+            });
           
       });
     </script>
