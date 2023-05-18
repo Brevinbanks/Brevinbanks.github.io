@@ -444,8 +444,9 @@
 
     <!-- This script will hide the back to top button or show it -->
     <script type="text/javascript"
-    src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js">
+    src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js">
     </script>
+
     <script type="text/javascript" language="javascript">
       $(function () {
           var $win = $(window);
@@ -459,7 +460,7 @@
                   document.getElementById("back-to-top").classList.remove('animate__animated', 'animate__backOutDown');
                   document.getElementById("back-to-top").classList.add('animate__animated', 'animate__backInUp');
               }
-              document.getElementById("back-to-top").textContent = "Back to Top" +$win.scrollTop()
+              document.getElementById("back-to-top").textContent = "Back to Top " +$win.scrollTop()
           });
           
       });
@@ -474,6 +475,6 @@
       nomodule
       src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
     ></script>
-    
+
   </body>
 </html>
