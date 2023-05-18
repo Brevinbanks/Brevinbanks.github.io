@@ -187,7 +187,7 @@
           var $win = $(window);
 
           $win.scroll(function () {
-              if ($win.scrollTop() == 0){
+              if ($win.scrollTop() < 5){
                   document.getElementById("back-to-top").classList.remove('animate__animated', 'animate__backInUp');
                   document.getElementById("back-to-top").classList.add('animate__animated', 'animate__backOutDown');
                 }
@@ -200,3 +200,6 @@
     </script>
   </body>
 </html>
+
+
+<!-- Fix the hamburger menu so tapping away will hide it -->
