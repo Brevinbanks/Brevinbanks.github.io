@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!--CSS Styles -->
+    <link rel="stylesheet" href="assets/css/styles.css" />
+
+    <!-- Favicons -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="assets/icons/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="assets/icons/favicon-32x32.png"
+    />
+
+    <!-- Animate CSS CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <title>Brevin Banks | Robotics</title>
+    
+
+    <style>
+    div.backhead {
+      padding: 1.1rem;
+      background-image: url(page-backHexGreenDark.png);
+      background-repeat: no-repeat;
+      /* background-attachment: fixed; */
+      text-shadow: -1px 1px #000000;
+      background-size: cover;
+    }
+
+    div.backblank {
+
+      padding: 1rem;
+      background-color: rgb(255, 255, 255);
+      background-repeat: no-repeat;
+      /* background-attachment: fixed; */
+      
+    
+      background-size: cover;
+    }
+
+
+    </style>
+    
+
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <nav>
+      <h1>Brevin Banks </h1>
+      <ul class="navigation">
+        <li><a href="./index.html" class="nav-link">Home</a></li>
+        <li><a href="#description" class="nav-link">Description</a></li>
+        <li><a href="#skills" class="nav-link">Skills</a></li>
+        <li><a href="#projects" class="nav-link">Projects</a></li>
+        <li><a href="./index.html#contact" class="nav-link">Contact</a></li>
+        <li><a href="./more.html">More</a></li>
+      </ul>
+      <button class="burger-menu" id="burger-menu">
+        <ion-icon class="bars" name="menu-outline"></ion-icon>
+        <!-- <ion-icon class="times" name="close-outline"></ion-icon> -->
+      </button>
+    </nav>
+    
+    <div class="backhead">
+      <h2 style="color:white;">Projects Portfolio</h2>
+    </div>
+
+    <div class="backblank">
+
+    </div>
+
+
+    <!-- More about -->
+    <section class="more-about" id="description">
+
+      <p>
+        Here are several projects I am currently working on
+        or have worked on in the past. The most recent projects are listed at the top of their related section.
+      </p>
+
+       
+    <!-- Projects section -->
+    <section class="projects" id="projects">
+      <h2 class="projects-title">Some of my Recent Projects</h2>
+      <div class="projects-container">
+        <div class="project-container project-card">
+          <img
+            src="assets/images/5DofRobotArm.png"
+            alt="5DOF Robot Arm"
+            loading="lazy"
+            class="project-pic"
+          />
+          <h3 class="project-title">5DOF Robot Arm</h3>
+          <p class="project-details">
+            A small robot arm easily placed on a desk and programmable for performing repeatable tasks. Uses Computer ision
+          </p>
+          <a href="#" target="_blank" class="project-link">Check it Out</a>
+        </div>
+        <div class="project-container project-card">
+          <img
+            src="assets/images/netflixClone.png"
+            alt="netflic-clone"
+            loading="lazy"
+            class="project-pic"
+          />
+          <h3 class="project-title">Netflix Clone</h3>
+          <p class="project-details">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas
+            ratione vel inventore labore commodi modi quos culpa aut saepe!
+            Alias!
+          </p>
+          <a href="#" target="_blank" class="project-link">Check it Out</a>
+        </div>
+        <div class="project-container project-card">
+          <img
+            src="assets/images/greenyEarth.png"
+            alt="greeny-earth"
+            loading="lazy"
+            class="project-pic"
+          />
+          <h3 class="project-title">Greeny Earth</h3>
+          <p class="project-details">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas
+            ratione vel inventore labore commodi modi quos culpa aut saepe!
+            Alias!
+          </p>
+          <a href="#" target="_blank" class="project-link">Check it Out</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Social accounts - Fixed to the right -->
+    <div class="socials">
+      <a href="https://www.linkedin.com/in/brevinbanks" target="_blank"
+        ><img
+          src="assets/icons/icons8-linkedin.png"
+          alt="Linkedin"
+          title="Linkedin"
+          loading="lazy"
+          class="socicon"
+      /></a>
+      <a href="https://app.joinhandshake.com/stu/users/43200986" target="_blank"
+        ><img
+          src="assets/icons/icons8-handsharke.png"
+          alt="Handshake"
+          title="Handshake"
+          loading="lazy"
+          class="socicon"
+      /></a>
+      <a href="https://github.com/Brevinbanks" target="_blank"
+        ><img
+          src="assets/icons/icons8-smallgit.png"
+          alt="Github"
+          title="Github"
+          loading="lazy"
+          class="socicon"
+      /></a>
+    </div>
+
+    <!-- Scroll to top -->
+  
+    <div id="back-to-top" class="back-to-top animate__animated animate__backInUp">Back to Top</div>
+
+
+    <!-- Website scripts -->
+    <script src="assets/js/app.js"></script>
+
+    <!-- This script will hide the back to top button or show it -->
+    <script type="text/javascript"
+    src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js">
+    </script>
+    <script type="text/javascript" language="javascript">
+      $(function () {
+          var $win = $(window);
+
+          $win.scroll(function () {
+              if ($win.scrollTop() == 0){
+                  document.getElementById("back-to-top").classList.remove('animate__animated', 'animate__backInUp');
+                  document.getElementById("back-to-top").classList.add('animate__animated', 'animate__backOutDown');
+                }
+                  else{
+                  document.getElementById("back-to-top").classList.remove('animate__animated', 'animate__backOutDown');
+                  document.getElementById("back-to-top").classList.add('animate__animated', 'animate__backInUp');
+              }
+          });
+      });
+    </script>
+  </body>
+</html>

@@ -4,7 +4,7 @@ const ul = document.querySelector("nav ul");
 const nav = document.querySelector("nav");
 
 // Scroll to top selection
-const scrollUp = document.querySelector("#scroll-up");
+const scrollUp = document.querySelector("#back-to-top");
 
 // Select nav links
 const navLink = document.querySelectorAll(".nav-link");
@@ -29,3 +29,4 @@ scrollUp.addEventListener("click", () => {
     behavior: "smooth",
   });
 });
+
