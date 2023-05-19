@@ -26,7 +26,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
     />
-    <title>Brevin Banks | More</title>
+    <title>Brevin Banks | Robotics</title>
     
 
     <style>
@@ -59,17 +59,14 @@
   <body>
     <!-- Navbar -->
     <nav>
-      <h1>Brevin Banks - More </h1>
+      <h1>Brevin Banks </h1>
       <ul class="navigation">
         <li><a href="./index.html" class="nav-link">Home</a></li>
-        <li><a href="./more.html">More 	&#9660</a>
-          <ul>
-            <li><a href="./projectportfolio.html">Project Portfolio</a></li>
-            <li><a href="#">Revyn Development</a></li>
-            <li><a href="#">Resources</a></li>
-            <li><a href="#">Game Development</a></li>
-          </ul>
-        </li>
+        <li><a href="#description" class="nav-link">Description</a></li>
+        <li><a href="#skills" class="nav-link">Skills</a></li>
+        <li><a href="#projects" class="nav-link">Projects</a></li>
+        <li><a href="./index.html#contact" class="nav-link">Contact</a></li>
+        <li><a href="./more.html">More</a></li>
       </ul>
       <button class="burger-menu" id="burger-menu">
         <ion-icon class="bars" name="menu-outline"></ion-icon>
@@ -78,7 +75,7 @@
     </nav>
     
     <div class="backhead">
-      <h2 style="color:white;">More</h2>
+      <h2 style="color:white;">Projects Portfolio</h2>
     </div>
 
     <div class="backblank">
@@ -89,28 +86,95 @@
     <!-- More about -->
     <section class="more-about" id="description">
 
-      <h1>
-        Select a topic from the available links to navigate to that page
-      </h1>
-      <section class = "skills" id="pagelinks">
-        <div class="skills-wrapper">
-          <div class="first-set">
-      <ul>
-        <a href="./projectportfolio.html" class="icon-card">Project Portfolio</a>
-        <a href="#" class="icon-card">Revyn Development</a>
-        <a href="#" class="icon-card">Resources</a>
-        <a href="#" class="icon-card">Game Development </a>
-      </ul>
-          </div>
+      <p>
+        Here are several projects I am currently working on
+        or have worked on in the past. The most recent projects are listed at the top of their related section.
+      </p>
+
+       
+    <!-- Projects section -->
+    <section class="projects" id="projects">
+      <h2 class="projects-title">Some of my Recent Projects</h2>
+      <div class="projects-container">
+        <div class="project-container project-card">
+          <img
+            src="assets/images/5DofRobotArm.png"
+            alt="5DOF Robot Arm"
+            loading="lazy"
+            class="project-pic"
+          />
+          <h3 class="project-title">5DOF Robot Arm</h3>
+          <p class="project-details">
+            A small robot arm easily placed on a desk and programmable for performing repeatable tasks. Uses Computer ision
+          </p>
+          <a href="#" target="_blank" class="project-link">Check it Out</a>
         </div>
+        <div class="project-container project-card">
+          <img
+            src="assets/images/netflixClone.png"
+            alt="netflic-clone"
+            loading="lazy"
+            class="project-pic"
+          />
+          <h3 class="project-title">Netflix Clone</h3>
+          <p class="project-details">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas
+            ratione vel inventore labore commodi modi quos culpa aut saepe!
+            Alias!
+          </p>
+          <a href="#" target="_blank" class="project-link">Check it Out</a>
+        </div>
+        <div class="project-container project-card">
+          <img
+            src="assets/images/greenyEarth.png"
+            alt="greeny-earth"
+            loading="lazy"
+            class="project-pic"
+          />
+          <h3 class="project-title">Greeny Earth</h3>
+          <p class="project-details">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas
+            ratione vel inventore labore commodi modi quos culpa aut saepe!
+            Alias!
+          </p>
+          <a href="#" target="_blank" class="project-link">Check it Out</a>
+        </div>
+      </div>
     </section>
 
+    <!-- Social accounts - Fixed to the right -->
+    <div class="socials">
+      <a href="https://www.linkedin.com/in/brevinbanks" target="_blank"
+        ><img
+          src="assets/icons/icons8-linkedin.png"
+          alt="Linkedin"
+          title="Linkedin"
+          loading="lazy"
+          class="socicon"
+      /></a>
+      <a href="https://app.joinhandshake.com/stu/users/43200986" target="_blank"
+        ><img
+          src="assets/icons/icons8-handsharke.png"
+          alt="Handshake"
+          title="Handshake"
+          loading="lazy"
+          class="socicon"
+      /></a>
+      <a href="https://github.com/Brevinbanks" target="_blank"
+        ><img
+          src="assets/icons/icons8-smallgit.png"
+          alt="Github"
+          title="Github"
+          loading="lazy"
+          class="socicon"
+      /></a>
+    </div>
 
     <!-- Scroll to top -->
   
     <div id="back-to-top" class="back-to-top animate__animated animate__backOutDown">Back to Top</div>
 
-    <footer> </footer>
+
     <!-- Website scripts -->
     <!-- This script controls the hamburger menu -->
     <script src="assets/js/app.js"></script>

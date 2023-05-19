@@ -9,6 +9,9 @@ const scrollUp = document.querySelector("#back-to-top");
 // Select nav links
 const navLink = document.querySelectorAll(".nav-link");
 
+// click in the body of the html file
+const bodyselect = document.body;
+
 // Hamburger menu function
 burger.addEventListener("click", () => {
   ul.classList.toggle("show");
@@ -21,6 +24,8 @@ navLink.forEach((link) =>
   })
 );
 
+
+
 // scroll to top functionality
 scrollUp.addEventListener("click", () => {
   window.scrollTo({
@@ -29,4 +34,10 @@ scrollUp.addEventListener("click", () => {
     behavior: "smooth",
   });
 });
+
+
+// Close hamburger menu when the body is clicked
+bodyselect.addEventListener("click", () => {
+  ul.classList.remove("show");
+}, true);
 
