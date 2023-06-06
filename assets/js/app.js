@@ -3,6 +3,11 @@ const burger = document.querySelector("#burger-menu");
 const ul = document.querySelector("nav ul");
 const nav = document.querySelector("nav");
 
+// Nested nav hambrugerbuger selections for more
+const ul2 = document.querySelector("nav ul ul");
+
+
+
 // Scroll to top selection
 const scrollUp = document.querySelector("#back-to-top");
 
