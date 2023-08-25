@@ -26,13 +26,13 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
     />
-    <title>Brevin Banks | Revyn Design</title>
+    <title>Brevin Banks | Revyn FK&IK</title>
     
 
     <style>
     div.backhead {
       padding: 1.1rem;
-      background-image: url(page-Revynswirl.png);
+      background-image: url(page-Revynline.png);
       background-repeat: no-repeat;
       /* background-attachment: fixed; */
       text-shadow: -1px 1px #000000;
@@ -63,9 +63,9 @@
       <ul class="navigation">
         <li><a href="./index.html" class="nav-link">Home</a></li>
         <li><a href="#description" class="nav-link">Description</a></li>
-        <li><a href="#Caddesign" class="nav-link">Design</a></li>
-        <li><a href="#Schematics" class="nav-link">Schematics</a></li>
-        <li><a href="#Resources" class="nav-link">Resources</a></li>
+        <li><a href="#FK" class="nav-link">FK</a></li>
+        <li><a href="#IK" class="nav-link">IK</a></li>
+        <li><a href="#Traj" class="nav-link">Trajectory</a></li>
         <li><a href="./index.html#contact" class="nav-link">Contact</a></li>
         <li><a href="./more.html">More</a></li>
       </ul>
@@ -76,7 +76,7 @@
     </nav>
     
     <div class="backhead">
-      <h2 style="color:white;">6 DOF Robot Arm Mechanical Design: The Revyn Arm </h2>
+      <h2 style="color:white;">6 DOF Robot Arm Forward & Inverse Kinematics: The Revyn Arm </h2>
     </div>
 
     <div class="backblank">
@@ -89,132 +89,180 @@
     <!-- More about -->
     <section class="basicparagraphrightim" id="description">
       <h2>Project Description</h2>
-
-      
-       
         <p>
-          The purpose of this project was to create a fully functional 6 Degree of Freedom robot arm
-          like the  <a href="https://www.universal-robots.com/products/ur5-robot/" target="_blank"> common universal robots and others used in industry</a> 
-          on automated lines etc.
-          Traditionally, these robots perfrom fast paced, repeatable, and extremeley accurate tasks to fulfill their purposes.
-          The robots must be precise, robust, and reliable enough to get the job done. With such a daunting set of requirements
-          it's no surprise that a high quality robot arm can cost more than $5,000 with many popularly used in industry being much more expensive than that.
-          
-          I don't have that kind of pocket change for all the things I'd like to do with a robot arm, but I really
-          want to have an arm of my own to use around the house.
-          Therefore my project goal was to see how good of a robot arm I could make with limited funds, time, and resources that mimics a the function of an industrial robot as much as I can.
+          This project is a continuation of the <a href="./RevynDesign.html">Revyn Arm design project</a>. Here 
+          I will be exploring basic robotics and control using forward kinematics (FK) and inverse kinematics (IK).
+          The goal is to understand how the robot end effector moves and responds relative to the base of the robot.
+          I will continue to keep the same requirements from design phase of the project to have the robot move
+          accurately and compatible with serial commands. However, I am aware how the servo torque may not be 
+          strong enough to ensure the robot can cover all of the joint space, and a new limitation here is that the joints
+          can only move 90&deg forward and backward from their home configurations. This means that in our
+          geometric solutions to FK and IK the robot can only achieve positions so long as all the joints are within
+          +/- 90&deg.
        <figure>
          <img 
-         src="assets/images/RevynLimbPoseRenderHalfSize.png"
+         src="assets/images/6DofRobotArmHalfPose4.jpg"
          height= "auto"
          alt="Rendering of revyn arm"
          loading="lazy"
          class="basicparagraphrightim-img"
          />
-         <figcaption>Fig.1 Revyn Arm V1 Render.</figcaption>
+         <figcaption>Fig.1 Revyn Arm Hardware Design.</figcaption>
        </figure>
       
       </p>
+    </section>
+    <section class="basicparagraphleftim" id="FK">
+      <h2>Forward Kinematics</h2>
       <p>
-      The first steps were to set a budget, time-frame, and outline some clear requirements for my project.
-        I decided I could allot about $300 for the hardware and give myself 1 month with the first portion of the
-        month dedicated to the CAD design and schematics and the later half to control. 
-      A more detailed compilation of the purpose, deliverables, and project schedule can be found here in my <a href="assets/images/Project Organization.pdf" type="application/pdf" target="_blank">Project Organization</a> documentation.
-    A few decisions were made to simplify the process and keep things cheaper. With my background in mechancial engineering, I am comfortable 3D modeling all
-    the custom parts I might need. I have an <a href="https://www.creality.com/products/ender-3-3d-printer" target="_blank">Ender 3 3D printer</a> and will make the parts using that. I can also control the robot using an
-    <a href="https://store.arduino.cc/products/arduino-mega-2560-rev3" target="_blank">Arduino Mega 2560</a> and <a href="https://www.adafruit.com/product/815" target="_blank">PCA9685</a> have laying around (I will factor these parts and materials into the cost).
-    I will program the Arduino in C code, and then use <a href="https://www.mathworks.com/products/matlab.html" target="_blank">MATLAB</a> to send serial commands with joint variables to move the robot.
-    In the future I may create python scripts that mimic the MATLAB ones.
+      Forward kinematics is the process of interpreting physical constraints for a rigid body 
+      and how free variables between rigid bodys affect their geometric positions in 3D space.
+      In this case, we have 6 joints meaning we have 6 free angle variables (&theta;<sub>1</sub>,&theta;<sub>2</sub>,&theta;<sub>3</sub>,&theta;<sub>4</sub>,&theta;<sub>5</sub>,&theta;<sub>6</sub>) that determine what the
+      final position and orientation of the end effector will be relative to the base of the robot. 
+      We will construct a relationship between the base and end effector using these variables. 
+      The method I will be using utilizes <a href="https://en.wikipedia.org/wiki/Moving_frame" target="_blank">Homogeneous Frame transformations</a>
+       and <a href="https://en.wikipedia.org/wiki/Denavit%E2%80%93Hartenberg_parameters" target="_blank">DH parameters</a>.
+        <br><br>
+        To briefly summarize what this all means: we will create a frame at all 6 joints and at the base and at the end effector. 
+        A frame is an object that holds position information and orientation information. We identify frames by using the 
+        fixed lengths of the robot arms up to the frame position and identifying that position by using the joint variables assigned
+        to the joints up to the joint of interest.
+        When we use DH paramters to help find these frames, we have a set of rules on how these frames are likely
+        to be positioned relative to each other. In short, we will always have the frame's Z axis pointing along the axis of rotation
+        for the respective joint. When we move from frame to frame along the robot, we only ever rotate or translate about Z
+        or X. Never Y. This is not always necessary, but in my opinion this makes the determination of the FK and IK easier in the future. 
+        It's not critical to understand all of these details, but if you follow along it will help you see why we make certain decisions.
         <br>
-        
-        To summarize my approach, I have created a small functional requirements table below.
+      </p>
+        <div>
+          <figure>
+            <img 
+            src="assets/images/DHRevyn.jpg"
+            height= "auto"
+            alt="Revyn Arm with DH paramters"
+            loading="lazy"
+            class="basicparagraphleftim-img"
+            />
+            <figcaption>Fig.2 Revyn Arm with DH parameters.</figcaption>
+          </figure>  
+        </div>
+        <p>
+        We might define the relative 0&deg; positions of the joints as we see in figure 2. The frames follow the pattern 
+        with x axis-red, y axis-green, and z axis-blue. We will say that
+        all the joints can move +/- 90&deg; except for joint 3 which can move between [0,180]&deg;.
+        The lengths of the joints on the robot are as follows as seen in figure 2: d1 = 88.95mm a2 = 53.86mm d4 = 142.18mm d6=201.88mm
+        <br>
+        To start we draw the frames where they should lie on the robot and collect the DH parameters to make those frames possible.
+
   </p>
     <br>
-    </section>
+  </section>
    
     <div>
 
     <table style="border:1px solid black;margin-left:auto;margin-right:auto; padding: 0.5rem">
       <tr>
-        <td><b>NUM.</b></td>
-        <td><b>REQUIREMENTS</b></td>
-        <td><b>SPECIFICATION</b></td>
-        <td><b>VERIFICATION</b></td>
+        <td><b>Joint n to Joint m</b></td>
+        <td><b>Z rot (&theta;)</b></td>
+        <td><b>Z trans (d)</b></td>
+        <td><b>X trans (a)</b></td>
+        <td><b>X rot (&alpha;)</b></td>
       </tr>
       <tr>
-        <td>1</td>
-        <td>6 DOF in Hardware</td>
-        <td>6 servos that can articulate simulataneously</td>
-        <td>Arduino articulates each joint by a defined angle</td>
+        <td>Base (0) to Joint 1</td>
+        <td>&theta;<sub>1</sub></td>
+        <td>d1</td>
+        <td>0</td>
+        <td>0</td>
       </tr>
         <tr>
-        <td>2</td>
-        <td>Robot moves accurately</td>
-        <td>Within +/- 2cm</td>
-        <td>Measure error after calling same joint command several times</td>
+          <td>Joint 1 to Joint 2</td>
+        <td>&theta;<sub>2</sub></td>
+        <td>0</td>
+        <td>0</td>
+        <td>pi/2</td>
       </tr>
     </tr>
     <tr>
-    <td>3</td>
-    <td>Robot is within budget</td>
-    <td>&#60$300</td>
-    <td>Budget is not exceeded</td>
+      <td>Joint 2 to Joint 3</td>
+    <td>pi/2, &theta;<sub>3</sub></td>
+    <td>0</td>
+    <td>a2</td>
+    <td>0</td>
   </tr>
 </tr>
 <tr>
-<td>4</td>
-<td>Robot controller controls robot at sufficient rate</td>
-<td>Max Servo rate is ~60Hz</td>
-<td>Send commands while increase rate to see when commands faulter</td>
+  <td>Joint 3 to Joint 4</td>
+<td>&theta;<sub>4</sub></td>
+<td>0</td>
+<td>0</td>
+<td>pi/2</td>
 </tr>
 <tr>
-  <td>5</td>
-  <td>Compatible with serial commands</td>
-  <td>Written in Python or MATLAB and Arduino C code</td>
-  <td>Serial Commands can automatically be sent from external source</td>
+  <td>Joint 4 to Joint 5</td>
+  <td>&theta;<sub>5</sub></td>
+  <td>d4</td>
+  <td>0</td>
+  <td>-pi/2</td>
   </tr>
   <tr>
-    <td>5</td>
-    <td>Custom hardware is 3D printed</td>
-    <td>Ender 3 with PLA</td>
-    <td>Parts designed in Fusion 360. Printed and constructed to match virtual model</td>
+    <td>Joint 5 to Joint 6</td>
+    <td>&theta;<sub>6</sub></td>
+    <td>0</td>
+    <td>0</td>
+    <td>pi/2</td>
     </tr>
+    <tr>
+      <td>Joint 6 to EF</td>
+      <td>0</td>
+      <td>d6</td>
+      <td>0</td>
+      <td>0</td>
+      </tr>
     </table>   
   </div>
-    
 
-    <section class="basicparagraphleftim" id="Caddesign">
-      <div>
-      <figure>
-        <img 
-        src="assets/images/CADImg3rdsize.png"
-        height= "auto"
-        alt="CAD designing image of revyn arm"
-        loading="lazy"
-        class="basicparagraphleftim-img"
-        />
-        <figcaption>Fig.2 Revyn Arm CAD Development.</figcaption>
-      </figure>  
+  <section class="basicparagraphleftim">
+    <div>
+    <p>The resultant symbolic forward kinematics result can be found in <a href="https://github.com/Brevinbanks/RevynArm/blob/main/FK_Revyn.m" target="_blank">FK_Revyn.m</a> and
+      MATLAB derivation is found in <a href="https://github.com/Brevinbanks/RevynArm/commit/84a1aabc80e9250c90c28b50c9f23b9a0da7ff20" target="_blank">Fk derivation.</a> 
+     </p>
     </div>
+  </section>
+  
+  
+  
+    <section class="basicparagraphleftim" id="IK">
+
 
 
     <div>
-      <h2>CAD Design</h2>
+      <h2>Inverse Kinematics</h2>
       
       <p>
-        I dove right into the CAD design for the robot. I wanted to make every joint modular. 
-        I say modular to mean that the separate joints could be arranged interchangably. Like legos
-        the different pieces of the robot could potentially be connected in diffrent order. Therefore all
-        of the joints (exculding the final joint at the end effector) contain holes that could be used to attach to
-        different joints. 
-        A rendering of the completed design can be seen in figure 1, and the Fusion 360 design interface for the robot
-        can be seen in figure 2. 
+Inverse kinematics is similar to forward kinematics in that we want to describe the position and orientation of the end effector in 3D space.
+However with inverse kinematics, we have the end effector's position and orientation, but not the specific joint angles of the robot require to achieve them.
+Identifying the correct joint angles is a difficult problem, and often times there is either no solution or an infinite amount of solutions.
+In my approach to inverse kinematics we will address finding the most simple first solution returned by my algorithm.
+We will assume that there are 6 unknowns (the six joint variables), and 6 knowns (position x,y, and z, and orientation in <a href="https://en.wikipedia.org/wiki/Euler_angles" target="_blank">Euler ZYZ rotation form</a>)
          </p>
-         <p>The base design of the robot features a shoulder cup that rotates about the z axis (see figure 3). There is a servo
-          inside the cup that the robot rests on. The next joint is another shoulder joint that acts like an elbow. Joint 3 also works like an elbow.
-          The 4th joint rotates like a forearm. The 5th joint is like another elbow joint, called the wrist joint. The final joint is another forearm style
-          rotating wrist joint. At the top is a quick n' cheap modeled end effector as I choose to use an off the shelf part since I was low on time.
+         <p>
+          The actual derivation of the inverse kinematics is quite lengthy, and many researchers have identified
+          the solution to this problem in their works with similarly shaped robots. My solution uses the same ideas and formulas.
+          For the derivation of my inverse kinematics see <a href="https://github.com/Brevinbanks/RevynArm/commit/84a1aabc80e9250c90c28b50c9f23b9a0da7ff20" target="_blank">Ik derivation.</a>
+          For the complete IK function see <a href="https://github.com/Brevinbanks/RevynArm/blob/main/IK_Revyn.m" target="_blank">IK_Revyn.m</a>
         </p>
+        <p> The IK_Revyn function accepts a Homogenous frame transform describing the end effector relative to the base.
+          Then it breaks the frame into a position vector and 3 ZYZ euler angles. We start the inverse operation with joint 1.
+          Joint 1 is found by using the law of cosines between the position of the base and the point of joint 5. The point of
+          joint 5 is found first by assuming the orignal orientation of the given Homogenous frame has the same orientation of the 
+          frame and frame 6. With this assumption the position at frame 6 is just d6 back in the orientation of the given frame.
+          With joint 1 obtained we can find joints 2 and 3 using the law of cosines in a similar manner to the position of frame 6 at joint 5.
+          There are many conditions to observe in order to ensure our calculations with acos or atan2 return the angle in the correct
+          quadrant. See the code for these conditions.
+  
+        </p>
+        <p></p>
       </div>
       </section>
 
@@ -357,7 +405,7 @@
             Linear Trajectory generator that uses inverse kinematics and forward kinematics 
             to maintain orientation as the robot moves.
           </p>
-          <a href="./RevynFKIK.html" class="project-link">Check it Out</a>
+          <a href="#" class="project-link">Check it Out</a>
         </div>
         <div class="project-container project-card">
           <img
