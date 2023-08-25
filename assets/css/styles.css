@@ -232,6 +232,112 @@ nav ul ul li a:hover {
 }
 /* More about ends */
 
+
+/* basicparagraphleftim*/
+.basicparagraphleftim {
+
+  background-color: var(--bg-color);
+  padding: 1rem 6rem;
+  display: block;
+}
+
+.basicparagraphleftim h2 {
+  margin-bottom: var(--bottom-margin);
+  text-align: left;
+}
+
+.basicparagraphleftim p {
+  line-height: var(--line-height);
+  width: auto;
+  padding: 1.2rem;
+  display: block;
+  
+}
+
+.basicparagraphleftim img {
+  /* height: 37.5rem; */
+  height: auto;
+  /* width: 37.5rem; */
+  float: right;
+  padding: 1rem;
+  width: 100%;
+  filter: drop-shadow(0px 2px 15px rgb(0 0 0 / 50%));
+  /* box-shadow: 0px 2px 15px 2px var(--primary-shadow); */
+}
+
+.basicparagraphleftim figure {
+  display: block;
+  float: left;
+  position: relative;
+}
+
+.basicparagraphleftim figcaption {
+  position: absolute;
+  bottom: -0.2rem;
+  width: 100%;
+  
+  text-align: center;
+}
+/* basicparagraphleftim ends */
+
+
+/* basicparagraphrightim*/
+.basicparagraphrightim {
+
+  background-color: var(--bg-color);
+  padding: 1rem 6rem;
+}
+
+.basicparagraphrightim h2 {
+  margin-bottom: var(--bottom-margin);
+  text-align: left;
+}
+
+.basicparagraphrightim p {
+  line-height: var(--line-height);
+  width: auto;
+  padding: 1.2rem;
+}
+
+.basicparagraphrightim img {
+  /* height: 37.5rem; */
+  height: auto;
+  /* width: 37.5rem; */
+  float: right;
+  padding: 1rem;
+  width: 100%;
+  filter: drop-shadow(0px 2px 15px rgb(0 0 0 / 50%));
+  /* box-shadow: 0px 2px 15px 2px var(--primary-shadow); */
+}
+
+.basicparagraphrightim figure {
+  /* display: inline-block; */
+  float: right;
+  position: relative;
+}
+
+.basicparagraphrightim figcaption {
+  position: absolute;
+  bottom: -0.2rem;
+  width: 100%;
+  text-align: center;
+}
+/* basicparagraphrightim ends */
+
+table {
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: 60%;
+}
+table td {
+  font-size:small;
+  border: solid 1px #666;
+  width: 100%;
+  word-wrap: break-word;
+  text-align:center;
+}
+
+
 /* Skills section */
 .skills {
   max-width: 68.75rem;
@@ -566,6 +672,64 @@ footer {
     text-align: justify;
   }
 
+
+  .basicparagraphleftim {
+    margin-top: 2rem;
+    padding: 1rem 3.5rem;
+  }
+
+  .basicparagraphleftim h2 {
+    text-align: left;
+  }
+  
+  .basicparagraphleftim p {
+    text-align: justify;
+  }
+
+  .basicparagraphleftim img {
+    height: auto;
+    padding: 2rem;
+    width: 18rem;
+    box-shadow: 0px 0px 0px 0px var(--primary-shadow);
+  }
+
+  .basicparagraphleftim figcaption {
+    position: absolute;
+    bottom: -1rem;
+    /* right: 10%; */
+    width: 100%;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .basicparagraphrightim {
+    margin-top: 2rem;
+    padding: 1rem 3.5rem;
+  }
+
+  .basicparagraphrightim h2 {
+    text-align: right;
+  }
+  
+  .basicparagraphrightim p {
+    text-align: justify;
+  }
+
+  .basicparagraphrightim img {
+    height: auto;
+    padding: 2rem;
+    width: 18rem;
+    box-shadow: 0px 0px 0px 0px var(--primary-shadow);
+  }
+
+  .basicparagraphrightim figcaption {
+    position: absolute;
+    bottom: -1rem;
+    /* right: 10%; */
+    width: 100%;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
   .icon {
     width: 5.875rem;
     height: 5.25rem;
@@ -604,6 +768,17 @@ footer {
     width: 18.3rem;
   }
 
+  .basicparagraphleftim img {
+    height: auto;
+    width: 18rem;
+    box-shadow: 0px 0px 0px 0px var(--primary-shadow);
+  }
+
+  .basicparagraphrightim img {
+    height: auto;
+    width: 18rem;
+    box-shadow: 0px 0px 0px 0px var(--primary-shadow);
+  }
   .project-container {
     width: 17.875rem;
   }

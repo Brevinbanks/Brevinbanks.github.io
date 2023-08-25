@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!--CSS Styles -->
+    <link rel="stylesheet" href="assets/css/styles.css" />
+
+    <!-- Favicons -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="assets/icons/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="assets/icons/favicon-32x32.png"
+    />
+
+    <!-- Animate CSS CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <title>Brevin Banks | Revyn Design</title>
+    
+
+    <style>
+    div.backhead {
+      padding: 1.1rem;
+      background-image: url(page-Revynswirl.png);
+      background-repeat: no-repeat;
+      /* background-attachment: fixed; */
+      text-shadow: -1px 1px #000000;
+      background-size: cover;
+    }
+
+    div.backblank {
+
+      padding: 1rem;
+      background-color: rgb(255, 255, 255);
+      background-repeat: no-repeat;
+      /* background-attachment: fixed; */
+      
+    
+      background-size: cover;
+    }
+
+
+    </style>
+    
+
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <nav>
+      <h1>Brevin Banks </h1>
+      <ul class="navigation">
+        <li><a href="./index.html" class="nav-link">Home</a></li>
+        <li><a href="#description" class="nav-link">Description</a></li>
+        <li><a href="#skills" class="nav-link">Skills</a></li>
+        <li><a href="#projects" class="nav-link">Projects</a></li>
+        <li><a href="./index.html#contact" class="nav-link">Contact</a></li>
+        <li><a href="./more.html">More</a></li>
+      </ul>
+      <button class="burger-menu" id="burger-menu">
+        <ion-icon class="bars" name="menu-outline"></ion-icon>
+        <!-- <ion-icon class="times" name="close-outline"></ion-icon> -->
+      </button>
+    </nav>
+    
+    <div class="backhead">
+      <h2 style="color:white;">6 DOF Robot Arm Mechanical Design: The Revyn Arm </h2>
+    </div>
+
+    <div class="backblank">
+
+    </div>
+
+
+    <!-- More about -->
+    
+    <!-- More about -->
+    <section class="basicparagraphrightim" id="description">
+      <h2>Project Description</h2>
+
+      
+       
+        <p>
+          The purpose of this project was to create a fully functional 6 Degree of Freedom robot arm
+          like the  <a href="https://www.universal-robots.com/products/ur5-robot/" target="_blank"> common universal robots and others used in industry</a> 
+          on automated lines etc.
+          Traditionally, these robots perfrom fast paced, repeatable, and extremeley accurate tasks to fulfill their purposes.
+          The robots must be precise, robust, and reliable enough to get the job done. With such a daunting set of requirements
+          it's no surprise that a high quality robot arm can cost more than $5,000 with many popularly used in industry being much more expensive than that.
+          
+          I don't have that kind of pocket change for all the things I'd like to do with a robot arm, but I really
+          want to have an arm of my own to use around the house.
+          Therefore my project goal was to see how good of a robot arm I could make with limited funds, time, and resources that mimics a the function of an industrial robot as much as I can.
+       <figure>
+         <img 
+         src="assets/images/RevynLimbPoseRenderHalfSize.png"
+         height= "auto"
+         alt="brevin banks on a hike"
+         loading="lazy"
+         class="basicparagraphrightim-img"
+         />
+         <figcaption>Fig.1 Revyn Arm V1 Render.</figcaption>
+       </figure>
+      
+      </p>
+      <p>
+      The first steps were to set a budget, time-frame, and outline some clear requirements for my project.
+        I decided I could allot about $300 for the hardware and give myself 1 month with the first portion of the
+        month dedicated to the CAD design and schematics and the later half to control. 
+      A more detailed compilation of the purpose, deliverables, and project schedule can be found here in my <a href="assets/images/Project Organization.pdf" type="application/pdf" target="_blank">Project Organization</a> documentation.
+    A few decisions were made to simplify the process and keep things cheaper. With my background in mechancial engineering, I am comfortable 3D modeling all
+    the custom parts I might need. I have an <a href="https://www.creality.com/products/ender-3-3d-printer" target="_blank">Ender 3 3D printer</a> and will make the parts using that. I can also control the robot using an
+    <a href="https://store.arduino.cc/products/arduino-mega-2560-rev3" target="_blank">Arduino Mega 2560</a> and <a href="https://www.adafruit.com/product/815" target="_blank">PCA685</a> have laying around (I will factor these parts and materials into the cost).
+    I will program the Arduino in C code, and then use <a href="https://www.mathworks.com/products/matlab.html" target="_blank">MATLAB</a> to send serial commands with joint variables to move the robot.
+    In the future I may create python scripts that mimic the MATLAB ones.
+        <br>
+        
+        To summarize my approach, I have created a small functional requirements table below.
+  </p>
+    <br>
+    </section>
+   
+    <div>
+
+    <table style="border:1px solid black;margin-left:auto;margin-right:auto; padding: 0.5rem">
+      <tr>
+        <td><b>NUM.</b></td>
+        <td><b>REQUIREMENTS</b></td>
+        <td><b>SPECIFICATION</b></td>
+        <td><b>VERIFICATION</b></td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>6 DOF in Hardware</td>
+        <td>6 servos that can articulate simulataneously</td>
+        <td>Arduino articulates each joint by a defined angle</td>
+      </tr>
+        <tr>
+        <td>2</td>
+        <td>Robot moves accurately</td>
+        <td>Within +/- 2cm</td>
+        <td>Measure error after calling same joint command several times</td>
+      </tr>
+    </tr>
+    <tr>
+    <td>3</td>
+    <td>Robot is within budget</td>
+    <td>&#60$300</td>
+    <td>Budget is not exceeded</td>
+  </tr>
+</tr>
+<tr>
+<td>4</td>
+<td>Robot controller controls robot at sufficient rate</td>
+<td>Max Servo rate is ~60Hz</td>
+<td>Send commands while increase rate to see when commands faulter</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td>Compatible with serial commands</td>
+  <td>Written in Python or MATLAB and Arduino C code</td>
+  <td>Serial Commands can automatically be sent from external source</td>
+  </tr>
+  <tr>
+    <td>5</td>
+    <td>Custom hardware is 3D printed</td>
+    <td>Ender 3 with PLA</td>
+    <td>Parts designed in Fusion 360. Printed and constructed to match virtual model</td>
+    </tr>
+    </table>   
+  </div>
+    
+
+    <section class="basicparagraphleftim" id="subskills">
+      <figure>
+        <img 
+        src="assets/images/CADImg3rdsize.png"
+        height= "auto"
+        alt="brevin banks on a hike"
+        loading="lazy"
+        class="basicparagraphleftim-img"
+        />
+        <figcaption>Fig.2 Revyn Arm CAD Development.</figcaption>
+      </figure>  
+
+
+      <!-- <object data="assets/images/Project Organization.pdf" type="application/pdf" width="100%" height="500px">
+        <p>Unable to display PDF file. <a href="assets/images/Project Organization.pdf">Download</a> instead.</p>
+      </object> -->
+      <h2>CAD Design</h2>
+      
+      <p>
+        I dove right into the CAD design for the robot. I wanted to make every joint modular. 
+        I say modular to mean that the separate joints could be arranged interchangably. Like legos
+        the different pieces of the robot could potentially be connected in diffrent order. Therefore all
+        of the joints (exculding the final joint at the end effector) contain holes that could be used to attach to
+        different joints. 
+        A rendering of the completed design can be seen in figure 1, and the design interface for the robot
+        can be seen in figure 2. 
+         </p>
+         <p>The base design of the robot features a shoulder cup that rotates about the z axis (see figure 3). There is a servo
+          inside the cup that the robot rests on. The next joint is another shoulder joint that acts like an elbow. Joint 3 also works like an elbow.
+          The 4th joint rotates like a forearm. The 5th joint is like another elbow joint, called the wrist joint. The final joint is another forearm style
+          rotating wrist joint. At the top is a quick n' cheap modeled end effector as I choose to use an off the shelf part since I was low on time.
+        </p>
+
+      </section>
+
+      <section class="basicparagraphrightim" id="subskills">
+      <figure>
+        <img 
+        src="assets/images/RevynLimbHomeRenderHalfsize.png"
+        height= "auto"
+        alt="brevin banks on a hike"
+        loading="lazy"
+        class="basicparagraphrightim-img"
+        />
+        <figcaption>Fig.3 Revyn arm at home pose with frame.</figcaption>
+      </figure>
+    </section>
+    <section class="more-about" id="description">
+
+      <p>
+        Here are several projects I am currently working on
+        or have worked on in the past. The most recent projects are listed at the top of their related section.
+      </p>
+
+       
+    <!-- Projects section -->
+    <section class="projects" id="projects">
+      <video  width="500px" height="500px" controls autoplay muted loop>
+        <source src="assets/videos/FKMergedProving.mp4" type="video/mp4" />
+       </video>
+      <h2 class="projects-title">Some of my Recent Projects</h2>
+      <div class="projects-container">
+        <div class="project-container project-card">
+          <img
+            src="assets/images/6DofRobotArm.png"
+            alt="6DOF Robot Arm"
+            loading="lazy"
+            class="project-pic"
+          />
+          <h3 class="project-title">6DOF Robot Arm</h3>
+          <p class="project-details">
+            A small robot arm easily placed on a desk and programmable for performing repeatable tasks. Uses Computer ision
+          </p>
+          <a href="#" target="_blank" class="project-link">Check it Out</a>
+        </div>
+        <div class="project-container project-card">
+          <img
+            src="assets/images/netflixClone.png"
+            alt="netflic-clone"
+            loading="lazy"
+            class="project-pic"
+          />
+          <h3 class="project-title">Netflix Clone</h3>
+          <p class="project-details">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas
+            ratione vel inventore labore commodi modi quos culpa aut saepe!
+            Alias!
+          </p>
+          <a href="#" target="_blank" class="project-link">Check it Out</a>
+        </div>
+        <div class="project-container project-card">
+          <img
+            src="assets/images/greenyEarth.png"
+            alt="greeny-earth"
+            loading="lazy"
+            class="project-pic"
+          />
+          <h3 class="project-title">Greeny Earth</h3>
+          <p class="project-details">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas
+            ratione vel inventore labore commodi modi quos culpa aut saepe!
+            Alias!
+          </p>
+          <a href="#" target="_blank" class="project-link">Check it Out</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Social accounts - Fixed to the right -->
+    <div class="socials">
+      <a href="https://www.linkedin.com/in/brevinbanks" target="_blank"
+        ><img
+          src="assets/icons/icons8-linkedin.png"
+          alt="Linkedin"
+          title="Linkedin"
+          loading="lazy"
+          class="socicon"
+      /></a>
+      <a href="https://app.joinhandshake.com/stu/users/43200986" target="_blank"
+        ><img
+          src="assets/icons/icons8-handsharke.png"
+          alt="Handshake"
+          title="Handshake"
+          loading="lazy"
+          class="socicon"
+      /></a>
+      <a href="https://github.com/Brevinbanks" target="_blank"
+        ><img
+          src="assets/icons/icons8-smallgit.png"
+          alt="Github"
+          title="Github"
+          loading="lazy"
+          class="socicon"
+      /></a>
+    </div>
+
+    <!-- Scroll to top -->
+  
+    <div id="back-to-top" class="back-to-top animate__animated animate__backOutDown">Back to Top</div>
+
+
+    <!-- Website scripts -->
+    <!-- This script controls the hamburger menu -->
+    <script src="assets/js/app.js"></script>
+
+    <!-- This script will hide the back to top button or show it -->
+    <script type="text/javascript"
+    src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js">
+    </script>
+
+    <script type="text/javascript" language="javascript">
+      $(function () {
+          var $win = $(window);
+
+          $win.scroll(function () {
+              if ($win.scrollTop() < 5){
+                  document.getElementById("back-to-top").classList.remove('back-to-top:hover');
+                  document.getElementById("back-to-top").classList.remove('animate__animated', 'animate__backInUp');
+                  document.getElementById("back-to-top").classList.add('animate__animated', 'animate__backOutDown');
+                }
+                  else{
+                  document.getElementById("back-to-top").classList.add('back-to-top:hover');
+                  document.getElementById("back-to-top").classList.remove('animate__animated', 'animate__backOutDown');
+                  document.getElementById("back-to-top").classList.add('animate__animated', 'animate__backInUp');
+              }
+              
+            });
+          
+      });
+    </script>
+
+        <!-- Ion icons scripts -->
+        <script
+        type="module"
+        src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+      ></script>
+      <script
+        nomodule
+        src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+      ></script>
+
+  </body>
+</html>
+
+
+<!-- Fix the hamburger menu so tapping away will hide it -->
