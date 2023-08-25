@@ -277,7 +277,7 @@ nav ul ul li a:hover {
   position: absolute;
   bottom: -0.2rem;
   width: 100%;
-  
+  font-size: small;
   text-align: center;
 }
 /* basicparagraphleftim ends */
@@ -323,8 +323,29 @@ nav ul ul li a:hover {
   bottom: -0.2rem;
   width: 100%;
   text-align: center;
+  font-size: small;
 }
 /* basicparagraphrightim ends */
+
+.dispafewimg{
+  background-color: var(--bg-color);
+  padding: 1rem 6rem;
+  display: inline-block;
+  text-align: center;
+
+}
+
+.dispafewimg img {
+  /* height: 37.5rem; */
+  height: auto;
+  background-color: rgb(0 0 0 / 50%);
+  /* width: 37.5rem; */
+  /* float: center; */
+  padding: 1rem;
+  width: 30%;
+  /* filter: drop-shadow(0px 2px 15px rgb(0 0 0 / 50%)); */
+  /* box-shadow: 0px 2px 15px 2px var(--primary-shadow); */
+}
 
 table {
   border-collapse: collapse;
@@ -405,6 +426,7 @@ table td {
   background-color: var(--bg-color);
   padding: 32px 0;
   margin-top: 2rem;
+  
 }
 
 .project-pic {
@@ -416,6 +438,7 @@ table td {
   display: flex;
   align-items: center;
   justify-content: center;
+  
 }
 
 .projects-title {
@@ -427,11 +450,15 @@ table td {
   text-align: center;
   width: 21.875rem;
   padding: 1rem;
+  min-width: 0px;
+  min-height: 0px;
 }
 
 .project-container p {
   padding: 0.4rem;
+
 }
+
 
 .project-title {
   margin-bottom: var(--bottom-margin);
@@ -732,6 +759,18 @@ footer {
     text-align: center;
     margin-bottom: 1rem;
   }
+
+  .dispafewimg{
+
+    display: block;
+    min-width: 15rem;
+    margin-right: auto;
+    margin-left: auto;
+    
+
+  
+  }
+
   .icon {
     width: 5.875rem;
     height: 5.25rem;
@@ -739,10 +778,17 @@ footer {
 
   .projects-container {
     flex-direction: column;
+
+  }
+
+  .project-container p{
+    display: none;
   }
 
   .project-container {
     width: 20.875rem;
+    min-height: 0;
+    min-width: 0;
   }
 
   .contact-form-container {
@@ -783,8 +829,13 @@ footer {
   }
   .project-container {
     width: 17.875rem;
+    min-height: 0;
+    min-width: 0;
   }
 
+  .project-container p{
+    display: none;
+  }
   .contact-form-container {
     max-width: 17.75rem;
   }

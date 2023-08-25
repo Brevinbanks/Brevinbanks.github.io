@@ -65,7 +65,6 @@
         <li><a href="#description" class="nav-link">Description</a></li>
         <li><a href="#Caddesign" class="nav-link">Design</a></li>
         <li><a href="#Schematics" class="nav-link">Schematics</a></li>
-        <li><a href="#Assembly" class="nav-link">Assembly</a></li>
         <li><a href="#Resources" class="nav-link">Resources</a></li>
         <li><a href="./index.html#contact" class="nav-link">Contact</a></li>
         <li><a href="./more.html">More</a></li>
@@ -123,7 +122,7 @@
       A more detailed compilation of the purpose, deliverables, and project schedule can be found here in my <a href="assets/images/Project Organization.pdf" type="application/pdf" target="_blank">Project Organization</a> documentation.
     A few decisions were made to simplify the process and keep things cheaper. With my background in mechancial engineering, I am comfortable 3D modeling all
     the custom parts I might need. I have an <a href="https://www.creality.com/products/ender-3-3d-printer" target="_blank">Ender 3 3D printer</a> and will make the parts using that. I can also control the robot using an
-    <a href="https://store.arduino.cc/products/arduino-mega-2560-rev3" target="_blank">Arduino Mega 2560</a> and <a href="https://www.adafruit.com/product/815" target="_blank">PCA685</a> have laying around (I will factor these parts and materials into the cost).
+    <a href="https://store.arduino.cc/products/arduino-mega-2560-rev3" target="_blank">Arduino Mega 2560</a> and <a href="https://www.adafruit.com/product/815" target="_blank">PCA9685</a> have laying around (I will factor these parts and materials into the cost).
     I will program the Arduino in C code, and then use <a href="https://www.mathworks.com/products/matlab.html" target="_blank">MATLAB</a> to send serial commands with joint variables to move the robot.
     In the future I may create python scripts that mimic the MATLAB ones.
         <br>
@@ -185,6 +184,7 @@
     
 
     <section class="basicparagraphleftim" id="Caddesign">
+      <div>
       <figure>
         <img 
         src="assets/images/CADImg3rdsize.png"
@@ -195,11 +195,10 @@
         />
         <figcaption>Fig.2 Revyn Arm CAD Development.</figcaption>
       </figure>  
+    </div>
 
 
-      <!-- <object data="assets/images/Project Organization.pdf" type="application/pdf" width="100%" height="500px">
-        <p>Unable to display PDF file. <a href="assets/images/Project Organization.pdf">Download</a> instead.</p>
-      </object> -->
+    <div>
       <h2>CAD Design</h2>
       
       <p>
@@ -216,41 +215,127 @@
           The 4th joint rotates like a forearm. The 5th joint is like another elbow joint, called the wrist joint. The final joint is another forearm style
           rotating wrist joint. At the top is a quick n' cheap modeled end effector as I choose to use an off the shelf part since I was low on time.
         </p>
-
+      </div>
       </section>
 
       <section class="basicparagraphrightim" id="cadexplain">
+      <div>
       <figure>
         <img 
         src="assets/images/RevynLimbHomeRenderHalfsize.png"
         height= "auto"
-        alt="Revyn arm with frame at base, Z up, X toward reader, Y to left"
+        alt="Revyn Arm with frame at base, Z is up, X towards the reader, and Y to the right"
         loading="lazy"
         class="basicparagraphrightim-img"
         />
-        <figcaption>Fig.3 Revyn arm at home pose with frame.</figcaption>
+        <figcaption>Fig.3 Revyn Arm at home pose with frame.</figcaption>
       </figure>
 
       <p>
         There ended up being 6 custom parts modeled and printed for the robot. There is the base, the base cup, joint 2, joint 3, joint 4, and joint 5.
-        The base cup could be interpreted as the base cup as it is directly attached to the first servo. The second and third joints in the model are refered
-        to as short joints because the first design featured both of these joints being an inch longer than the final product.
+        The base cup could be interpreted as joint 1 as it is directly attached to the first servo. The second and third joints in the model are refered
+        to as short joints because the first design featured both of these joints being an inch longer than in the final product.
         The MG996R servos used to build this robot were a little on the cheaper side, and could not supply enough torque to lift
-        the robot without some help if the arm was too long. I shortened the lengths of 2 and 3 to get the robot to perform a little bit better.
-        We'll address this issue again later. The following video shows the completed Revyn Arm model with an exploded view and
+        the robot without some help when the arm was too long. I shortened the lengths of joints 2 and 3 to get the robot to perform a little bit better.
+        We'll address how this issue comes into play again later. The following video shows the completed Revyn Arm model with an exploded view and
         the 180&deg functionality of each joint.
       </p>
 
       <video  width="100%" height="100%"  autoplay muted loop>
-        <source src="assets/videos/CroppedRevynLimb.mp4" type="video/mp4" />
+        <source src="https://media.githubusercontent.com/media/Brevinbanks/Brevinbanks.github.io/main/assets/videos/CroppedRevynLimb.mp4" type="video/mp4" />
        </video>
+      </div>
     </section>
 
-    <section class="more-basicparagraphleftim" id="Schematics">
+    <section class="basicparagraphleftim" id="Schematics">
+    <div>
+      <h2 align="center">Schematics</h2>
+      <p>
+      With the hardware designed, it was time for the electronics. As mentioned previously 
+      I used an Arduino Mega 2560 and PCA9685 to control the robot. The Arduino was used to recieve
+      serial commands and interpret them as signals to send to the PCA9685. The PCA9685 is a servo 
+      motor driver that can control many servos at once. For this project I was controlling 7 low power
+      servos so it seemed like a good fit. I was running the control loop for these serial commands at 
+      9600 Baud and a control loop rate of 60Hz for the servos. I used an external bench top power supply (not factored
+      into the cost of the project) to supply 6 Volts to the PCA9685 V+ pin to power the servos. I did not use
+      the given PCA9685 power terminal block to power the servos. For whatever reason the PCA9685 chips
+      I purchased did not have the terminal pins wired correctly and was not supplying power. The work around
+      was just to use the V+ pin, typically used for powering other PCA9685 boards when chained together. The arduino
+      was powered by the computer sending serial commands. See the following schematic for wiring details.
+     </p>
 
+     <img src = "assets/images/RevynSchematic_bb.svg" alt="Schematic of the Arduino and PCA9685 wiring for the Revyn Arm"/>
+     <p>
+     The CAD model and electronic schematics were completed and the physical hardware was printed and assembled. 
+     The total cost of materials came down to around only $140. This included a $20 roll of PLA, the Arduino, PCA9685, the wires
+     , some hardware to hold the parts together, the servos, and the end effector claw. I was surprised at how much
+     cheaper I was able to assemble the arm for, but I have observed that these inexpensive parts have their draw backs.
+     The servos are not as strong as I'd like and they have a smaller holding torque than expected. The arm struggles to reach 
+     some of the areas within the arm's joint space.
+    </p>
+    <p>
+     In order to determine what the servos could feasibly do, I had to calibrate them. I wanted to be
+     able to send an angle command to the arduino and have the servos move accodingly, but in order to 
+     use the PCA9685 with the necessary Adafruit library the servos require PWM values. For each 
+     servo I assigned a PWM value and measured how the angle changed with an offhand protractor I had.
+     Possibly not the best solution, but after I got 20 or so points for each joint I figured it would be within
+     a few centimeters of accuracy as I was hoping. I ran a linear regression for each servo's Angle to PWM datasets
+     and found a good fitting calibration. With the calibration complete I was able to make my control script, <a href="https://github.com/Brevinbanks/RevynArm/blob/main/RevynMat2ArdController.ino" target="_blank">RevynMat2ArdController.ino</a>.
+    With this script I tried to drive the servos within different ranges to see where they would fail or where they 
+    could supply the necessary torque. You will see in the future forward kinmetics and inverse kinematics
+    project how this plays out.
+    </p>
+  </div>
+<div>
+    <p>
+      For now we can appreciate how the finished hardware product came together!
+
+    </p>
+  </div>
+  </section>
+
+  <section class="dispafewimg">
+      <img 
+      src="assets/images/6DofRobotArmHalf.jpg"
+      alt="Revyn Arm with frame at base, Z is up, X towards the reader, and Y to the right"
+      loading="lazy"
+
+      class="dispafewimg"/>
+
+      <img 
+      src="assets/images/6DofRobotArmHalfPose1.jpg"
+      alt="Revyn Arm with frame at base, Z is up, X towards the reader, and Y to the right"
+      loading="lazy"
+
+      class="dispafewimg"/>
+
+      <img 
+      src="assets/images/6DofRobotArmHalfPose3.jpg"
+      alt="Revyn Arm with frame at base, Z is up, X towards the reader, and Y to the right"
+      loading="lazy"
+
+      class="dispafewimg"/>
+    
     </section>
 
       
+    <section class="basicparagraphleftim" id="Resources">
+      <h2 align="center">Resources</h2>
+      <p>
+        All source code for this project can be found on <a href="https://github.com/Brevinbanks/RevynArm/tree/main" target="_blank">my github page</a>.
+      
+        The step CAD files for the parts can be found here.
+        
+        A drawing packet with a bill of materials, should someone else want to build the robot, is listed below.
+
+      </p>
+
+        <object data="assets/Drawings/RevynV1DrawingPacket.pdf" type="application/pdf" width="100%" height="500px">
+        <p>Unable to display drawing packet PDF file. <a href="assets/Drawings/RevynV1DrawingPacket.pdf">Download</a> instead.</p>
+      </object>
+    </section>
+
+
     <!-- Projects section -->
     <section class="projects" id="projects">
 
@@ -292,6 +377,7 @@
             ratione vel inventore labore commodi modi quos culpa aut saepe!
             Alias!
           </p>
+          
           <a href="#" target="_blank" class="project-link">Check it Out</a>
         </div>
         <div class="project-container project-card">
