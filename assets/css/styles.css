@@ -55,7 +55,9 @@ section {
 }
 
 /* CSS Resets end */
-
+video::-webkit-media-controls-fullscreen-button {
+  display: none;
+}
 /* Navbar */
 nav {
   position: sticky;
