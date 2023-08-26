@@ -234,7 +234,14 @@ nav ul ul li a:hover {
 }
 /* More about ends */
 
-
+.pic-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 35%;
+  padding: 1rem;
+  filter: drop-shadow(0px 2px 15px rgb(0 0 0 / 50%));
+}
 /* basicparagraphleftim*/
 .basicparagraphleftim {
 
@@ -420,6 +427,42 @@ table td {
 }
 /* subSkills section ends */
 
+/* sublink section */
+.sublink {
+  max-width: 68.75rem;
+  margin: auto;
+  padding: 2rem;
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.sublink-header {
+  margin-bottom: 1rem;
+}
+
+.sublink-wrapper img {
+  padding: 0.25rem;
+}
+
+.sublink-wrapper a {
+  padding: 1rem;
+  white-space: nowrap;
+  text-align: center;
+  line-height: 4rem;
+}
+
+.linkicon {
+  width: 5.875rem;
+  height: 5.25rem;
+  transition: box-shadow .5s;
+}
+
+.linkicon:hover {
+  border-radius: 10px;
+  box-shadow: 0 0px 10px rgba(8, 136, 83, 0.993); 
+
+}
+/* subSkills section ends */
 
 /* Projects section */
 .projects {
@@ -621,6 +664,14 @@ footer {
   margin: 2px;
 }
 
+.linkicon-card {
+  background-color: #fff;
+  border-radius: 11px;
+  box-shadow: 0 1px 11px var(--secondary-shadow);
+  padding: 20px;
+  margin: 2px;
+}
+
 .project-card {
   background-color: #fff;
   border-radius: 11px;
@@ -700,6 +751,9 @@ footer {
   .more-about p {
     text-align: justify;
   }
+
+
+
 
 
   .basicparagraphleftim {
