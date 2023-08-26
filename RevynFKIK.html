@@ -243,7 +243,7 @@
       
       <p>
 Inverse kinematics is similar to forward kinematics in that we want to describe the position and orientation of the end effector in 3D space.
-However with inverse kinematics, we have the end effector's position and orientation, but not the specific joint angles of the robot require to achieve them.
+However with inverse kinematics, we have the end effector's position and orientation, but not the specific joint angles of the robot required to achieve them.
 Identifying the correct joint angles is a difficult problem, and often times there is either no solution or an infinite amount of solutions.
 In my approach to inverse kinematics we will address finding the most simple first solution returned by my algorithm.
 We will assume that there are 6 unknowns (the six joint variables), and 6 knowns (position x,y, and z, and orientation in <a href="https://en.wikipedia.org/wiki/Euler_angles" target="_blank">Euler ZYZ rotation form</a>)
@@ -260,7 +260,7 @@ We will assume that there are 6 unknowns (the six joint variables), and 6 knowns
           Then it breaks the frame into a position vector and 3 ZYZ euler angles. We start the inverse operation with joint 1.
           Joint 1 is found by using the law of cosines between the position of the base and the point of joint 5. The point of
           joint 5 is found first by assuming the orignal orientation of the given Homogenous frame has the same orientation of the 
-          frame and frame 6. With this assumption the position at frame 6 is just d6 back in the orientation of the given frame.
+          frame at frame 6. With this assumption the position at frame 6 is just the norm of d6 vector subtracted in the orientation of the given end effector frame.
           With joint 1 obtained we can find joints 2 and 3 using the law of cosines in a similar manner to the position of frame 6 at joint 5.
           There are many conditions to observe in order to ensure our calculations with acos or atan2 return the angle in the correct
           quadrant. See the code for these conditions.
@@ -283,11 +283,11 @@ We will assume that there are 6 unknowns (the six joint variables), and 6 knowns
           methodology.
         </p>
         <p>With the IK algorithm efficiently applied, I performed unit testing on my IK and FK functions to make sure they worked for all cases.
-          I developed some constraints based on real world physics. Unit tests would be performed on randomly generated sets joint angles. These joint
-          angles would be within the range of acceptable range of joint angles for each joint. Then those joint angles would be fed to the FK_Revyn function
+          I developed some constraints based on real world physics. Unit tests would be performed on randomly generated sets of joint angles. These joint
+          angles would be within the acceptable range of joint angles for each joint. Then those joint angles would be fed to the FK_Revyn function
           and the position of the resulting frame would be tested to ensure it's within range of the robot. Then with the output frame of FK_Revyn, we feed the frame back
-          to the IK_Revyn function. If the output joints return the same set of joints or (if elbow up compenstated) another regenerated frame using FK_Revyn has the orientation and position 
-          as the other genearated frame, then the case was a success. In testing, 100,000 different random joint values were tested within the possible range.
+          to the IK_Revyn function. If the output joint angles return the same set of joint angles we started with or (if elbow up compenstated) another regenerated frame using FK_Revyn has the orientation and position 
+          as the other genearated frame, then the case was a success. In testing, 100,000 different random sets of joint values were tested within the possible range.
           All 100,000 were successful at returning possible joint angles to achieve the frame. The positions of the tested frames generated the spherical shape seen in figure 3.
         </p>
         <figure>
@@ -303,9 +303,9 @@ We will assume that there are 6 unknowns (the six joint variables), and 6 knowns
 
       </div>
 
-      <p>We see a hollow portion in the sphere on the right of figure 3 because the robot cannot pass through itself, and the restricted +/- 90&deg; on most joints doesn't allow
-        the robot to extend much towards its own base. The robot also cannot move past the zero Z plane as then it would be hitting the table. All cases were successful.
-        A final unit test for a handful of end cases (all joints zero, home position, singularites) we tested as well to make sure the robot returned a plausable set of joint angles.
+      <p>We see a hollow portion in the sphere on the right of figure 3 because the robot cannot pass through itself, and the restricted +/- 90&deg; joint limit on most joints doesn't allow
+        the robot to extend much towards its own base. The robot also cannot move past the zero Z plane as then it would be hitting the table. All cases outside of these areas were successful.
+        A final unit test for a handful of end cases (all joints zero, home position, singularities, etc.) were tested as well to make sure the robot returned a plausable set of joint angles.
         See the script <a href="https://github.com/Brevinbanks/RevynArm/blob/main/IK_Unit_Testing.m" target="_blank">IK_Unit_Testing.m</a>
       </p>
       </section>
@@ -315,7 +315,7 @@ We will assume that there are 6 unknowns (the six joint variables), and 6 knowns
       <p>To assess the potential for the robot approaching a singularity, and to see how manipulable the robot is in a given configuration we need
         the jacobian.
         The jacobian can found very easily with the symbolic form of the forward kinematics. We find J, the jacobian by 
-        understanding the relationship between the jacobian and the end effector relative to the base. We refer this particular jacobian as the spatial jacobian.
+        understanding the relationship between the jacobian and the end effector relative to the base. We refer to this particular jacobian as the spatial jacobian.
         From the perspective of the base what would be the instantaneous percieved velocity should the robot move in any direction for each joint.
         We find the jacobian then, by taking the derivative of the forward kinematics with respect to each joint angle. Then to see
         the change relative to the base, we multiply the resultant derivative by the inverted matrix of the general forward kinematics.
@@ -344,22 +344,22 @@ We will assume that there are 6 unknowns (the six joint variables), and 6 knowns
         <h2>Linear Trajectory Planner</h2>
         <p> A really cool proof of concept idea is a linear trajectory planner.
           With the robot able to follow commands, a useful tool is for it to follow a set of path commands that would
-          be more useful for automation. At least a little more useful than "Go to A, okay now go to B", and it can be a little smarter and more efficient this way.
+          be more useful for automation. At least a little more useful than "Go to arbitrary A, okay now go to arbitrary B". We can control the orientation at the end effector, and a planner can be a little smarter and more efficient this way.
           A linear trajectory planner observes the robot's position between two joints and attempts to move all of the joints so that the robot can move from point A to point B, but while maintaining the same orientation.
           My robot struggles to keep power and torque engaged for really precise movements, but the mathematics and code show in simulation this can very easily be achieved.
-          I decided to use a step size divider that takes the path Euclidian distance between the two points (current and desired) and divdes up into 2mm intervals. The robot then
-          moves n number of steps in 2mm intervals towards that point while maintaining the orientation.
+          I decided to use a step size divider that takes the path Euclidian distance between the two points (current and desired) and divdes the distance up into 2mm intervals. The robot then
+          moves n number of steps in 2mm intervals towards that point while maintaining the original end effector orientation.
           You can see the details of how this planner works in my <a href="https://github.com/Brevinbanks/RevynArm/blob/main/Lin_Traj_Revyn.m" target="_blank">Lin_Traj_Revyn.m</a> function.
         </p>
-        <p>I thought it would be awesome to have he robot move 4 times with a pen in the end effector. I would have it draw a line, and then in another test I would have it draw a rectangle.
-          You can see the end effector in the videos here doing fairly well to achieve the rectangular trajectories, but because of the joint angle limits and torque troubles it clearly struggles in some cases.
+        <p>I thought it would be awesome to have he robot move 4 times with a pen attached to the end effector. I would have it draw a line, and then in another test I would have it draw a rectangle.
+          You can see the end effector in the videos here doing fairly well to achieve the rectangular trajectories, but because of the joint angle limits and torque troubles it clearly struggles in some cases to actually draw a straight line and keep the pen tightly held.
 
         </p>
-        <p> The first video shows the robot drawing a line, then moving up and over back to the starting spot.</p>
+        <p> The first video shows the robot drawing a line, then moving up and over back down to the starting spot.</p>
         <video  width="100%" height="100%" autoplay muted loop>
           <source src="https://media.githubusercontent.com/media/Brevinbanks/Brevinbanks.github.io/main/assets/videos/LinTraj.mp4" type="video/mp4" />
          </video>
-         <p>The second video shows the robot drawing a rectangle. The simulation is shown first and then on the hardware.</p>
+         <p>The second video shows the robot drawing a rectangle. The simulation for the planned trajectories is shown first and then executed on the hardware.</p>
          <video  width="100%" height="100%" autoplay muted loop>
           <source src="https://media.githubusercontent.com/media/Brevinbanks/Brevinbanks.github.io/main/assets/videos/RecSimTrajVideo.mp4" type="video/mp4" />
          </video>
