@@ -65,7 +65,9 @@
         <li><a href="#description" class="nav-link">Description</a></li>
         <li><a href="#FK" class="nav-link">FK</a></li>
         <li><a href="#IK" class="nav-link">IK</a></li>
+        <li><a href="#Jac" class="nav-link">Jacobian</a></li>
         <li><a href="#Traj" class="nav-link">Trajectory</a></li>
+        <li><a href="#Resources" class="nav-link">Resources</a></li>
         <li><a href="./index.html#contact" class="nav-link">Contact</a></li>
         <li><a href="./more.html">More</a></li>
       </ul>
@@ -248,7 +250,9 @@ We will assume that there are 6 unknowns (the six joint variables), and 6 knowns
          </p>
          <p>
           The actual derivation of the inverse kinematics is quite lengthy, and many researchers have identified
-          the solution to this problem in their works with similarly shaped robots. My solution uses the same ideas and formulas.
+          the solution to this problem in their works with similarly shaped robots [<a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwi--sqnmNiAAxU2k4kEHTmgAgwQFnoECCoQAQ&url=https%3A%2F%2Fdergipark.org.tr%2Fen%2Fdownload%2Farticle-file%2F2289226&usg=AOvVaw0t8ubsj5CZnWb2fr4bldMA&opi=89978449" target="_blank">1</a>
+          <a href="https://www.frontiersin.org/articles/10.3389/fnbot.2022.791796/full"target="_blank">2</a>
+          <a href="https://www.hindawi.com/journals/mpe/2021/6647035/" target="_blank">3</a>]. My solution uses the same ideas and formulas.
           For the derivation of my inverse kinematics see <a href="https://github.com/Brevinbanks/RevynArm/commit/84a1aabc80e9250c90c28b50c9f23b9a0da7ff20" target="_blank">Ik derivation.</a>
           For the complete IK function see <a href="https://github.com/Brevinbanks/RevynArm/blob/main/IK_Revyn.m" target="_blank">IK_Revyn.m</a>
         </p>
@@ -262,108 +266,113 @@ We will assume that there are 6 unknowns (the six joint variables), and 6 knowns
           quadrant. See the code for these conditions.
   
         </p>
-        <p></p>
+        <p>
+          Before we find joint 4, we will look for joint 5. We wil find joint 5 again with the law of cosines, but instead we will
+          use the triangle formed by the point at joint 3 and the point at the end effector. Then joint 4 can be found by looking down the z axis of frame 4 
+          taking the atan2 of the end effector x and y positions relative to the position and orientation of joint 4. Joint 6 is then found to be 
+          the angle that is the resulting difference between the 0 angle at joint 6 and the angle required to be in the orientation for the goal given frame.
+          
+        </p>
+
+        <p> A final refinement to the algorithm was to observe the configuration of the robot after finding a possible set of joint angles.
+          It was deemed that if the position of joint 3 relative to the base was lower in the z axis than joints 2 and 5 then the configuration was 
+          plausibly elbow down. This creates an unfavorable condition where the robot is likely to hit an obstable during movement, pass through areas
+          where the joint angles are tight, or apply high torque loads on the servos(which are already struggling to bear the full weight of the arm). When it
+          was observed that the arm was elbow down by investigating the relative position of joint 2, 3, and 5 the algorithm would then attempt
+          to change the joint angles for 2, 3, 5, 4, and 6 to achieve the same position and orentation of the end effector with the elbow up. See the code for the
+          methodology.
+        </p>
+        <p>With the IK algorithm efficiently applied, I performed unit testing on my IK and FK functions to make sure they worked for all cases.
+          I developed some constraints based on real world physics. Unit tests would be performed on randomly generated sets joint angles. These joint
+          angles would be within the range of acceptable range of joint angles for each joint. Then those joint angles would be fed to the FK_Revyn function
+          and the position of the resulting frame would be tested to ensure it's within range of the robot. Then with the output frame of FK_Revyn, we feed the frame back
+          to the IK_Revyn function. If the output joints return the same set of joints or (if elbow up compenstated) another regenerated frame using FK_Revyn has the orientation and position 
+          as the other genearated frame, then the case was a success. In testing, 100,000 different random joint values were tested within the possible range.
+          All 100,000 were successful at returning possible joint angles to achieve the frame. The positions of the tested frames generated the spherical shape seen in figure 3.
+        </p>
+        <figure>
+          <img 
+          src="assets/images/Possibility dome.svg"
+          height= "auto"
+          alt="Revyn Arm with frame at base, Z is up, X towards the reader, and Y to the right"
+          loading="lazy"
+          class="basicparagraphrightim-img"
+          />
+          <figcaption>Fig.3 Unit testing random point generation, axis in mm.</figcaption>
+        </figure>
+
       </div>
+
+      <p>We see a hollow portion in the sphere on the right of figure 3 because the robot cannot pass through itself, and the restricted +/- 90&deg; on most joints doesn't allow
+        the robot to extend much towards its own base. The robot also cannot move past the zero Z plane as then it would be hitting the table. All cases were successful.
+        A final unit test for a handful of end cases (all joints zero, home position, singularites) we tested as well to make sure the robot returned a plausable set of joint angles.
+        See the script <a href="https://github.com/Brevinbanks/RevynArm/blob/main/IK_Unit_Testing.m" target="_blank">IK_Unit_Testing.m</a>
+      </p>
       </section>
 
-      <section class="basicparagraphrightim" id="cadexplain">
-      <div>
-      <figure>
-        <img 
-        src="assets/images/RevynLimbHomeRenderHalfsize.png"
-        height= "auto"
-        alt="Revyn Arm with frame at base, Z is up, X towards the reader, and Y to the right"
-        loading="lazy"
-        class="basicparagraphrightim-img"
-        />
-        <figcaption>Fig.3 Revyn Arm at home pose with frame.</figcaption>
-      </figure>
-
+      <section class="basicparagraphrightim" id="Jac">
+        <h2>Jacobian</h2>
+      <p>To assess the potential for the robot approaching a singularity, and to see how manipulable the robot is in a given configuration we need
+        the jacobian.
+        The jacobian can found very easily with the symbolic form of the forward kinematics. We find J, the jacobian by 
+        understanding the relationship between the jacobian and the end effector relative to the base. We refer this particular jacobian as the spatial jacobian.
+        From the perspective of the base what would be the instantaneous percieved velocity should the robot move in any direction for each joint.
+        We find the jacobian then, by taking the derivative of the forward kinematics with respect to each joint angle. Then to see
+        the change relative to the base, we multiply the resultant derivative by the inverted matrix of the general forward kinematics.
+        The math may have been hard to follow, but check my <a href="https://github.com/Brevinbanks/RevynArm/blob/main/JacobianDerivation.m" target="_blank">JacobianDerivation.m</a> and <a href="https://github.com/Brevinbanks/RevynArm/blob/main/Jac_Revyn.m" target="_blank">Jac_Revyn.m</a> script where the 
+        symbolic solution is kept for more details.
+      </p>  
       <p>
-        There ended up being 6 custom parts modeled and printed for the robot. There is the base, the base cup, joint 2, joint 3, joint 4, and joint 5.
-        The base cup could be interpreted as joint 1 as it is directly attached to the first servo. The second and third joints in the model are refered
-        to as short joints because the first design featured both of these joints being an inch longer than in the final product.
-        The MG996R servos used to build this robot were a little on the cheaper side, and could not supply enough torque to lift
-        the robot without some help when the arm was too long. I shortened the lengths of joints 2 and 3 to get the robot to perform a little bit better.
-        We'll address how this issue comes into play again later. The following video shows the completed Revyn Arm model with an exploded view and
-        the 180&deg functionality of each joint.
+        If we take the determinate of the jacobian we can assess the robots potential for reaching a local singularity. If the
+        determinant is close to 0 we are close to a singularity and should stop or quickly change course or the robot could reach 
+        uncontrollable speed, commands, or behavior.
+      </p>
+      <p>With FK, IK, and the Jacobian tools in place we could confidently move the robot to arbitrary points and orientations within the reachable workspace.
+        Using the script <a href="https://github.com/Brevinbanks/RevynArm/blob/main/Revyn_Controller_FK_Proving.m" target="_blank">Revyn_Controller_FK_Proving</a> the robot will be
+        moved to several locations within the workspace that were calculated using FK and then achieved through IK. The jacobian will ensure the robot moves through no singularity and 
+        is applied in the FK and IK scripts. Using the same arduino control script from the first part of the project, <a href="https://github.com/Brevinbanks/RevynArm/blob/main/RevynMat2ArdController.ino" target="_blank">RevynMat2ArdController.ino</a>,
+         now in conjunction with MATLAB serial communication, I could assign the 6 joint angles calculated by the IK to the robot. See the next video for the script in action. The goal frame will be displayed on the left, and the robot will attempt to reach it on the right.
       </p>
 
-      <video  width="100%" height="100%"  autoplay muted loop>
-        <source src="https://media.githubusercontent.com/media/Brevinbanks/Brevinbanks.github.io/main/assets/videos/CroppedRevynLimb.mp4" type="video/mp4" />
+            <video  width="100%" height="100%" autoplay muted loop>
+        <source src="https://media.githubusercontent.com/media/Brevinbanks/Brevinbanks.github.io/main/assets/videos/FKMergedProving.mp4" type="video/mp4" />
        </video>
+      </section>
+
+      <section class="basicparagraphrightim" id="Trajectory">
+      <div>
+        <h2>Linear Trajectory Planner</h2>
+        <p> A really cool proof of concept idea is a linear trajectory planner.
+          With the robot able to follow commands, a useful tool is for it to follow a set of path commands that would
+          be more useful for automation. At least a little more useful than "Go to A, okay now go to B", and it can be a little smarter and more efficient this way.
+          A linear trajectory planner observes the robot's position between two joints and attempts to move all of the joints so that the robot can move from point A to point B, but while maintaining the same orientation.
+          My robot struggles to keep power and torque engaged for really precise movements, but the mathematics and code show in simulation this can very easily be achieved.
+          I decided to use a step size divider that takes the path Euclidian distance between the two points (current and desired) and divdes up into 2mm intervals. The robot then
+          moves n number of steps in 2mm intervals towards that point while maintaining the orientation.
+          You can see the details of how this planner works in my <a href="https://github.com/Brevinbanks/RevynArm/blob/main/Lin_Traj_Revyn.m" target="_blank">Lin_Traj_Revyn.m</a> function.
+        </p>
+        <p>I thought it would be awesome to have he robot move 4 times with a pen in the end effector. I would have it draw a line, and then in another test I would have it draw a rectangle.
+          You can see the end effector in the videos here doing fairly well to achieve the rectangular trajectories, but because of the joint angle limits and torque troubles it clearly struggles in some cases.
+
+        </p>
+        <p> The first video shows the robot drawing a line, then moving up and over back to the starting spot.</p>
+        <video  width="100%" height="100%" autoplay muted loop>
+          <source src="assets/videos/LinTraj.mp4" type="video/mp4" />
+         </video>
+         <p>The second video shows the robot drawing a rectangle. The simulation is shown first and then on the hardware.</p>
+         <video  width="100%" height="100%" autoplay muted loop>
+          <source src="assets/videos/RecSimTrajVideo.mp4" type="video/mp4" />
+         </video>
+         <video  width="100%" height="100%" autoplay muted loop>
+          <source src="assets/videos/RecTraj.mp4" type="video/mp4" />
+         </video>
       </div>
-    </section>
-
-    <section class="basicparagraphleftim" id="Schematics">
-    <div>
-      <h2 align="center">Schematics</h2>
-      <p>
-      With the hardware designed, it was time for the electronics. As mentioned previously 
-      I used an Arduino Mega 2560 and PCA9685 to control the robot. The Arduino was used to recieve
-      serial commands and interpret them as signals to send to the PCA9685. The PCA9685 is a servo 
-      motor driver that can control many servos at once. For this project I was controlling 7 low power
-      servos so it seemed like a good fit. I was running the control loop for these serial commands at 
-      9600 Baud and a control loop rate of 60Hz for the servos. I used an external bench top power supply (not factored
-      into the cost of the project) to supply 6 Volts to the PCA9685 V+ pin to power the servos. I did not use
-      the given PCA9685 power terminal block to power the servos. For whatever reason the PCA9685 chips
-      I purchased did not have the terminal pins wired correctly and was not supplying power. The work around
-      was just to use the V+ pin, typically used for powering other PCA9685 boards when chained together. The arduino
-      was powered by the computer sending serial commands. See the following schematic for wiring details.
-     </p>
-
-     <img src = "assets/images/RevynSchematic_bb.svg" alt="Schematic of the Arduino and PCA9685 wiring for the Revyn Arm"/>
-     <p>
-     The CAD model and electronic schematics were completed and the physical hardware was printed and assembled. 
-     The total cost of materials came down to around only $140. This included a $20 roll of PLA, the Arduino, PCA9685, the wires
-     , some hardware to hold the parts together, the servos, and the end effector claw. I was surprised at how much
-     cheaper I was able to assemble the arm for, but I have observed that these inexpensive parts have their draw backs.
-     The servos are not as strong as I'd like and they have a smaller holding torque than expected. The arm struggles to reach 
-     some of the areas within the arm's joint space.
-    </p>
-    <p>
-     In order to determine what the servos could feasibly do, I had to calibrate them. I wanted to be
-     able to send an angle command to the arduino and have the servos move accodingly, but in order to 
-     use the PCA9685 with the necessary Adafruit library the servos require PWM values. For each 
-     servo I assigned a PWM value and measured how the angle changed with an offhand protractor I had.
-     Possibly not the best solution, but after I got 20 or so points for each joint I figured it would be within
-     a few centimeters of accuracy as I was hoping. I ran a linear regression for each servo's Angle to PWM datasets
-     and found a good fitting calibration. With the calibration complete I was able to make my control script, <a href="https://github.com/Brevinbanks/RevynArm/blob/main/RevynMat2ArdController.ino" target="_blank">RevynMat2ArdController.ino</a>.
-    With this script I tried to drive the servos within different ranges to see where they would fail or where they 
-    could supply the necessary torque. You will see in the future forward kinmetics and inverse kinematics
-    project how this plays out.
-    </p>
-  </div>
-<div>
-    <p>
-      For now we can appreciate how the finished hardware product came together!
-
-    </p>
-  </div>
-  </section>
-
-  <section class="dispafewimg">
-      <img 
-      src="assets/images/6DofRobotArmHalf.jpg"
-      alt="Revyn Arm with frame at base, Z is up, X towards the reader, and Y to the right"
-      loading="lazy"
-
-      class="dispafewimg"/>
-
-      <img 
-      src="assets/images/6DofRobotArmHalfPose1.jpg"
-      alt="Revyn Arm with frame at base, Z is up, X towards the reader, and Y to the right"
-      loading="lazy"
-
-      class="dispafewimg"/>
-
-      <img 
-      src="assets/images/6DofRobotArmHalfPose3.jpg"
-      alt="Revyn Arm with frame at base, Z is up, X towards the reader, and Y to the right"
-      loading="lazy"
-
-      class="dispafewimg"/>
-    
+      <p> Clearly there are many details to work out in the next iteration of this robot design,
+        however I feel that I was able to prove to myself that it is feasible to create an affordable 6 DOF robot with some degreee of accuracy and usefullness.
+        I think I could invest in some better motors and spend some more time tweaking the design of the hardware and contorl code, but currently robot is functional and it has proved what I wanted it to.
+        In future work I am curious to see if I could apply other control or computer vision projects to my robot. I would love to slap a camera on the end and do hand eye calibration or something like that.
+        Stay tuned.
+      </p>
     </section>
 
       
@@ -371,22 +380,12 @@ We will assume that there are 6 unknowns (the six joint variables), and 6 knowns
       <h2 align="center">Resources</h2>
       <p>
         All source code for this project can be found on <a href="https://github.com/Brevinbanks/RevynArm/tree/main" target="_blank">my github page</a>.
-      
-        The step CAD files for the parts can be found <a href="https://github.com/Brevinbanks/Brevinbanks.github.io/tree/main/assets/Modeled%20Parts" target="_blank">here</a>.
-        A completed assembly file is also <a href="https://github.com/Brevinbanks/Brevinbanks.github.io/tree/main/assets/Assembly" target="_blank">here</a>.
-        
-        A <a href="https://github.com/Brevinbanks/Brevinbanks.github.io/tree/main/assets/Drawings" target="_blank">drawing</a> packet with a bill of materials, should someone else want to build the robot, is listed below.
 
       </p>
 
-        <object data="assets/Drawings/RevynV1DrawingPacket.pdf" type="application/pdf" width="100%" height="500px">
-        <p>Unable to display drawing packet PDF file. <a href="assets/Drawings/RevynV1DrawingPacket.pdf">Download</a> instead.</p>
-      </object>
     </section>
 
-      <!-- <video  width="500px" height="500px" controls autoplay muted loop>
-        <source src="https://media.githubusercontent.com/media/Brevinbanks/Brevinbanks.github.io/main/assets/videos/FKMergedProving.mp4" type="video/mp4" />
-       </video> -->
+
 
 
     <!-- Projects section -->
