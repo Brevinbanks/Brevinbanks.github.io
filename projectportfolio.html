@@ -136,14 +136,15 @@
       <h2>Computer Vision</h2>
       <h3>Hand Eye Calibration</h3>
       <img
-      src="assets/images/StayTuned2.png"
+      src="assets/images/HEprojimg.jpg"
       alt="6DOF Robot Arm IK and FK"
       loading="lazy"
       class="pic-center"
     />
       <p>
-        Project is currently in a planning phase/development phase. More details 
-        will be posted when the information is available. 
+        This is a 3D homography camera calibration for the Revyn Arm with a webcam attached to the end effector.
+        In this project I explain how I use OpenCV with python to undistort fisheye images and calibrate the robot arm to understand
+        its location in 3D space using several images of a checkerboard.
         <a href="./HandEye.html">Check it out here</a>
       </p>
       <br>
@@ -177,90 +178,17 @@
       
     </section>
 
-     <!-- Projects section -->
-     <section class="projects" id="projects">
-      <h2 class="projects-title">Some of my Recent Projects</h2>
-      <div class="projects-container">
-        <div class="project-container project-card">
-          <img
-            src="assets/images/6DofRobotArm3.png"
-            alt="6DOF Robot Arm IK and FK"
-            loading="lazy"
-            class="project-pic"
-          />
-          <h3 class="project-title">6DOF Linear Trajectory, IK, & FK</h3>
-          <p class="project-details">
-            Linear Trajectory generator that uses inverse kinematics and forward kinematics 
-            to maintain orientation as the robot moves.
-          </p>
-          <a href="./RevynFKIK.html" class="project-link">Check it Out</a>
-        </div>
-        <div class="project-container project-card">
-          <img
-            src="assets/images/6DofRobotArm2.png"
-            alt="6DOF Robot Arm Design"
-            loading="lazy"
-            class="project-pic"
-          />
-          <h3 class="project-title">6DOF Robot Arm Mechanical Design</h3>
-          <p class="project-details">
-            Hardware design, CAD design, 3D printing, and Arduino Schematics for a 6 DOF small desk robot.
-            Useful for small repeatable tasks.
-          </p>
-          <a href="./RevynDesign.html"  class="project-link">Check it Out</a>
-        </div>
-        <div class="project-container project-card">
-          <img
-            src="assets/images/StayTuned2.png"
-            alt="Check back for details later"
-            loading="lazy"
-            class="project-pic"
-          />
-          <h3 class="project-title">Hand Eye Calibration</h3>
-          <p class="project-details">
-            Stay Tuned. Project is currently in a planning phase/development phase.
-            More details will be posted when the information is available.
-          </p>
-          <a href="./HandEye.html" class="project-link">Check it Out</a>
-        </div>
-      </div>
-    </section>
+    <!-- Projects section -->
+    <script type="text/javascript" src="assets/js/shared_content.js">
+    </script>
+    <script type="text/javascript">    writeProjects();
+    </script>
 
-    <!-- Social accounts - Fixed to the right -->
-    <div class="socials">
-      <a href="https://www.linkedin.com/in/brevinbanks" target="_blank"
-        ><img
-          src="assets/icons/icons8-linkedin.png"
-          alt="Linkedin"
-          title="Linkedin"
-          loading="lazy"
-          class="socicon"
-      /></a>
-      <a href="https://app.joinhandshake.com/stu/users/43200986" target="_blank"
-        ><img
-          src="assets/icons/icons8-handsharke.png"
-          alt="Handshake"
-          title="Handshake"
-          loading="lazy"
-          class="socicon"
-      /></a>
-      <a href="https://github.com/Brevinbanks" target="_blank"
-        ><img
-          src="assets/icons/icons8-smallgit.png"
-          alt="Github"
-          title="Github"
-          loading="lazy"
-          class="socicon"
-      /></a>
-      <a href="assets/images/Brevin Banks Resume.pdf" target="_blank"
-      ><img
-        src="assets/icons/Resume.png"
-        alt="Resume"
-        title="Resume"
-        loading="lazy"
-        class="socicon"
-    /></a>
-    </div>
+      <!-- Social accounts - Fixed to the right -->
+      <script type="text/javascript" src="assets/js/shared_content.js">
+      </script>
+      <script type="text/javascript">    writeSocials();
+      </script>
 
     <!-- Scroll to top -->
   

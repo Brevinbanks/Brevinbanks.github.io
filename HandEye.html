@@ -26,13 +26,13 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
     />
-    <title>Brevin Banks | Revyn FK&IK</title>
+    <title>Brevin Banks | Revyn HandEye</title>
     
 
     <style>
     div.backhead {
       padding: 1.1rem;
-      background-image: url(page-Revynline.png);
+      background-image: url(page-handeye.png);
       background-repeat: no-repeat;
       /* background-attachment: fixed; */
       text-shadow: -1px 1px #000000;
@@ -63,10 +63,9 @@
       <ul class="navigation">
         <li><a href="./index.html" class="nav-link">Home</a></li>
         <li><a href="#description" class="nav-link">Description</a></li>
-        <li><a href="#FK" class="nav-link">FK</a></li>
-        <li><a href="#IK" class="nav-link">IK</a></li>
-        <li><a href="#Jac" class="nav-link">Jacobian</a></li>
-        <li><a href="#Traj" class="nav-link">Trajectory</a></li>
+        <li><a href="#AXXB" class="nav-link">AXXB</a></li>
+        <li><a href="#Framing" class="nav-link">Framing</a></li>
+        <li><a href="#Calibration" class="nav-link">Calibration</a></li>
         <li><a href="#Resources" class="nav-link">Resources</a></li>
         <li><a href="./index.html#contact" class="nav-link">Contact</a></li>
         <li><a href="./more.html" class="nav-link">More</a>
@@ -85,7 +84,7 @@
     </nav>
     
     <div class="backhead">
-      <h2 style="color:white;">6 DOF Robot Arm Forward & Inverse Kinematics: The Revyn Arm </h2>
+      <h2 style="color:white;">Hand Eye Calibration with OpenCV: The Revyn Arm </h2>
     </div>
 
     <div class="backblank">
@@ -99,99 +98,259 @@
     <section class="basicparagraphrightim" id="description">
       <h2>Project Description</h2>
         <p>
+          A common application of robotics is to have the robot manipulate objects in 3D space with the task
+          to orient an object or place an object in a specific spot. There are many ways to accomplish this task with
+          the most basic idea revolving around having the robot measure its own position in 3D space using its sensors/encorders and forward kinematics (FK).
+          The robot operator may have the robot move to predifined locations, but this proves impractical when the robot needs to operate
+          in an unpredictable or constantly changing environment.
+          </p>
+          <figure>
+            <img 
+            src="assets/images/revwithcam2.jpg"
+            height= "auto"
+            alt="Camera on the Revyn Arm"
+            loading="lazy"
+            class="basicparagraphrightim-img"
+            />
+            <figcaption>Fig.1 Revyn Arm with webcam attached.</figcaption>
+          </figure>
+          <p> 
+          A better approach would be to couple the FK and sensors with a camera to give the robot 'computer vision.' In this project
+          I use a common method for integrating a camera with a robot arm where a camera is attached near the end effector and moved 
+          about the 3D space to locations where a clear and easily defined target can be identified. With these targets in frame, computer 
+          vision algorithms can decifer what objects are within the image and compute the predicted position and orientation of the object
+          relative to the camera. We can gather several sets of camera to calibration object poses and several corresponding sets of end
+          effector to robot base poses. With these elements we can identify a transformation between the end effector pose to the robot attached
+          camera pose that enables the camera to understand where objects in the image are relative to the robot base.
+
+          </p>
+          <p>
           see <a href='https://github.com/Brevinbanks/HandEyeCalibration/tree/main' target="_blank">The github project here.</a>
       
       </p>
     </section>
     
+    <section class="basicparagraphleftim" id="AXXB">
+      <div>
+      <figure>
+        <img 
+        src="assets/images/axxbsetup.jpg"
+        height= "auto"
+        alt="Camera on Revyn Arm and respective frame transforms"
+        loading="lazy"
+        class="basicparagraphleftim-img"
+        />
+        <figcaption>Fig.2 Frames for AX=XB.</figcaption>
+      </figure>  
+    </div>
 
 
-
-
-    <!-- Projects section -->
-    <section class="projects" id="projects">
-      <h2 class="projects-title">Some of my Recent Projects</h2>
-      <div class="projects-container">
-        <div class="project-container project-card">
-          <img
-            src="assets/images/6DofRobotArm3.png"
-            alt="6DOF Robot Arm IK and FK"
-            loading="lazy"
-            class="project-pic"
-          />
-          <h3 class="project-title">6DOF Linear Trajectory, IK, & FK</h3>
-          <p class="project-details">
-            Linear Trajectory generator that uses inverse kinematics and forward kinematics 
-            to maintain orientation as the robot moves.
-          </p>
-          <a href="./RevynFKIK" class="project-link">Check it Out</a>
-        </div>
-        <div class="project-container project-card">
-          <img
-            src="assets/images/6DofRobotArm2.png"
-            alt="6DOF Robot Arm Design"
-            loading="lazy"
-            class="project-pic"
-          />
-          <h3 class="project-title">6DOF Robot Arm Mechanical Design</h3>
-          <p class="project-details">
-            Hardware design, CAD design, 3D printing, and Arduino Schematics for a 6 DOF small desk robot.
-            Useful for small repeatable tasks.
-          </p>
-          <a href="./RevynDesign.html"  class="project-link">Check it Out</a>
-        </div>
-        <div class="project-container project-card">
-          <img
-            src="assets/images/StayTuned2.png"
-            alt="Check back for details later"
-            loading="lazy"
-            class="project-pic"
-          />
-          <h3 class="project-title">Hand Eye Calibration</h3>
-          <p class="project-details">
-            Stay Tuned. Project is currently in a planning phase/development phase.
-            More details will be posted when the information is available.
-          </p>
-          <a href="./HandEye.html" class="project-link">Check it Out</a>
-        </div>
+    <div>
+      <h2>AX=XB Problem</h2>
+      
+      <p>
+        The project presented here can be described as a complex linear algebra problem where we are solving
+        for a homogenous transformation 4x4 matrix X as shown in figure 2, where we have intrinsic transformation difference matrices A and B to help us.
+        We will find X in AX=XB by building A and B matrices made of several base to end effector transformation matrices and several 
+        corresponding camera to checkerboard frame transformations respectivley. We use a checkerboard as it is an easily identified object
+        in computer vision with a defined height and width. I used OpenCV to recognize the checkerboard and find the transform between the camera and the checkerboard.
+      I'll discuss the camera to checkerboard calibration later.
+      </p>
+      <p>
+        The solution to X is shown in Figure 3. The steps are as follows. Refer to E and C in figure 2, we collect
+        at least 3 (preferably more than 10) sets of frames E and C by moving the robot to a location where we know the 
+        position and orientation of the end effector relative to the base and the camera can succesfully find a transform between itself and the checkerboard.
+        With these frames we build the intrinsic difference matrices A and B. A is the transform between two end effector positions. B is the reverse transform between
+        two camera positions. See EQ 1. 
+        We set the problem up as in EQ 2.
+      </p>
       </div>
-    </section>
+      </section>
+
+      <section class="basicparagraphrightim">
+        <div>
+        <figure>
+          <img 
+          src="assets/images/HandeyeEQ1.jpg"
+          height= "auto"
+          alt="Hand Eye Calibration Calculations"
+          loading="lazy"
+          class="basicparagraphrightim-img"
+          />
+          <figcaption>Fig.3 Solution to Rx.</figcaption>
+        </figure>  
+      </div>
+        <p>
+          The rotational portion of X, Rx is solved using the matrix log of each A and B matrix. The matrix 
+          log returns an <a href="https://en.wikipedia.org/wiki/Axis%E2%80%93angle_representation" target="_blank">exponential axis-angle representation</a> of a rotation matrix. This gives us vectors alpha and beta
+          can be used to sum up the outer product of each alpha and beta in EQ 4. and with EQ 5. <a href="https://en.wikipedia.org/wiki/Polar_decomposition" target="_blank">polar decomposition</a> to get the rotation matrix Rx. 
+        </p>
+        <p>
+          We solve for tx, the position portion of X using a Least Squares approach. We needed Rx first to
+          get equation EQ 2. to look like EQ 6. We solve EQ 7. using the matrix <a href="https://en.wikipedia.org/wiki/Moore%E2%80%93Penrose_inverse" target="_blank">psuedo-inverse</a> or an <a href="https://en.wikipedia.org/wiki/Singular_value_decomposition" target="_blank">SVD</a>
+        </p>
+
+        <div>
+          <figure>
+            <img 
+            src="assets/images/HandeyeEQ2.jpg"
+            height= "auto"
+            alt="Hand Eye Calibration Calculations"
+            loading="lazy"
+            class="basicparagraphrightim-img"
+            />
+            <figcaption>Fig.4 Solution to tx.</figcaption>
+          </figure>  
+        </div>
+        <p>With both Rx and tx we have X, the homogeneous transformation matrix between the robot end effector and the camera and can move the robot in 3D space 
+          towards objects more intelligently.
+        </p>
+        </section>
+
+        <section class="basicparagraphleftim" id="Framing">
+        <div>
+          <h2>Camera Undistortion and Checkerboard Framing</h2>
+          
+          <p>
+            The biggest hurdle encounter in the calibration project was not calibrating the robot, but 
+            correctly compensating for the camera physics. The <a href="https://www.amazon.com/dp/B09LQ25SCM?psc=1&ref=ppx_yo2ov_dt_b_product_details" target="_blank">camera</a> I used in this project
+            was a fairly poor and cheap webcam. The camera used a fisheye lens with heavy distortion and some less than favorable
+            specifications. The goal was to use the camera with OpenCV's findChessboardCorners function and solvePnP function to identify what the frame
+            in the corner of the checkerboard is relative to the camera. To use those functions, however, you need to remove as much error and distortion in the 
+            camera image as possible. To so I calibrated the camera with the OpenCV fisheye get camera extrinsic properties functions. See my  <a href='https://github.com/Brevinbanks/HandEyeCalibration/tree/main' target="_blank">FishCal.py script.</a>
+            To do this, I collected a lot of calibration images where the camera was placed around the extreme areas of the checkerboard to help define the distortion physics.
+            This allowed me to find a K and D matrix that could undistort the points of the checkerboard.
+          </p>
+          <div>
+            <figure>
+              <img 
+              src="assets/images/Calpicexample.png"
+              height= "auto"
+              alt="Example calibration images"
+              loading="lazy"
+              class="basicparagraphleftim-img"
+              />
+              <figcaption>Fig.5 Example Camera Calibration Images.</figcaption>
+            </figure>  
+          </div>
+          <p>
+            With these points I used the SolvePnP method which takes a set of known 3D object points (where the checkerboard inner square corners are) and compares them
+            to where they have been found in a 2D image array of the findChessboardCorners function. The Checkerboard used in my project had 20mm wide squares and the chessboard in the 
+            images was assumed to at a Z=0 level. Therefore the array of squares simply incremented across a flat plane of 20mm squares, the dimensions of which are 6x9.
+            SolvePnP returned a rotation vector and translation vector which used to build a homogeneous tranformation matrix, C, with the rotation and translation of the checkerboard relative to the camera. More details for this can be seen in the code <a href="https://github.com/Brevinbanks/HandEyeCalibration/blob/main/CheckerFramePlace.py" target="_blank">CheckerFramePlace.py</a>.
+          </p>
+          </div>
+          </section>
+
+          <section class="basicparagraphrightim">
+            <div>
+            <figure>
+              <img 
+              src="assets/images/Checker3.png"
+              height= "auto"
+              alt="Hand Eye Calibration Calculations"
+              loading="lazy"
+              class="basicparagraphrightim-img"
+              />
+              <figcaption>Fig.6 Frames placed on the camera image.</figcaption>
+            </figure>  
+          </div>
+     <p>The resulting C tranform was plotted on the live image of the camera in the corner of the chessboard. I also
+      designed the code to plot the camera's own frame on the front of the image (where we look down the Z axis of the camera) as shown in figure 6.
+      With this calibration complete, we could capture C frames with this frame placer and E frames with the robot FK and solve the AX=XB problem.
+     </p>
+            </section>
+
+            
+    <section class="basicparagraphleftim" id="Calibration">
+
+
+
+    <div>
+      <h2>Calibrating the Robot and Observing the Error</h2>
+      
+      <p>
+        In my tests I fixed the Checkerboard to a white piece of sturdy cardboard. I fixed the robot, the board, and the camera
+        so they would be rigid and not move. If any of them move during the calibration process then the calibration wouldn't work.
+        I moved the robot to 13 different locations caputing 13 E and C frames. The following video shows how I commanded the robot to move to 
+        a point where the checkerboard was in frame and a successful frame was placed on the checkerboard (as you can see on the computer monitor).
+      </p>
+      <video  width="100%" height="100%" autoplay muted loop>
+        <source src="assets/videos/handeyevid.mp4" type="video/mp4" />
+       </video>
+      <p>
+        The execution of the calibration can be found in the <a href="https://github.com/Brevinbanks/HandEyeCalibration/blob/main/XCAL_Test.py" target="_blank">XCAL_Test.py</a> script 
+        where the resultant camera frames and end effector frames including X are plotted and the calculated error between my predicted frames and the real world checkerboard frame is shown.
+        
+      </p>
+    </div>
+
+      <div>
+        <figure>
+          <img 
+          src="assets/images/CalOut.jpg"
+          height= "auto"
+          alt="Resultant Calibration"
+          loading="lazy"
+          class="basicparagraphleftim-img"
+          />
+          <figcaption>Fig.7 Virtual Calibration Results</figcaption>
+        </figure>  
+      </div>
+      <p>Figure 7 shows the result of my calibration where C is the true location ofthe checkerboard relative to the base (hand measured),
+        F1 is the end effector for position 1, X1 is the transform from F1 to the camera, and T1 is where the robot thinks the checkerboard is 
+        given my calibration. As you can see the calibration is less than stellar, but this is because my images did not have enough diversity of angle. 
+        Most of the images were taken from the similar locations of the robot and since the robot is so short I could not get good shots of the checkerboard 
+        above or to the sides of it. This heavily skewed the Z calibration of the X frame. You can see that it does fairly well to calculate 
+        the X an Y however. The Resulting X matrix can be found by running my script, and some general errors are shown below. All dimensions are in mm and the following
+        errors were found by finding the stand error between each calibrated predicted frame (T1,T2..etc) and the true frame C
+      </p>
+      <p>
+        X error: +/- 15.7mm
+      </p>
+      <p>
+        Y error: +/- 28.9mm
+      </p>
+      <p>
+        Z error: +/- 29.8mm
+      </p>
+      <p>
+        From the error you can see I have a typical error of around 2 to 4 cm in any one direction away from the C frame.
+        For the cheap camera used in this project and the inaccuracies with the Revyn arm servos discussed in the previous projects,
+        this error is not too surprising, but less than ideal for a real control situation. If I had more time to invest in this project
+        I am sure I could recalibrate with better results by moving the checkerboard to a more accessible location for the robot and by using a better camera.
+      </p>
+      </section>
+
+      <section class="basicparagraphleftim" id="Resources">
+        <h2 align="center">Resources</h2>
+        <p>
+          All source code for this project can be found on <a href="https://github.com/Brevinbanks/HandEyeCalibration/tree/main" target="_blank">my github page</a>.
+        </p>
+        <p>
+          Check out how to use OpenCV's <a href="https://docs.opencv.org/4.x/d5/d1f/calib3d_solvePnP.html" target="_blank">SolvePnP</a> function for finding transformations with 3D Homography.
+        </p>
+        <p>
+          Fish Eye Lens Calibration resource <a href="https://medium.com/@kennethjiang/calibrate-fisheye-lens-using-opencv-333b05afa0b0" target="_blank">check out this helpful tutorial</a>
+        </p>
+        <p>
+          Also see OpenCV functions <a href="https://docs.opencv.org/4.x/dc/dbb/tutorial_py_calibration.html target="_blank">for finding checkerboard corners and normal camera calibration</a>
+        </p>
+  
+      </section>
+
+      
+    <!-- Projects section -->
+    <script type="text/javascript" src="assets/js/shared_content.js">
+    </script>
+    <script type="text/javascript">    writeProjects();
+    </script>
 
     <!-- Social accounts - Fixed to the right -->
-    <div class="socials">
-      <a href="https://www.linkedin.com/in/brevinbanks" target="_blank"
-        ><img
-          src="assets/icons/icons8-linkedin.png"
-          alt="Linkedin"
-          title="Linkedin"
-          loading="lazy"
-          class="socicon"
-      /></a>
-      <a href="https://app.joinhandshake.com/stu/users/43200986" target="_blank"
-        ><img
-          src="assets/icons/icons8-handsharke.png"
-          alt="Handshake"
-          title="Handshake"
-          loading="lazy"
-          class="socicon"
-      /></a>
-      <a href="https://github.com/Brevinbanks" target="_blank"
-        ><img
-          src="assets/icons/icons8-smallgit.png"
-          alt="Github"
-          title="Github"
-          loading="lazy"
-          class="socicon"
-      /></a>
-      <a href="assets/images/Brevin Banks Resume.pdf" target="_blank"
-      ><img
-        src="assets/icons/Resume.png"
-        alt="Resume"
-        title="Resume"
-        loading="lazy"
-        class="socicon"
-    /></a>
-    </div>
+    <script type="text/javascript" src="assets/js/shared_content.js">
+    </script>
+    <script type="text/javascript">    writeSocials();
+    </script>
 
     <!-- Scroll to top -->
   
