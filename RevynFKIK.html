@@ -102,8 +102,8 @@
           This project is a continuation of the <a href="./RevynDesign.html">Revyn Arm design project</a>. Here 
           I will be exploring basic robotics and control using forward kinematics (FK) and inverse kinematics (IK).
           The goal is to understand how the robot end effector moves and responds relative to the base of the robot.
-          I will continue to keep the same requirements from design phase of the project to have the robot move
-          accurately and compatible with serial commands. However, I am aware how the servo torque may not be 
+          I will continue to keep the same requirements from the design phase of the project to have the robot move
+          accurately and remain compatible with serial commands. However, I am aware that the servo torque may not be 
           strong enough to ensure the robot can cover all of the joint space, and a new limitation here is that the joints
           can only move 90&deg forward and backward from their home configurations. This means that in our
           geometric solutions to FK and IK the robot can only achieve positions so long as all the joints are within
@@ -137,9 +137,9 @@
         fixed lengths of the robot arms up to the frame position and identifying that position by using the joint variables assigned
         to the joints up to the joint of interest.
         When we use DH paramters to help find these frames, we have a set of rules on how these frames are likely
-        to be positioned relative to each other. In short, we will always have the frame's Z axis pointing along the axis of rotation
+        to be positioned relative to each other. To describe the DH parameter process in short, we will always have the frame's Z axis pointing along the axis of rotation
         for the respective joint. When we move from frame to frame along the robot, we only ever rotate or translate about Z
-        or X. Never Y. This is not always necessary, but in my opinion this makes the determination of the FK and IK easier in the future. 
+        or X. Never Y. Building the FK this way is not always necessary, but in my opinion this makes the determination of the FK and IK easier in the future. 
         It's not critical to understand all of these details, but if you follow along it will help you see why we make certain decisions.
         <br>
       </p>
@@ -161,7 +161,7 @@
         all the joints can move +/- 90&deg; except for joint 3 which can move between [0,180]&deg;.
         The lengths of the joints on the robot are as follows as seen in figure 2: d1 = 88.95mm a2 = 53.86mm d4 = 142.18mm d6=201.88mm
         <br>
-        To start we draw the frames where they should lie on the robot and collect the DH parameters to make those frames possible.
+        To start the FK process, we draw the frames where they should lie on the robot and collect the DH parameters to make those frames possible.
 
   </p>
     <br>
@@ -233,8 +233,8 @@
 
   <section class="basicparagraphleftim">
     <div>
-    <p>The resultant symbolic forward kinematics result can be found in <a href="https://github.com/Brevinbanks/RevynArm/blob/main/FK_Revyn.m" target="_blank">FK_Revyn.m</a> and
-      MATLAB derivation is found in <a href="https://github.com/Brevinbanks/RevynArm/commit/84a1aabc80e9250c90c28b50c9f23b9a0da7ff20" target="_blank">Fk derivation.</a> 
+    <p>The solution is lengthy and unintuitive to observe, but the results have been made and presented in code. The resultant symbolic forward kinematics result can be found in <a href="https://github.com/Brevinbanks/RevynArm/blob/main/FK_Revyn.m" target="_blank">FK_Revyn.m</a> and
+      MATLAB derivation is found in <a href="https://github.com/Brevinbanks/RevynArm/commit/84a1aabc80e9250c90c28b50c9f23b9a0da7ff20" target="_blank">FK derivation.</a> 
      </p>
     </div>
   </section>
@@ -249,13 +249,17 @@
       <h2>Inverse Kinematics</h2>
       
       <p>
-Inverse kinematics is similar to forward kinematics in that we want to describe the position and orientation of the end effector in 3D space.
-However with inverse kinematics, we have the end effector's position and orientation, but not the specific joint angles of the robot required to achieve them.
+Inverse kinematics is similar to forward kinematics in that we still want to describe the position and orientation of the end effector in 3D space relative to the base of the robot.
+However with inverse kinematics, we have the goal end effector's position and orientation, but not the specific joint angles of the robot required to achieve them.
 Identifying the correct joint angles is a difficult problem, and often times there is either no solution or an infinite amount of solutions.
-In my approach to inverse kinematics we will address finding the most simple first solution returned by my algorithm.
+In my approach to inverse kinematics we will address finding the most simple solution using a geometric approach. I say simple to imply that with the geometric approach you
+may still find one or multiple soltuions, but if multiple solutions are returned, we will take whatever the first returned data point would be by our functions solve for the solution (e.g. If acos(0) = 0 or 180, we will take 0). 
+Then we will check if the solution we found is right, and if it is wrong we will take the second, or third, and so on.
 We will assume that there are 6 unknowns (the six joint variables), and 6 knowns (position x,y, and z, and orientation in <a href="https://en.wikipedia.org/wiki/Euler_angles" target="_blank">Euler ZYZ rotation form</a>)
          </p>
          <p>
+          The geometric approach, as opposed to a numerical approach, is developed by investigating the geometric relationships between joint angles and robot arm lengths. We can often
+          obtain joint values soley by projecting triangles at different perspectives of the robot arm while the end effector and base are held at particular orientations and positions.
           The actual derivation of the inverse kinematics is quite lengthy, and many researchers have identified
           the solution to this problem in their works with similarly shaped robots [<a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwi--sqnmNiAAxU2k4kEHTmgAgwQFnoECCoQAQ&url=https%3A%2F%2Fdergipark.org.tr%2Fen%2Fdownload%2Farticle-file%2F2289226&usg=AOvVaw0t8ubsj5CZnWb2fr4bldMA&opi=89978449" target="_blank">1</a>
           <a href="https://www.frontiersin.org/articles/10.3389/fnbot.2022.791796/full"target="_blank">2</a>
@@ -274,7 +278,7 @@ We will assume that there are 6 unknowns (the six joint variables), and 6 knowns
   
         </p>
         <p>
-          Before we find joint 4, we will look for joint 5. We wil find joint 5 again with the law of cosines, but instead we will
+          Before we find joint 4, we will look for joint 5. We will find joint 5 again with the law of cosines, but instead we will
           use the triangle formed by the point at joint 3 and the point at the end effector. Then joint 4 can be found by looking down the z axis of frame 4 
           taking the atan2 of the end effector x and y positions relative to the position and orientation of joint 4. Joint 6 is then found to be 
           the angle that is the resulting difference between the 0 angle at joint 6 and the angle required to be in the orientation for the goal given frame.

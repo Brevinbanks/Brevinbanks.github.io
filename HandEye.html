@@ -157,7 +157,7 @@
       I'll discuss the camera to checkerboard calibration later.
       </p>
       <p>
-        The solution to X is shown in Figure 3. The steps are as follows. Refer to E and C in figure 2, we collect
+        The solution to X is shown in figure 3. The steps are as follows. Refer to E and C in figure 2, we collect
         at least 3 (preferably more than 10) sets of frames E and C by moving the robot to a location where we know the 
         position and orientation of the end effector relative to the base and the camera can succesfully find a transform between itself and the checkerboard.
         With these frames we build the intrinsic difference matrices A and B. A is the transform between two end effector positions. B is the reverse transform between
@@ -217,7 +217,7 @@
             was a fairly poor and cheap webcam. The camera used a fisheye lens with heavy distortion and some less than favorable
             specifications. The goal was to use the camera with OpenCV's findChessboardCorners function and solvePnP function to identify what the frame
             in the corner of the checkerboard is relative to the camera. To use those functions, however, you need to remove as much error and distortion in the 
-            camera image as possible. To so I calibrated the camera with the OpenCV fisheye get camera extrinsic properties functions. See my  <a href='https://github.com/Brevinbanks/HandEyeCalibration/tree/main' target="_blank">FishCal.py script.</a>
+            camera image as possible. Thus, I calibrated the camera with the OpenCV fisheye get camera extrinsic properties functions. See my  <a href='https://github.com/Brevinbanks/HandEyeCalibration/tree/main' target="_blank">FishCal.py script.</a>
             To do this, I collected a lot of calibration images where the camera was placed around the extreme areas of the checkerboard to help define the distortion physics.
             This allowed me to find a K and D matrix that could undistort the points of the checkerboard.
           </p>
@@ -236,8 +236,8 @@
           <p>
             With these points I used the SolvePnP method which takes a set of known 3D object points (where the checkerboard inner square corners are) and compares them
             to where they have been found in a 2D image array of the findChessboardCorners function. The Checkerboard used in my project had 20mm wide squares and the chessboard in the 
-            images was assumed to at a Z=0 level. Therefore the array of squares simply incremented across a flat plane of 20mm squares, the dimensions of which are 6x9.
-            SolvePnP returned a rotation vector and translation vector which used to build a homogeneous tranformation matrix, C, with the rotation and translation of the checkerboard relative to the camera. More details for this can be seen in the code <a href="https://github.com/Brevinbanks/HandEyeCalibration/blob/main/CheckerFramePlace.py" target="_blank">CheckerFramePlace.py</a>.
+            images was assumed to be at a Z=0 level. Therefore the array of squares simply incremented across a flat plane of 20mm squares, the dimensions of which are 6x9.
+            SolvePnP returned a rotation vector and translation vector which was used to build a homogeneous tranformation matrix, C, with the rotation and translation of the checkerboard relative to the camera. More details for this can be seen in the code <a href="https://github.com/Brevinbanks/HandEyeCalibration/blob/main/CheckerFramePlace.py" target="_blank">CheckerFramePlace.py</a>.
           </p>
           </div>
           </section>
@@ -256,7 +256,8 @@
             </figure>  
           </div>
      <p>The resulting C tranform was plotted on the live image of the camera in the corner of the chessboard. I also
-      designed the code to plot the camera's own frame on the front of the image (where we look down the Z axis of the camera) as shown in figure 6.
+      designed the code to plot the camera's own frame on the front of the image (where we are looking down the Z axis of the camera) as shown in figure 6 with the chessboard corner in the top left
+      and the center frame is the camera's own frame.
       With this calibration complete, we could capture C frames with this frame placer and E frames with the robot FK and solve the AX=XB problem.
      </p>
             </section>
@@ -297,7 +298,7 @@
           <figcaption>Fig.7 Virtual Calibration Results</figcaption>
         </figure>  
       </div>
-      <p>Figure 7 shows the result of my calibration where C is the true location ofthe checkerboard relative to the base (hand measured),
+      <p>Figure 7 shows the result of my calibration where C is the true location of the checkerboard relative to the base (hand measured),
         F1 is the end effector for position 1, X1 is the transform from F1 to the camera, and T1 is where the robot thinks the checkerboard is 
         given my calibration. As you can see the calibration is less than stellar, but this is because my images did not have enough diversity of angle. 
         Most of the images were taken from the similar locations of the robot and since the robot is so short I could not get good shots of the checkerboard 
