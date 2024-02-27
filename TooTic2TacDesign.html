@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!--CSS Styles -->
+    <link rel="stylesheet" href="assets/css/styles.css" />
+
+    <!-- Favicons -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="assets/icons/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="assets/icons/favicon-32x32.png"
+    />
+
+    <!-- Animate CSS CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <title>Brevin Banks | TooTic2Tac</title>
+    
+
+    <style>
+    div.backhead {
+      padding: 1.1rem;
+      background-image: url(page-tictac.png);
+      background-repeat: no-repeat;
+      /* background-attachment: fixed; */
+      text-shadow: -1px 1px #000000;
+      background-size: cover;
+    }
+
+    div.backblank {
+
+      padding: 1rem;
+      background-color: rgb(255, 255, 255);
+      background-repeat: no-repeat;
+      /* background-attachment: fixed; */
+      
+    
+      background-size: cover;
+    }
+
+
+    </style>
+    
+
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <nav>
+      <h1>Brevin Banks </h1>
+      <ul class="navigation">
+        <li><a href="./index.html" class="nav-link">Home</a></li>
+        <li><a href="#ab_pruning" class="nav-link">&#945; &#946; Pruning</a></li>
+        <li><a href="#BoardSize" class="nav-link">Board Size</a></li>
+        <li><a href="#Bombs" class="nav-link">Bombs</a></li>
+        <li><a href="#Rps" class="nav-link">Rock Paper Scissors</a></li>
+        <li><a href="#Drawstraw" class="nav-link">Drawing Straws</a></li>
+        <li><a href="./index.html#contact" class="nav-link">Contact</a></li>
+        <li><a href="./more.html" class="nav-link">More</a>
+          <ul>
+            <li><a href="./projectportfolio.html">Project Portfolio</a></li>
+            <li><a href="./revdev.html">Revyn Development</a></li>
+            <li><a href="./resources.html">Resources</a></li>
+            <li><a href="./gamedev.html">Game Development</a></li>
+          </ul>
+        </li>
+      </ul>
+      <button class="burger-menu" id="burger-menu">
+        <ion-icon class="bars" name="menu-outline"></ion-icon>
+        <!-- <ion-icon class="times" name="close-outline"></ion-icon> -->
+      </button>
+    </nav>
+    
+    <div class="backhead">
+      <h2 style="color:white;">TooTic2Tac Development and Design </h2>
+    </div>
+
+    <div class="backblank">
+
+    </div>
+
+
+    <!-- More about -->
+    
+    <!-- More about -->
+    <section class="basicparagraphrightim" id="ab_pruning">
+      <h2>Project Description</h2>
+
+      
+       
+        <p>
+          I started this project on the <a href="https://godotengine.org/" target="_blank"> Godot Engine</a>. It's a popular engine that has rapidly been growing in versatility and favorability.
+          I like the engine because it has a more intuitive interface for me and the built in <a href="https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_basics.html" target="_blank"> GD Script</a>
+          is more or less python with a wrapper on it. I also like the engine because it is completely open source and the developers plegde to keep it that way.
+        </p>
+        <p>
+          I had never used the engine before so I wanted to choose a rather basic game to start with. Hence, tictactoe. I had been playing a small two player mobile game a while ago when I got the inspiration.
+          Why not take simple (and lack luster) board games from history and spice them up. Make them wacky or whatever. I thought about other random minigame like games I'd played as a kid and really liked.
+          Some of the first elements I knew I wanted were 1: Minigames, 2: Random Events, and 3: an AI to play against since I won't always have someone to play with.
+
+       <figure>
+         <img 
+         src="assets/images/TicImg4.png"
+         height= "auto"
+         alt="Alpha Beta Pruning AI Win"
+         loading="lazy"
+         class="basicparagraphrightim-img"
+         />
+         <figcaption>Fig.1 Alpha Beta Pruning AI Win.</figcaption>
+       </figure>
+      
+      </p>
+      <h2>AI - &#945; &#946; Pruning</h2>
+      <p>
+        After the basic construction of a TicTacToe board was applied, the first of the other 3 goals I set out to do was inncorporate an AI. 
+        Researching search tree methods for table top game playing, I settled on using <a href="https://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning" target="_blank">Alpha Beta Pruning</a> to teach my AI how to play my game.
+        I gave the AI a score for the best locations it could go in a 3x3 or 4x4 or 5x5 board as I made my game so it could randomly expand up or down to a 3x3 or 5x5 board. It would way its options
+        by sum positive values to places that put multiple O's in a line. It would sum negative values if multiple X's were in a line. It would look at all possible futures where O's and X's could be placed 
+        according to the current layout of the board given the player's last move, then sum all negative and positive values for potential options together until it found the most optimal playing position. 
+
+        It worked well enough to be a formidable opponent I think. It is a little predictable now having played against it for hours, but I think it's just the right amount of smart for casual play. It's 
+        evaluation funciton is not perfect, but does a fair enough job, that with the other random elements of gameplay, it can still gain an edge on the player if they aren't watching closely.
+
+  </p>
+    <br>
+    </section>
+   
+    
+    
+
+    <section class="basicparagraphleftim" id="BoardSize">
+      <div>
+      <figure>
+        <img 
+        src="assets/videos/ExSh.gif"
+        height= "auto"
+        alt="Expanding and Shrinking"
+        loading="lazy"
+        class="basicparagraphleftim-img"
+        />
+        <figcaption>Fig.2 Expanding and Shrinking.</figcaption>
+      </figure>  
+    </div>
+
+
+    <div>
+      <h2>Dynamic Board Sizing</h2>
+      
+      <p>
+        The TicTacToe board starts as a 3x3 with the users able to tap any spot to place an X or O on their turn. Randomly as the players choose squares, events can occur. The most basic event is board sizing and resizing.
+        With 3x3 being the minimum board size, the board can expand to 4x4. Then the players are expected to make a "4 in a row" connection in order to win. The same can happen again expanding to 5x5 where "5 in a row" are needed to win.
+        The direciton of the expansion is also random. It always expands a row and column by one integer but that can be in any direction. 
+        The expanding factor adds an exponential number more potential spaces to the board. Thus, it can become quite daunting on the player with the chance of winning rather slim if the other player can easily block your goal row with so many options in the row. That's why the board can also shrink after expanding.
+        The board can return to 4 or 3 dimensions in any random direction. It ignores what is already on the board and arbitraily selects a direction. If players have pieces in a row that would win after shrinking, the game is over and a win is given.
+        Animations were made to indicate the location of expansion or shrinkage and buttons were named and placed in the the spots or removed respectivley.   
+      </p>
+
+      </div>
+      </section>
+    </br>
+      <section class="basicparagraphrightim" id="Bombs">
+      <div>
+      <figure>
+        <img 
+        src="assets/images/TicImg1.png"
+        height= "auto"
+        alt="Bomb used in Top Right Corner"
+        loading="lazy"
+        class="basicparagraphrightim-img"
+        />
+        <figcaption>Fig.3 Bomb used in Top Right Corner.</figcaption>
+      </figure>
+    </br>
+  </br>
+    </br>
+      <h2>Bombs</h2>
+      <p>
+        
+        Another random event is the unveiling of a bomb under a tile. As the players tap, there is the random chance a bombe may be given to the opposing player. The bombs, as suggested by the + on their face, blow all X's or O's in rows
+        orthogonal to the bomb's placement. It may only be placed on the player's turn, takes up the turn action of the player, and can only be placed on empty squares. In other words, the bombs can't be placed on top of exisiting X's or O'
+        meaing it can't be thrown out without discression just to prevent an enemies win. There is a good chance it will destroy some of the placing player's own symbols. Making the bombs was probably the most fun part of the development process.
+        I made sure to record unique noises for all parts of the game. I made nosies for expanding and shrinking, but the bombs take the cake. It sounds just as it needed to in order to remind me of making explosion noises as a kid.
+        Players can obtain unlimited bombs during the game, but after a winner or draw has been made, the bombs are discarded. The AI will randomly place a bomb if it has one on any potential random turn it has.
+      </p>
+    </section>
+    <section class="basicparagraphleftim" id="Rps">
+    <div>
+      <h2 align="center">Rock Paper Scissors</h2>
+      <p>
+      The first minigame happens to also be a random event. In this minigame we play basic rock paper scissors, except there's a catch. There's a good chance the items that look like 
+      a typical rock paper or pair of scissors may look like on of the others. For example there are scissors that are designed to look like they are carved out of stone.
+      The algorithm I wrote for the game, ensures each player gets a set of exactly one rock, one paper, and one pair of scissors, but there may be overlapping apperances. There may be what 
+      clearly is a piece of paper, but also a piece of paper that looks like it is folded into scissors. In this case the scissors paper look alike is scissors, because the paper is clearly paper.
+      There would also be no other scissors option and the 3rd object by default would then be a rock. Confused? Good. That's the point. It makes more sense when you've played it once or twice. 
+      The game appears in place of a bomb or expansion/shrinking event happening. It oppens in a separate window with a fun parallax background.
+      The AI will randomly choose one of its 3 objects, and may at any random moment choose a different object during the window of selection.
+     </p>
+
+      <div>
+      <figure>
+        <img 
+        src="assets/images/TicImg2.png"
+        height= "auto"
+        alt="Expanding and Shrinking"
+        loading="lazy"
+        class="basicparagraphleftim-img"
+        />
+        <figcaption>Fig.4 Rock Paper Scisors Example.</figcaption>
+      </figure>  
+    </div>
+
+
+  </section>
+
+
+  <section class="basicparagraphrightim" id="Drawstraw">
+    <div>
+      <h2 align="center">Drawing Straws</h2>
+      <p>
+      The final minigame happens at the start of the game or after a tie occured in the last game. In this minigame two sticks are displayed to the users moving in the screen at different rates.
+      The two sticks are different sizes, and one is always darker than the other. Either stick could be larger than the other. A random user is given the chance to pick a stick and then the sticks are pulled out and
+      shown to the users with their sizes displayed. The winner is highlighted in white and gets to go first at the start of the TicTacToe game. If the AI is playing agains the player, than the player 
+      always gets to pick the stick.
+     </p>
+
+      <div>
+      <figure>
+        <img 
+        src="assets/images/TicImg5.png"
+        height= "auto"
+        alt="Expanding and Shrinking"
+        loading="lazy"
+        class="basicparagraphrightim-img"
+        />
+        <figcaption>Fig.5 Drawing Straws.</figcaption>
+      </figure>  
+    </div>
+
+
+  </section>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+      <!-- <video  width="500px" height="500px" controls autoplay muted loop>
+        <source src="https://media.githubusercontent.com/media/Brevinbanks/Brevinbanks.github.io/main/assets/videos/FKMergedProving.mp4" type="video/mp4" />
+       </video> -->
+
+
+      <!-- Projects section -->
+      <script type="text/javascript" src="assets/js/shared_content.js">
+      </script>
+      <script type="text/javascript">    writeProjects();
+      </script>
+
+      <!-- Social accounts - Fixed to the right -->
+      <script type="text/javascript" src="assets/js/shared_content.js">
+      </script>
+      <script type="text/javascript">    writeSocials();
+      </script>
+
+    <!-- Scroll to top -->
+  
+    <div id="back-to-top" class="back-to-top animate__animated animate__backOutDown">Back to Top</div>
+
+
+    <!-- Website scripts -->
+    <!-- This script controls the hamburger menu -->
+    <script src="assets/js/app.js"></script>
+
+    <!-- This script will hide the back to top button or show it -->
+    <script type="text/javascript"
+    src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js">
+    </script>
+
+    <script type="text/javascript" language="javascript">
+      $(function () {
+          var $win = $(window);
+
+          $win.scroll(function () {
+              if ($win.scrollTop() < 5){
+                  document.getElementById("back-to-top").classList.remove('back-to-top:hover');
+                  document.getElementById("back-to-top").classList.remove('animate__animated', 'animate__backInUp');
+                  document.getElementById("back-to-top").classList.add('animate__animated', 'animate__backOutDown');
+                }
+                  else{
+                  document.getElementById("back-to-top").classList.add('back-to-top:hover');
+                  document.getElementById("back-to-top").classList.remove('animate__animated', 'animate__backOutDown');
+                  document.getElementById("back-to-top").classList.add('animate__animated', 'animate__backInUp');
+              }
+              
+            });
+          
+      });
+    </script>
+
+        <!-- Ion icons scripts -->
+        <script
+        type="module"
+        src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+      ></script>
+      <script
+        nomodule
+        src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+      ></script>
+
+  </body>
+</html>
+
+
+<!-- Fix the hamburger menu so tapping away will hide it -->
