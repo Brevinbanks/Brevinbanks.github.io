@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!--CSS Styles -->
+    <link rel="stylesheet" href="assets/css/styles.css" />
+
+    <!-- Favicons -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="assets/icons/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="assets/icons/favicon-32x32.png"
+    />
+
+    <!-- Animate CSS CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <title>Brevin Banks | Video Filler Remover App</title>
+    
+
+    <style>
+    div.backhead {
+      padding: 1.1rem;
+      background-image: url(page-Revynline.png);
+      background-repeat: no-repeat;
+      /* background-attachment: fixed; */
+      text-shadow: -1px 1px #000000;
+      background-size: cover;
+    }
+
+    div.backblank {
+
+      padding: 1rem;
+      background-color: rgb(255, 255, 255);
+      background-repeat: no-repeat;
+      /* background-attachment: fixed; */
+      
+    
+      background-size: cover;
+    }
+
+
+    </style>
+    
+
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <nav>
+      <h1>Brevin Banks </h1>
+      <ul class="navigation">
+        <li><a href="./index.html" class="nav-link">Home</a></li>
+        <li><a href="#description" class="nav-link">Description</a></li>
+        <li><a href="#WhisperAI" class="nav-link">Whisper AI</a></li>
+        <li><a href="#moviepy" class="nav-link">moviepy</a></li>
+        <li><a href="#Tkinter" class="nav-link">Tkinter GUI</a></li>
+        <li><a href="#Examples" class="nav-link">Example</a></li>
+        <li><a href="#Resources" class="nav-link">Resources</a></li>
+        <li><a href="./index.html#contact" class="nav-link">Contact</a></li>
+        <li><a href="./more.html" class="nav-link">More</a>
+          <ul>
+            <li><a href="./projectportfolio.html">Project Portfolio</a></li>
+            <li><a href="./revdev.html">Revyn Development</a></li>
+            <li><a href="./resources.html">Resources</a></li>
+            <li><a href="./gamedev.html">Game Development</a></li>
+          </ul>
+        </li>
+      </ul>
+      <button class="burger-menu" id="burger-menu">
+        <ion-icon class="bars" name="menu-outline"></ion-icon>
+        <!-- <ion-icon class="times" name="close-outline"></ion-icon> -->
+      </button>
+    </nav>
+    
+    <div class="backhead">
+      <h2 style="color:white;">Video Filler Remover App: For vlog-style videos and youtube essays </h2>
+    </div>
+
+    <div class="backblank">
+
+    </div>
+
+
+
+          <figure style="text-align: center;">
+        <img
+        src="https://private-user-images.githubusercontent.com/62868786/384646774-245fc9fe-6a83-4d55-9b65-d7c925d449fd.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MzEyNzI1MzEsIm5iZiI6MTczMTI3MjIzMSwicGF0aCI6Ii82Mjg2ODc4Ni8zODQ2NDY3NzQtMjQ1ZmM5ZmUtNmE4My00ZDU1LTliNjUtZDdjOTI1ZDQ0OWZkLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDExMTAlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQxMTEwVDIwNTcxMVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWE1NGMwMDNiZGEwMzhlZjUwZGE1ZTMwY2M3NzdmMTEzOGUyNTQyMWRjMTRhMDU1NzAyYTJlNWNmNDAyOTFiZjAmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.QGD283SMO_zTPrDdlWTOBKa9v8sTMI9-viAL8keX698"
+        height = "auto"
+        style="max-width: 40%; height: auto;"
+        alt = "Video Filler App Image"
+        loading ="lazy"
+        />
+      </figure>
+    <!-- More about -->
+    <section class="basicparagraphrightim" id="description">
+
+
+        <h2>Project Description</h2>
+        <p>
+        This project resulted in a useful video editing app for generating youtube videos and vlog-style video essays. The focus here is 
+        on streamlining video editing through automated removal of silence and filler words using advanced audio processing techniques. 
+        The goal is to enhance video quality by cutting unnecessary pauses and verbal crutches, resulting in cleaner, more engaging content. 
+        This application processes video files efficiently and dynamically by allowing the user to tune the triming and cutting parameters for
+        different recording environments and microphone needs. The output is in mp4 format and can accept any mp4 video to trim and cut.
+        However, I am aware that handling long video files may introduce new challenges related to 
+        memory management and processing time. Additionally, user customization for what constitutes "filler" is currently limited, 
+        meaning the app's removals are constrained to predefined patterns based on common speech habits. The current focus is to use whisper ai
+        and moviepy to join audio detection and video editing with machine learning to effectivley streamline the editing process.
+
+
+       <figure>
+         <img 
+         src="assets/images/openaiwhisperlogo.png"
+         height= "auto"
+         alt="Open AI's Whisper Logo"
+         style = "max-width: 80%"
+         loading="lazy"
+         class="basicparagraphrightim-img"
+         />
+         <figcaption>Fig.1 Open AI's Whisper Logo - <i> openai.com/index/whisper</i> .</figcaption>
+       </figure>
+      
+      </p>
+    </section>
+
+<section class="basicparagraphleftim" id="WhisperAI"> 
+    <h2>Whisper AI Integration</h2>
+    <p> The integration of <a href=https://openai.com/index/whisper target="_blank"> Whisper AI</a> into the video processing workflow is 
+        essential for identifying and removing filler words. Whisper, an advanced 
+        speech-to-text model, is capable of analyzing audio to detect specific spoken 
+        phrases, which can then be used to automate the editing process. In our case, 
+        we are particularly interested in filler words such as “um” and silent spaces that tend to disrupt the flow 
+        of videos. 
+    </p> 
+    <div class="code-container align-left">
+      <button class="copy-button">Copy</button>
+    <pre><code class="language-python">model = whisper.load_model("base")</code></pre> </div>
+    <p> Whisper's base model, which is the most basic and popular model, is loaded using the simple command above. 
+        The base model strikes a balance between 
+        speed and accuracy for our needs. Once the model is loaded, we can 
+        pass the audio from the video to it, allowing it to transcribe the entire
+        audio track and return a list of segments. Each segment contains detailed 
+        information about the words spoken, including the start and end timestamps. 
+        </p>
+        <div class="code-container align-left">
+        <button class="copy-button">Copy</button>
+        <pre><code class="language-python">result = model.transcribe(audio_file)</code></pre> </div>
+        <p> The transcription result contains multiple segments, each representing a part of 
+        the audio. This output enables us to pinpoint exactly where filler words occur in the video timeline. 
+        By iterating over these segments, we can extract the relevant parts and search for common filler words 
+        such as “um” or “uh.” The process is simple, but highly effective, as shown in the code snippet below: 
+        </p> 
+        <div class="code-container align-left">
+          <button class="copy-button">Copy</button>
+          <pre><code class="language-python"> "segments = result['segments'] for segment in segments: if 'words' in segment: for
+        word_data in segment['words']: word = word_data.get('text', '').lower() if word == "um": 
+        filler_intervals.append((word_data['start'], word_data['end'])) "</code></pre> </div>
+        <p> The loop iterates over each word detected by Whisper AI, checking if the word 
+        matches our target filler word, "um." If found, it captures the start and end times 
+        for that word and stores them in an interval list. These intervals are later used 
+        (and in our example we add padding after initial detection and before the end of detection for more natural flow) 
+        to precisely cut out the filler words and silence sections from the video.
+      </p> 
+        <p> 
+          This Whisper-based approach to filler word detection is both powerful, and flexible, and just too easy.
+        By adjusting which words we search for or even combining Whisper's capabilities with 
+        silence detection, we can fine-tune our video editing process to create smoother, more
+        concise content. This gives us full control over which parts of the audio to keep, 
+        making it easier to produce polished videos automatically. It is important to note that while automatic, the detection of silences can still take significant time for longer
+      videos, but is miles shorter than the time spent editing by hand. Plus you can multitask! </p>
+        </section>
+
+
+
+
+ <section class="basicparagraphleftim" id="moviepy"> 
+        <div>
+          <figure>
+            <img 
+            src="https://raw.githubusercontent.com/Zulko/moviepy/master/docs/demo_preview.jpeg"
+            height= "auto"
+            alt="Moviepy"
+            loading="lazy"
+            style = "max-width: 80%;"
+            class="basicparagraphleftim-img"
+            />
+            <figcaption>Fig.2 Moviepy Example - <i>moviepy github</i>.</figcaption>
+          </figure>  
+        </div>
+
+
+
+    <br>
+
+ 
+
+    <h2>MoviePy Integration</h2> 
+    <p> <a href=https://github.com/Zulko/moviepy target="_blank"> MoviePy</a> is a key part of the video processing 
+    pipeline in our project. It provides the tools needed to 
+    handle tasks such as cutting out silent sections and removing filler words from videos.
+    In this implementation, we use MoviePy to manipulate video files by loading, editing, 
+    and exporting them. MoviePy’s high-level functions make it easy to cut and rearrange video
+    clips, which is crucial for creating a polished final product. </p> 
+    <div class="code-container align-right">
+      <button class="copy-button">Copy</button>
+    <pre><code class="language-python"> from moviepy.editor import VideoFileClip clip = VideoFileClip(video_file_path) </code></pre> </div>
+    <p> We start by importing the <code>VideoFileClip</code> object from MoviePy, 
+    which allows us to load a video file and treat it as a manipulable object. This 
+    object gives us access to several useful attributes, such as the duration and 
+    audio of the video, which we use when detecting silent or unwanted sections. </p>
+    <div class="code-container">
+      <button class="copy-button">Copy</button>
+    <pre><code class="language-python"> def remove_intervals(clip, intervals): edited_clips = [clip.subclip(start, end)
+    for start, end in intervals] return concatenate_videoclips(edited_clips) </code></pre> </div>
+    <p> The function above handles the actual removal of intervals from the video. We pass 
+    in the video clip and the intervals (such as those containing filler words or silence) 
+    that we want to exclude. The <code>subclip</code> method allows us to extract segments 
+    from the video, and the <code>concatenate_videoclips</code> function stitches those 
+    remaining segments together to form the final, edited video. This method ensures that
+    the unwanted sections are cleanly removed, resulting in a smooth, uninterrupted video.
+    </p> <p> For example, when we detect filler words using Whisper AI and silence detection, 
+    we store the timestamps of the filler sections. These timestamps are then passed
+    into the <code>remove_intervals</code> function, where the video is sliced and
+    reassembled without those portions. This automates the removal process, ensuring
+    efficiency and accuracy while maintaining high video quality. </p> 
+    <div class="code-container">
+      <button class="copy-button">Copy</button>
+    <pre><code class="language-python"> final_clip = remove_intervals(clip, filler_intervals) 
+    final_clip.write_videofile(output_path, codec="libx264", audio_codec="aac") </code></pre> </div>
+    <p> After all the unwanted sections have been removed, the resulting video clip is saved
+    to disk using the <code>write_videofile</code> method. In this example, we use the
+    <code>libx264</code> codec for video encoding and <code>aac</code> for the audio, which are 
+    standard choices for high-quality output. The final video is exported and ready for use without
+    any manual intervention in the cutting process. </p> <p> This approach streamlines the workflow, making it easy to produce
+      videos with minimal effort. By automating the removal of unnecessary content, the 
+    tool becomes a powerful asset for vloggers, podcasters, 
+    and others who need to edit lengthy footage quickly. </p> 
+    </section>
+
+ 
+    <section class="basicparagraphrightim" id="Tkinter">
+      <div>
+        <h2>Video Filler Remover GUI with Tkinter</h2>
+        <p>
+          The app here is designed with a Tkinter GUI.  
+          Tkinter is a Python library used for creating really simple and easy graphical user interfaces (GUIs). It’s built into Python, which makes it easy to use for building desktop apps.
+          Tkinter allows developers to add interactive elements like buttons, sliders, labels, and text boxes to their programs. 
+          Using <code>Tkinter</code>, I created a GUI that provides easy access to the video processing features. 
+          There are 4 core areas I developed for the GUI:
+          <ul><strong>1</strong> The video finder, folder selector, and namer</ul>
+          <ul><strong>2</strong> Three main sliders for adjusting key video processing parameters</ul>
+          <ul><strong>3</strong> Output label and feedback monitor</ul>
+          <ul><strong>4</strong> The preview current clipping video</ul>
+        </br>
+
+        <div>
+          <figure>
+            <img 
+            src="https://private-user-images.githubusercontent.com/62868786/384646454-885cf04b-ca82-457a-8e99-69de247a664a.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MzEyNzUyNDYsIm5iZiI6MTczMTI3NDk0NiwicGF0aCI6Ii82Mjg2ODc4Ni8zODQ2NDY0NTQtODg1Y2YwNGItY2E4Mi00NTdhLThlOTktNjlkZTI0N2E2NjRhLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDExMTAlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQxMTEwVDIxNDIyNlomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTUxMTBhMWI3MmFkNDM4NmVhYTcyNmEyNTU2MzIyMjEzODE4NTEwZDYwNjkyNTIwYTEyMDZlMTVlMWMxODdlZTEmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.idEQ12F5_vypM3DDsFiFfy1TgSN0oyByNnUlKQjExWg"
+            height= "auto"
+            alt="Video Navigation GUI"
+            loading="lazy"
+            style = "max-width: 80%;"
+            class="basicparagraphleftim-img"
+            />
+            <figcaption>Fig.3 Video Selector.</figcaption>
+          </figure>  
+        </br>
+        </div>
+          The video finder, folder selector, and namer are just as they sound and work as you'd expect. You can select the video you want to click and desired output folder and output video name.
+          The output label and feedback monitor let the user know the progress of the video being cut, and also will let the user know if the process fails for any reason.
+          The preview current clipping video is a visual representation of the video being edited. If silences and filler words were properly detected then the video will show the edited clips in the bottom right.
+        </p>
+      </br>
+        <div>
+          <figure>
+            <img 
+            src="https://private-user-images.githubusercontent.com/62868786/384646468-9d3f235a-41be-4299-9bf8-73ab935c3c6b.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MzEyNzUyNDYsIm5iZiI6MTczMTI3NDk0NiwicGF0aCI6Ii82Mjg2ODc4Ni8zODQ2NDY0NjgtOWQzZjIzNWEtNDFiZS00Mjk5LTliZjgtNzNhYjkzNWMzYzZiLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDExMTAlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQxMTEwVDIxNDIyNlomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTc2N2MxOGQ0MWYzNDI3ZjEwNjMzZjhkYzY1ODkyODc2MjZmZTIwNDYzZGJiMTE3OGE3Y2UyNmQxYTFhOGFhNTUmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0In0.v4BCrScWcnx6uzZm92mv_EUKnyPfBotlyBNBp1Fd5PA"
+            height= "auto"
+            alt="Video Navigation GUI"
+            loading="lazy"
+            style = "max-width: 80%;"
+            class="basicparagraphleftim-img"
+            />
+            <figcaption>Fig.4 Video Tune Sliders.</figcaption>
+          </figure>  
+
+          
+        </div>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+        <h3>Sliders in the GUI:</h3>
+
+    
+        <p>
+          The first slider is for the <strong>Sound Decibel Threshold</strong>, which adjusts the sensitivity of the program to sound. By setting a higher threshold, the program will ignore quieter noises and focus only on louder sounds that are likely to be speech or important audio. This is particularly useful in videos where there’s a lot of background noise, as it helps the app avoid accidentally removing useful sounds.
+        </p>
+        <div class="code-container">
+          <button class="copy-button">Copy</button>
+          <pre><code class="language-python"> 
+    # Sound Decibel Threshold Slider
+    sound_decibel_label = ttk.Label(root, text="Sound Decibel Threshold")
+    sound_decibel_label.pack()
+    
+    sound_decibel_slider = ttk.Scale(root, from_=0, to_=100, orient="horizontal", length=300)
+    sound_decibel_slider.set(30)  # Default value
+    sound_decibel_slider.pack()
+          </code>
+        </pre></div>
+    
+        <p>
+          The second slider is the <strong>Padding Slider</strong>, which is used to add a buffer around silent sections before they’re removed. This ensures that when a silent segment is removed, the transition between the remaining audio parts is smooth and not jarring. This padding helps the app create a more natural, flowing audio track.
+        </p>
+        <div class="code-container">
+          <button class="copy-button">Copy</button>
+          <pre><code class="language-python"> 
+    # Padding Slider
+    padding_label = ttk.Label(root, text="Padding (seconds)")
+    padding_label.pack()
+    
+    padding_slider = ttk.Scale(root, from_=0, to=5, orient="horizontal", length=300)
+    padding_slider.set(0.5)  # Default value
+    padding_slider.pack()
+          </code>
+        </pre></div>
+    
+        <p>
+          The third slider controls the <strong>Minimum Silence Length</strong>, which determines the threshold for how long a section of silence must last to be considered for removal. This slider allows the user to define how long the silence should be to get rid of unnecessary pauses in speech. If the silence length is below this threshold, it won't be considered for removal.
+        </p>
+        <div class="code-container">
+          <button class="copy-button">Copy</button>
+          <pre><code class="language-python"> 
+    # Minimum Silence Length Slider
+    min_silence_length_label = ttk.Label(root, text="Min Silence Length (seconds)")
+    min_silence_length_label.pack()
+    
+    min_silence_length_slider = ttk.Scale(root, from_=0, to=10, orient="horizontal", length=300)
+    min_silence_length_slider.set(1)  # Default value
+    min_silence_length_slider.pack()
+          </code>
+        </pre></div>
+
+        <p>
+          Other core features of the GUI are for running and executing the core editing scripts.
+          The <strong>Process Video</strong> button triggers the video processing function, where the settings from all three sliders are passed to the core algorithm that removes the filler words and silences from the video.
+        </p>
+        <div class="code-container">
+          <button class="copy-button">Copy</button>
+          <pre><code class="language-python"> 
+    # Process Button
+    def process_video():
+        min_silence = min_silence_length_slider.get()
+        decibel_threshold = sound_decibel_slider.get()
+        padding = padding_slider.get()
+        
+        # Call the function to process the video with the selected parameters
+        process_filler_remover(min_silence, decibel_threshold, padding)
+    
+    process_button = ttk.Button(root, text="Process Video", command=process_video)
+    process_button.pack(pady=10)
+          </code>
+        </pre></div>
+
+    </section>
+    
+
+
+
+
+      <section class="basicparagraphrightim" id="Examples">
+        <h2>Examples</h2>
+
+        <p>
+          Below is an example of an input video with some music that I play and pause to replicate a video with silences.
+          Check out the Unclipped video below.
+        
+        </p>
+        <section class="video-embed">
+          <div class="video-container">
+            <iframe height="auto" src="https://www.youtube.com/embed/3ziXsL-9_ms?autoplay=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </div>
+          </section>
+        
+        </br>
+
+          <p>
+          The clipped version of the video above that was trimmed with my video filler remover tool is below. You can see that the pauses from the 
+          unclipped version are either completely gone or shortened significantly.
+          
+          </p>
+          <section class="video-embed">
+            <div class="video-container">
+              <iframe height="auto" src="https://www.youtube.com/embed/B_RLQ5_UutM?autoplay=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+            </section>
+          
+            <p>
+          If you want to see a full video with speaking - checkout my <a href="https://www.youtube.com/@Brevengineering/videos" target="_blank">youtube channel</a> where I talk about this very project and go through the code.
+          <section class="video-embed">
+            <div class="video-container">
+              <iframe height="auto" src="https://www.youtube.com/embed/B_RLQ5_UutM?autoplay=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+            </section>
+          </br>
+        </br>
+            The code requires some setup and diffult system changes to work, so I decided to create an executable version that can be used out of the box.
+            See my <a href="https://github.com/Brevinbanks/VideoFillerRemover" target="_blank">github</a> for the code and the <a href="https://github.com/Brevinbanks/VideoFillerRemover/releases" target="_blank">EXE release</a> to learn more.
+
+        </p>
+        </section>
+      
+    <section class="basicparagraphleftim" id="Resources">
+      <h2 align="center">Resources</h2>
+      <p>
+        All source code for this project can be found on <a href="https://github.com/Brevinbanks/RevynArm/tree/main" target="_blank">my github page</a>.
+
+      </p>
+
+    </section>
+
+
+
+
+    <!-- Projects section -->
+    <script type="text/javascript" src="assets/js/shared_content.js">
+    </script>
+    <script type="text/javascript">    writeProjects();
+    </script>
+
+    <!-- Social accounts - Fixed to the right -->
+    <script type="text/javascript" src="assets/js/shared_content.js">
+    </script>
+    <script type="text/javascript">    writeSocials();
+    </script>
+
+    <!-- Scroll to top -->
+  
+    <div id="back-to-top" class="back-to-top animate__animated animate__backOutDown">Back to Top</div>
+
+
+    <!-- Website scripts -->
+    <!-- This script controls the hamburger menu -->
+    <script src="assets/js/app.js"></script>
+
+    <!-- This script will hide the back to top button or show it -->
+    <script type="text/javascript"
+    src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js">
+    </script>
+
+    <script type="text/javascript" language="javascript">
+      $(function () {
+          var $win = $(window);
+
+          $win.scroll(function () {
+              if ($win.scrollTop() < 5){
+                  document.getElementById("back-to-top").classList.remove('back-to-top:hover');
+                  document.getElementById("back-to-top").classList.remove('animate__animated', 'animate__backInUp');
+                  document.getElementById("back-to-top").classList.add('animate__animated', 'animate__backOutDown');
+                }
+                  else{
+                  document.getElementById("back-to-top").classList.add('back-to-top:hover');
+                  document.getElementById("back-to-top").classList.remove('animate__animated', 'animate__backOutDown');
+                  document.getElementById("back-to-top").classList.add('animate__animated', 'animate__backInUp');
+              }
+              
+            });
+          
+      });
+    </script>
+
+        <!-- Ion icons scripts -->
+        <script
+        type="module"
+        src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+      ></script>
+      <script
+        nomodule
+        src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+      ></script>
+
+
+          <!-- JavaScript for copy functionality -->
+    <script>
+      document.querySelectorAll('.copy-button').forEach((button) => {
+          button.addEventListener('click', () => {
+              const code = button.nextElementSibling.querySelector('code').textContent;
+              navigator.clipboard.writeText(code).then(() => {
+                  button.textContent = 'Copied!';
+                  setTimeout(() => (button.textContent = 'Copy'), 2000);
+              }).catch(err => {
+                  console.error('Failed to copy text: ', err);
+              });
+          });
+      });
+  </script>
+  </body>
+
+
+
+<!-- Fix the hamburger menu so tapping away will hide it -->
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Example with Copy</title>
+
+    <!-- Include Prism.js -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+    <!-- Optional CSS for Copy Button -->
+    <style>
+        .code-container {
+            position: relative;
+            background-color: #2d2d2d;
+            padding: 1em;
+            border-radius: 2px;
+            margin-bottom: 1em;
+            max-width: 800px; /* Limit width of code boxes */
+            margin-left: 0; /* Align the code box to the left */
+        }
+        
+
+        .copy-button {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background-color: #15ad7d;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .copy-button:hover {
+            background-color: #157557;
+        }
+
+        /* Aligning code boxes */
+        .align-left {
+            margin-left: 0; /* Default alignment to the left */
+        }
+
+        .align-right {
+            margin-left: auto; /* Align box to the right */
+        }
+
+        .video-embed {
+          display: flex;
+          justify-content: center;  /* Centers the video horizontally */
+          align-items: center;      /* Centers the video vertically if needed */
+          height: 20vh;            /* Optional: makes the parent container take full viewport height */
+        }
+
+        .video-container {
+          display: flex;
+          justify-content: center;  /* Centers iframe horizontally */
+          width: 100%;
+          padding: 5;   /* Aspect ratio 16:9 (9/16 = 0.5625, hence 56.25%) */
+        }
+        .video-embed iframe {
+          width: 100%;        /* Allow full width but limit with max-width */
+          max-width: 50%;     /* Make sure it doesn't exceed 30% of the container */
+          height: auto;
+        }
+
+
+    </style>
+</head>
+
+</html>
