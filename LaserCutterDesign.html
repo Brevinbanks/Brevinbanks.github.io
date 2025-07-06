@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!--CSS Styles -->
+    <link rel="stylesheet" href="assets/css/styles.css" />
+
+    <!-- Favicons -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="assets/icons/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="assets/icons/favicon-32x32.png"
+    />
+
+    <!-- Animate CSS CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <title>Brevin Banks | Laser Cutter Design</title>
+    
+
+    <style>
+    div.backhead {
+      padding: 1.1rem;
+      background-image: url(page-Laserback.png);
+      background-repeat: no-repeat;
+      /* background-attachment: fixed; */
+      text-shadow: -1px 1px #000000;
+      background-size: cover;
+    }
+
+    div.backblank {
+
+      padding: 1rem;
+      background-color: rgb(255, 255, 255);
+      background-repeat: no-repeat;
+      /* background-attachment: fixed; */
+      
+    
+      background-size: cover;
+    }
+
+
+    </style>
+    
+
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <nav>
+      <h1>Brevin Banks </h1>
+      <ul class="navigation">
+        <li><a href="./index.html" class="nav-link">Home</a></li>
+        <li><a href="#description" class="nav-link">Description</a></li>
+        <li><a href="#MachineDesign" class="nav-link">Design</a></li>
+        <li><a href="#Control" class="nav-link">Control</a></li>
+        <li><a href="./index.html#contact" class="nav-link">Contact</a></li>
+        <li><a href="./more.html" class="nav-link">More</a>
+          <ul>
+            <li><a href="./projectportfolio.html">Project Portfolio</a></li>
+            <li><a href="./revdev.html">Revyn Development</a></li>
+            <li><a href="./resources.html">Resources</a></li>
+            <li><a href="./gamedev.html">Game Development</a></li>
+          </ul>
+        </li>
+      </ul>
+      <button class="burger-menu" id="burger-menu">
+        <ion-icon class="bars" name="menu-outline"></ion-icon>
+        <!-- <ion-icon class="times" name="close-outline"></ion-icon> -->
+      </button>
+    </nav>
+    
+    <div class="backhead">
+      <h2 style="color:white;">Laser Cutter: Shayvin Engraver and Laser Cutting Machine </h2>
+    </div>
+
+    <div class="backblank">
+
+    </div>
+
+
+    <!-- More about -->
+    
+    <!-- More about -->
+    <section class="basicparagraphrightim" id="description">
+      <h2>Project Description</h2>
+
+      
+       
+        <p>
+          The purpose of this project was to create a 2 DOF laser cutter and engraver machine from scratch.
+          Ideally, I wanted to make a machine that could engrave and cut wood, plastic, and other materials, and be made soley from 3D printed parts for the frame and
+          other custom parts. I wanted to use an off the shelf laser module and stepper motors to make the machine as simple as possible.
+          Given that the parts were all 3D printed, I wanted to make the machine as modular as possible so that it could be easily assembled and disassembled, but this 
+          came at the cost of some rigidity and vibration dampening. 
+        </p>
+        <p>
+          In this project I will go over the design of the machine, the control system, and the results of the project, and how I over came the vibration challenges, accuracy,
+          and other issues.
+          
+          I intentionally did little research when I started this project, as I wanted to see how well I could design a machine from scratch without any prior knowledge about laser cutter mechanics.
+          I have used laser cutters in industry and school before, but they have always been large scale machines that have tons of bells and whistles auto integrated. Mostly plug and play.
+
+          The laser cutter I am building should cost less than $200 to build and capable enough to cut thin wood to use in framing for future projects.
+        </p>
+                <figure>
+          <img 
+            src="assets/images/ShayvinEngravingInsert.png"
+            style="width: 300px; height: auto;"
+            alt="Shayvin Engraving"
+            loading="lazy"
+          />
+          <figcaption>Fig.1 Shayvin Engraving.</figcaption>
+        </figure>
+        <p>
+          Another motivation for this project was to create a machine that could be used to make small wood burning engravings as a small side business.
+          I've called this business Shayvin Engraving and you can find my etsy shop <a href="https://www.etsy.com/shop/ShayvinEngraving" target="_blank">here</a>. The name “Shayvin” is a blend of my name and my wife's.
+          </p>
+      </section>
+    
+
+
+      <section class="basicparagraphleftim" id="MachineDesign">
+
+        <figure>
+        <img 
+        src="assets/images/laserframe.jpg"
+        height= "auto"
+        alt="Laser cutter framing"
+        loading="lazy"
+        class="basicparagraphleftim-img"
+        />
+        <figcaption>Fig.2 Laser Cutting Fittings and Frame.</figcaption>
+        </figure>
+
+
+
+        <h2>Laser Cutter Design</h2>
+        
+
+        <p>
+
+          The structural system is based on 1-inch square modular beams, all 3D printed in white PLA, with interlocking teeth that let them snap together like a simplified 80/20 system. 
+          I designed a library of reusable corner brackets, plates, and fasteners to go along with the beam system. It’s not perfect, but it let me rapidly adjust the height, width, and layout of the machine during prototyping. 
+          The engraving area came out to about 6 by 8 inches (accounting for the size of the laser module, limit switches, and some padding from the edges in case of motor overshoot), which is adequate for the kind of small table top projects I typically work on.
+        </p>
+        <p>
+          Early on, I tried building the machine around a small red laser diode mounted to a CD-ROM stepper mechanism for Z control. 
+          It was kind of fun to tinker with, but the red laser just wasn’t powerful enough to get clean burns and the z axis control from the CD ROM Stepper had too small a range to prove useful.
+          I decided to scrap the CD ROM Stepper and limit the motion to 2DOF in only X and Y. Instead I added a manual <a href="https://www.thingiverse.com/thing:925556" target="_blank"> z-axis via a 3D printed scissor jack</a> that I found worked quite well. With this I can simply lay the work piece on top of the jack and adjust the height of the jack relative to the laser for however close a cut i need.
+          </p>
+          <p>
+          After a lot of trial and error (and some very smoky failures), I eventually upgraded to a 20W 450nm blue laser module. 
+          This made a huge difference in power, but the new laser burned hot enough that I ran into scorching and soot buildup. I spent some time researching and ended up designing an air assist capsule that attaches around the laser head, powered by a cheap off-the-shelf air compressor. 
+          That one change improved cut quality dramatically as shown in figure 4. Observe the darker and orange areas that extend past the cut lines when air assist is not on.
+        </p>
+
+      </section>
+
+      <section class="basicparagraphrightim" id="laserdesign2">
+        <div>
+      <figure>
+      <img 
+      src="assets/images/Lasers.jpg"
+      height= "auto"
+      alt="A: Move from CD-ROM Stepper to Scissor jack. B: 3 Steppers C: Red Laser Diode. D: Blue Laser Module Upgrade"
+      loading="lazy"
+      class="basicparagraphrightim-img"
+      />
+      <figcaption>Fig.3 A: Move from CD-ROM Stepper to Scissor jack. B: 3 Steppers C: Red Laser Diode. D: Blue Laser Module Upgrade.</figcaption>
+      </figure>
+</div>
+<div>
+      <figure>
+      <img 
+      src="assets/images/AirAssist.jpg"
+      height= "auto"
+      alt="A: Air assist examples. Excess burning, Less burning, Nozzle"
+      loading="lazy"
+      class="basicparagraphleftim-img"
+      />
+      <figcaption></br>Fig.4 A: Air assist examples. Excess burning, Less burning, Nozzle.</figcaption>
+      </figure>
+</div>
+      <p>
+        Motion is controlled using an Arduino with a CNC shield, running GRBL firmware. I power the system with a 12V 15A supply, which also supports a stepper driver cooling fan and a large CPU fan mounted at the back of the enclosure for smoke extraction. 
+        For motion, I use three NEMA 17 stepper motors: two in parallel for the Y axis, and one for the X axis. Each one is mounted on CNC rails, and all lead screws use anti-backlash nuts. 
+        To reduce mechanical play, I designed flexible PLA couplers that allow for slight misalignment while keeping everything tight. This helped minimize binding, which was a big issue in early test runs. 
+        I also added mechanical limit switches for homing the X and Y axes, and a mounted ruler on the base plate to make part alignment easier.
+        You can find all the 3D models for the machine <a href="https://www.cgtrader.com/products/modular-diy-laser-cutter-frame-3d-printable-parts-pla-optimized" target="_blank">here on cgtrader</a>.
+      The wiring for the machine is simple, with the stepper drivers connected to the CNC shield and the laser module controlled via PWM signals from an Arduino nano. 3 stepper drivers are used, one for the X axis and two in parallel for the Y axis.
+      The limit switches are connected the CNC shield as well. If you follow the documentation from GRBL, you can easily wire the machine up and get it running. But I'll address GRBL more in the next section.
+      </p>
+<div>
+      <figure>
+      <img 
+      src="assets/images/CNCWiring.jpg"
+      height= "auto"
+      alt="CNC Wiring Diagram."
+      loading="lazy"
+      class="basicparagraphleftim-img"
+      />
+      <figcaption></br>Fig.5 A: CNC Wiring Diagram.</figcaption>
+      </figure>
+</div>
+      </section>
+
+    <section class="basicparagraphleftim" id="Control">
+  <div>
+    <h2 align="center">Control Electronics & Software (GRBL + LaserGRBL)</h2>
+    
+    <p>
+      After building the mechanical and structural parts of the machine, I needed a way to control the motors and fire the laser reliably. I began to build a python GUI with Tkinter that allowed me to control my machine, but it was very bare bones.
+      I could easily keep developing that tool for the next 4 months, but I figured I'd be reinventing the wheel. After some short research, I found a few packages that I thought would be perfect for my needs.
+      Instead of developing an entire motion planning and motor control stack from scratch, I opted to use <strong>GRBL</strong>, a lightweight, open-source firmware 
+      designed specifically for Arduino-based CNC machines. GRBL interprets standard G-code and translates it into precise stepper motor signals—perfect for 
+      the X and Y axis control I needed for the laser. You can find the GRBL source code on <a href="https://github.com/grbl/grbl" target="_blank">Github</a>.
+    </p>
+      <figure>
+      <img 
+      src="assets/images/Grbl Logo 250px.png"
+      height= "auto"
+      alt="GRBL Logo"
+      loading="lazy"
+      class="basicparagraphleftim-img"
+      href="https://github.com/grbl/grbl"
+      />
+      <figcaption></br>Fig.6 GRBL Logo.</figcaption>
+      </figure>
+    <p>
+      GRBL runs on an Arduino Uno paired with a CNC Shield v3. The CNC Shield provides stepper driver sockets and pin breakouts for limit switches, spindle enable, and more. 
+      Once flashed to the Arduino, GRBL handles all the motion timing and G-code interpretation in real time, meaning I could focus on sending instructions 
+      instead of managing acceleration curves or step pulses myself. I wired the stepper drivers directly into the CNC shield and added mechanical limit switches 
+      on the X and Y axes to allow homing.
+    </p>
+
+    <p>
+      While GRBL runs on the Arduino itself, I needed a user-friendly interface on my PC to send G-code, adjust speeds, and preview toolpaths. That’s where <strong>LaserGRBL</strong> comes in. 
+      LaserGRBL is a free and incredibly lightweight G-code sender and control interface tailored specifically for laser engravers running GRBL firmware. 
+      It provides real-time control over laser power, jogging, homing, G-code file streaming, and even raster image conversion for engraving bitmap images.
+    </p>
+
+    <p>
+      LaserGRBL ended up replacing the custom Python/Tkinter GUI I had originally started writing. I realized that I could spend a month rebuilding features that 
+      LaserGRBL already had—like visual G-code previews, safety overrides, real-time position tracking, and configurable laser power control via M3/M5 commands. 
+      It made my workflow way more efficient and allowed me to focus on the mechanical build and part design rather than reinventing the control software.
+    </p>
+</div>
+</section>
+<section class="basicparagraphrightim" id="GRBLControl">
+  <div>
+      <figure>
+      <img 
+      src="assets/images/LaserGRBL.jpg"
+      height= "auto"
+      alt="LaserGRBL Interface"
+      loading="lazy"
+      class="basicparagraphrightim-img"
+      href="https://lasergrbl.com/"
+      />
+      <figcaption></br>Fig.7 LaserGRBL Interface.</figcaption>
+      </figure>
+    <p>
+      Together, GRBL and LaserGRBL gave me a full-stack control system: low-level stepper control on the Arduino side, and high-level job planning and execution 
+      from my PC. This combination let me go from CAD to G-code to a clean wood burn in just minutes. It’s not perfect, but the out of-the-box functionality makes up for any minor quirks.
+    </p>
+
+
+    <img src="assets/images/revynburn.jpg" alt="Revyn Logo burned in a wood round" loading="lazy" style="width: 20%; max-width: 700px; display: block; margin: 0 auto;" />
+  </div>
+</section>
+
+    <section class="basicparagraphleftim" id="Next Steps">
+    <div>
+      <h2 align="center">Next Steps</h2>
+      <p>
+      This project was a total success! I was able to create a fully functional laser cutter that could be used for small table top projects.
+      It works and can also cut thin sheets of wood. I am excited to see if it will be useful for using in other projects. I also hope that I can improve a few of the design issues.
+      I have noticed that the Air Assist could be stronger and the nozzle could be better attached and aimed. I also think while the scissor jack works well, it could be improved to be more rigid and have a larger range of motion.
+      I also recently got some orange 450nm saftey glass that i want to use to make a safety enclosure for the laser cutter. The fans I installed also are not as strong as I would like.
+
+      Other than that, I am very happy with the results of this project and I am excited to see how it will be used in the future. Check out this video of the laser cutter in action:
+
+     </p>
+
+
+    <div style="text-align:center; padding: 1rem 0;">
+      <iframe 
+        width="720" 
+        height="405" 
+        src="https://www.youtube.com/embed/VuECvyKwd1I?autoplay=0"
+        title="Laser Cutter Demo Video" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen
+        loading="lazy">
+      </iframe>
+    </div>
+
+  </div>
+  </section>
+      
+
+      <!-- <video  width="500px" height="500px" controls autoplay muted loop>
+        <source src="https://media.githubusercontent.com/media/Brevinbanks/Brevinbanks.github.io/main/assets/videos/FKMergedProving.mp4" type="video/mp4" />
+       </video> -->
+
+
+      <!-- Projects section -->
+      <script type="text/javascript" src="assets/js/shared_content.js">
+      </script>
+      <script type="text/javascript">    writeProjects();
+      </script>
+
+      <!-- Social accounts - Fixed to the right -->
+      <script type="text/javascript" src="assets/js/shared_content.js">
+      </script>
+      <script type="text/javascript">    writeSocials();
+      </script>
+
+    <!-- Scroll to top -->
+  
+    <div id="back-to-top" class="back-to-top animate__animated animate__backOutDown">Back to Top</div>
+
+
+    <!-- Website scripts -->
+    <!-- This script controls the hamburger menu -->
+    <script src="assets/js/app.js"></script>
+
+    <!-- This script will hide the back to top button or show it -->
+    <script type="text/javascript"
+    src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js">
+    </script>
+
+    <script type="text/javascript" language="javascript">
+      $(function () {
+          var $win = $(window);
+
+          $win.scroll(function () {
+              if ($win.scrollTop() < 5){
+                  document.getElementById("back-to-top").classList.remove('back-to-top:hover');
+                  document.getElementById("back-to-top").classList.remove('animate__animated', 'animate__backInUp');
+                  document.getElementById("back-to-top").classList.add('animate__animated', 'animate__backOutDown');
+                }
+                  else{
+                  document.getElementById("back-to-top").classList.add('back-to-top:hover');
+                  document.getElementById("back-to-top").classList.remove('animate__animated', 'animate__backOutDown');
+                  document.getElementById("back-to-top").classList.add('animate__animated', 'animate__backInUp');
+              }
+              
+            });
+          
+      });
+    </script>
+
+        <!-- Ion icons scripts -->
+        <script
+        type="module"
+        src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+      ></script>
+      <script
+        nomodule
+        src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+      ></script>
+
+  </body>
+</html>
+
+
+<!-- Fix the hamburger menu so tapping away will hide it -->

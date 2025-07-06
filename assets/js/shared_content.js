@@ -48,7 +48,25 @@ function writeProjects(){
     document.write("          <\/p>");
     document.write("          <a href=\".\/HandEye.html\"  class=\"project-link\">Check it Out<\/a>");
     document.write("        <\/div>");
-    document.write("      <\/div>");
+    document.write("        <div class=\"project-container project-card\">");
+    document.write("          <img");
+    document.write("            src=\"assets\/images\/lasercutter.jpg\"");
+    document.write("            alt=\"Check back for details later\"");
+    document.write("            loading=\"lazy\"");
+    document.write("            class=\"project-pic\"");
+    document.write("          \/>");
+    document.write("          <h3 class=\"project-title\">Custom Laser Cutter<\/h3>");
+    document.write("          <p class=\"project-details\">");
+    document.write("           Fully designed, 3D printed, and built a custom CNC GRBL laser cutter from scratch."); 
+    document.write("          <\/p>");
+    document.write("          <a href=\".\/LaserCutterDesign.html\"  class=\"project-link\">Check it Out<\/a>");
+    document.write("        <\/div>");
+    document.write("        <div>");
+    document.write("          <p class=\"project-details\">");
+    document.write("           <a href=\".\/projectportfolio.html\"  class=\"project-link\">");
+    document.write("           Click here to see more projects...");
+    document.write("          <\/p>");
+    document.write("        <\/div>");
     document.write("    <\/section>");
   };
   
