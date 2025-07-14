@@ -513,6 +513,15 @@ table td {
 
 /* Projects section ends */
 
+.logo-title img {
+  height: 40px;
+  width: auto;
+  margin: 0;
+  padding: 0;
+  display: block;
+  border: none;
+}
+
 /* Contacts section */
 .contact {
   margin-top: 2rem;

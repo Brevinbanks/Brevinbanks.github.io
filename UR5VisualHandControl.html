@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!--CSS Styles -->
+    <link rel="stylesheet" href="assets/css/styles.css" />
+
+    <!-- Favicons -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="assets/icons/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="assets/icons/favicon-32x32.png"
+    />
+
+    <!-- Animate CSS CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <title>Brevin Banks | UR5 Visual Hand Control Via Mediapipe</title>
+    
+
+    <style>
+    div.backhead {
+      padding: 1.1rem;
+      background-image: url(page-mediapipe.png);
+      background-repeat: no-repeat;
+      /* background-attachment: fixed; */
+      text-shadow: -1px 1px #000000;
+      background-size: cover;
+    }
+
+    div.backblank {
+
+      padding: 1rem;
+      background-color: rgb(255, 255, 255);
+      background-repeat: no-repeat;
+      /* background-attachment: fixed; */
+      
+    
+      background-size: cover;
+    }
+
+
+    </style>
+    
+
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <nav>
+
+  <div class="logo-title">
+
+    <h1>Brevin Banks</h1>
+  </div>
+      <ul class="navigation">
+        <li><a href="./index.html" class="nav-link">Home</a></li>
+        <li><a href="#description" class="nav-link">Description</a></li>
+        <li><a href="#ROS" class="nav-link">ROS</a></li>
+        <li><a href="#Gazebo" class="nav-link">Gazebo and Mimic Plugin</a></li>
+        <li><a href="#Mediapipe" class="nav-link">Mediapipe</a></li>
+        <li><a href="#UR5 IK" class="nav-link">UR5 Trajectory IK</a></li>
+        <li><a href="#UR5 Visual Hand Control" class="nav-link">UR5 Visual Hand Control</a></li>
+        <li><a href="#Resources" class="nav-link">Resources</a></li>
+        <li><a href="./index.html#contact" class="nav-link">Contact</a></li>
+        <li><a href="./more.html" class="nav-link">More</a>
+          <ul>
+            <li><a href="./projectportfolio.html">Project Portfolio</a></li>
+            <li><a href="./revdev.html">Revyn Development</a></li>
+            <li><a href="./resources.html">Resources</a></li>
+            <li><a href="./gamedev.html">Game Development</a></li>
+          </ul>
+        </li>
+      </ul>
+      <button class="burger-menu" id="burger-menu">
+        <ion-icon class="bars" name="menu-outline"></ion-icon>
+        <!-- <ion-icon class="times" name="close-outline"></ion-icon> -->
+      </button>
+    </nav>
+    
+    <div class="backhead">
+      <h2 style="color:white;">UR5 Visual Hand Control Via Mediapipe</h2>
+    </div>
+
+    <div class="backblank">
+
+    </div>
+
+
+
+          <figure style="text-align: center;">
+        <img
+        src="assets/images/mediapipemotion.jpg"
+        height = "auto"
+        style="max-width: 40%; height: auto;"
+        alt = "Video Filler App Image"
+        loading ="lazy"
+        />
+        <figcaption>Fig.1 UR5 Visual Hand Control - <i>Brevin Banks</i>.</figcaption>
+      </figure>
+    <!-- More about -->
+    <section class="basicparagraphrightim" id="description">
+
+
+        <h2>Project Description</h2>
+        <p>
+This project resulted in a real-time arm and hand tracking system for robot control using Google's Mediapipe framework integrated with ROS1. Built with my friends Stefan Hustrulid and Baldur Hua at Johns Hopkins University in Spring 2024, our goal was to create a system that maps a user's physical arm movements and finger gestures to the motion of a UR5 robot in simulation, without needing any hardware beyond a webcam. The system uses the hip and wrist landmarks from Mediapipe's pose model to define a 6DOF transform and then computes inverse kinematics on the UR5 to follow that motion. Gripper control is handled using a hand-gesture heuristic based on Mediapipe's hand landmarks, allowing the user to open and close the gripper by flexing their fingers. All ROS communication is done either natively or over websockets, enabling cross-version or cross-machine control.
+
+While the simulation focus was on Gazebo and basic pick-and-place tasks, the project’s broader applications include remote robot teleoperation, low-cost VR training for machine operation and surgery, and interactive control systems for games and education. The system emphasizes simplicity and accessibility—running on a standard laptop with a webcam and supporting both full robot control and visualization out of the box. We deliberately avoided expensive motion tracking systems and instead built an entire ROS control stack that can be driven by your body alone. The kinematics are implemented from scratch using geometric twists, Jacobians, and Broyden’s method to convert the transform stream into real robot joint angles.
+
+
+    </section>
+
+    
+
+ <section class="basicparagraphrightim" id="ROS"> 
+    <h2>ROS Melodic</h2> 
+             <div>
+          <figure>
+            <img 
+            src="assets/images/rosubuntu.png"
+            height= "auto"
+            alt="ROS Melodic on Ubuntu 18.04"
+            loading="lazy"
+            style = "max-width: 80%;"
+            class="basicparagraphrightim-img"
+            />
+            <figcaption>ROS Melodic on Ubuntu 18.04 - <i>ros.org</i>.</figcaption>
+          </figure>  
+        </div>
+    <p> If you're unfamilar with ROS, the high-level description is that it is a framework for building robotics applications. It is a collection of tools and libraries that allow you to build complex robotic systems. The ROS ecosystem includes a variety of packages that can be used to create robots, sensors, and other robotic systems.
+    <br><br>
+      ROS1 Melodic is a version of ROS that is widely used in robotics research and development. It's certainly more dated now, but is good for learning and has a lot of documentation.
+      <br><br>
+      ROS2 is a newer version of ROS that is becoming more widely used. It is designed to be more flexible and scalable than ROS1.
+      <br><br>
+      Rviz is a popular visualization tool that can be used to display and interact with robotic systems.
+      <br><br>
+      Gazebo is a popular open-source robot physics simulator that can be used to create and test robotic systems which we'll look at in more detail later.
+      <br><br>
+      At the kick off of this project, a distribution with a ur5 simulation on ROS-melodic was already readily available on our research machines so we decided to use that as our base. In the future, I may consider porting this to ROS2, but for now, we will focus on the ROS1 implementation.
+    </p>
+
+<p>
+To support this project, we used a standard ROS1 catkin workspace structure organized under `cv_workspace`. Inside the `src/cv_ur5_project/` directory, the core functionality is distributed across ROS packages, URDF/Xacro robot descriptions, YAML controller configs, and a collection of Python scripts handling joint control, transforms, and vision integration. Launch files were used extensively to bring up modular systems—one for the robot model and controllers, another for Rviz, and another for utility nodes like joint state publishers. These `.launch` files allow modular and repeatable startup sequences with ROS parameters passed through XML syntax and dynamic reconfiguration.
+</p>
+             <div>
+          <figure>
+            <img 
+            src="assets/images/ur5.png"
+            height= "auto"
+            alt="UR5 Robot"
+            loading="lazy"
+            style = "max-width: 40%;"
+            class="basicparagraphrightim-img"
+            />
+            <figcaption>UR5 Robot.</figcaption>
+          </figure>  
+        </div>
+<p>
+To interface Mediapipe's Python 3 codebase with the Python 2.7 ROS system (Mediapipe requires Python3.7+), we relied on the `rosbridge_websocket` package to send messages across the version divide. This enabled us to run vision processing with modern Python libraries while still publishing ROS-compatible topics. We extended and refactored the `CMakeLists.txt` and `package.xml` files to include dependencies like `rospy`, `sensor_msgs`, `geometry_msgs`, and custom scripts such as `ur5_FKandJacob.py`. Building the project required `catkin_make` and properly sourcing the environment. The UR5's kinematic model, defined using URDF and mesh files, tied the simulation back to real-world robot behavior, ensuring our custom inverse kinematics solutions matched ROS's joint state conventions. Overall, the workspace was structured for modularity, simulation speed, and easy integration with external Python3-based tools.
+</p>
+
+<p>As I breifly mentioned, we are using a model of a ur5 with a robotiq end effector as our simulation robot. All the forward kinematics, jacobian, and inverse kinematics were solved by me by hand using basic robotics mathematics tools (DH parameters, screws and exponential twists, etc.) prior to the start of this project. See my other <a href="http://127.0.0.1:5500/RevynFKIK.html" target="_blank">robotics</a> project to see my typical approach to solving this.</p>
+<p>
+  All the details on how to build this ROS workspace can be found in the <a href="https://github.com/Brevinbanks/ur5_mediapipe_motion/blob/main/README.md" target="_blank">README</a> file on the github page. This discusses the cv_workspace, dependencies, and what each file does.
+  And of course how to build and run the project.
+</p>
+    </section>
+
+
+ 
+    <section class="basicparagraphrightim" id="Gazebo">
+      <div>
+        <h2>Gazebo and Mimic Plugin</h2>
+          <p>
+            Gazebo was used as the physics simulation environment for this project, allowing us to model the UR5 robot, gripper, table, camera, and cube with full collision and dynamic behavior. The simulation environment mimics a basic pick-and-place task, where a blue cube starts on the table and can be manipulated using the robot’s gripper under control of the Mediapipe-derived motion data. The world model is kept simple for performance, but the physical properties like mass, friction, and gravity are modeled realistically enough to allow accurate behavior of the robot arm under trajectory control.
+          </p>
+
+        <div>
+          <figure>
+            <img 
+            src="assets/images/Gazebo.jpg"
+            height= "auto"
+            alt="Gazebo Simulation"
+            loading="lazy"
+            style = "max-width: 50%;"
+            class="basicparagraphleftim-img"
+            />
+            <figcaption>Gazebo Simulation.</figcaption>
+          </figure>  
+        </br>
+        </div>
+        </p>
+        </div>
+          <p>
+            To enable finger-level actuation of the robot’s end effector in simulation, we used the <a href="https://github.com/roboticsgroup/roboticsgroup_gazebo_plugins" target=_blanks><code>roboticsgroup_gazebo_plugins</code></a> package, specifically its <code>MimicJointPlugin</code>. This plugin synchronizes the motion of the parallel gripper’s joints, allowing the simulated gripper to actually pick up objects and close symmetrically from a single effort command. URDF and Xacro files for the gripper, table, and cube are included in the project, and the launch files load them into the Gazebo environment during simulation. Combined with joint effort controllers defined in YAML, the system allows users to see real-time interaction between the robot and environment, test grasping strategies, and debug kinematics—all without touching physical hardware. The result is a full loop: vision in Python3 drives transforms, which update robot motion in ROS, which gets visualized and verified in Gazebo.
+          </p>
+
+        </section>
+
+<section class="basicparagraphleftim" id="Mediapipe"> 
+
+  
+
+       <figure>
+         <img 
+         src="assets/images/mediapipe_small_logo.png"
+         height= "auto"
+         alt="Mediapipe Small Logo"
+         style = "max-width: 80%"
+         loading="lazy"
+         class="basicparagraphrightim-img"
+         />
+         <figcaption>Fig.2 Mediapipe Logo - <i> chuoling.github.io/mediapipe/</i> .</figcaption>
+       </figure>
+      
+      </p>
+      <figure>
+          <img src="https://chuoling.github.io/mediapipe/images/mobile/pose_tracking_android_gpu_small.gif" width="64" alt="Pose Tracking Demo"
+          alt="Pose Tracking Demo"
+          loading="lazy"
+          style = "max-width: 80%;"
+          class="basicparagraphrightim-img">
+          <figcaption> Pose Tracking Demo</figcaption>
+      </figure>
+      <figure>
+          <img src="https://chuoling.github.io/mediapipe/images/mobile/hand_tracking_android_gpu_small.gif" width="64" alt="Hand Tracking Demo"
+          loading="lazy"
+          style = "max-width: 80%;"
+          class="basicparagraphrightim-img">
+          <figcaption> Hand Tracking Demo</figcaption>
+      </figure>
+
+    <h2>Mediapipe for Pose and Hand Tracking</h2>
+
+<p>
+The integration of <a href="https://github.com/google-ai-edge/mediapipe" target="_blank">Mediapipe</a> into our ROS-based control system enables fast (If your hardware can keep up), markerless tracking of human pose and hand landmarks for robot manipulation. Mediapipe uses a single webcam to extract full-body landmarks in real time, allowing us to infer arm pose and hand gestures without any external sensors. In this system, we use the wrist and hip positions to compute a 6DOF transform, which serves as the target pose for a UR5 robot. This transform is translated into joint commands using custom inverse kinematics solvers written from scratch. The hand landmarks allow us to estimate finger curl and drive the robot gripper open or closed accordingly, making for an intuitive and hardware-free control scheme.
+</p>
+
+<p>
+This method of pose-driven control eliminates the need for expensive tracking systems, making it ideal for teleoperation, training simulations, or immersive robot interfaces. The integration with ROS allows full use of Gazebo physics, Rviz visualization, and existing robot control stacks. Users can run the system out of the box on a laptop with a webcam and control a simulated robot arm using nothing but their own hand and arm motion. Combined with websocket communication and our Python GUI, this setup is adaptable to many use cases including surgical training, VR prototyping, or remote robot manipulation in constrained environments.
+</p>
+<h3>Pose and Hand Tracking in Python</h3>
+<p>
+To implement the pose and hand tracking functionality, we use the mediapipe library in Python. This library provides pre-trained models for detecting human pose and hand landmarks, which we can use to extract the necessary information for controlling the UR5 robot. The code snippet below shows how we initialize the mediapipe pose and hand solutions:
+</p>
+
+
+    <div class="code-container align-left">
+      <button class="copy-button">Copy</button>
+    <pre><code class="language-python">    
+    import mediapipe as mp
+    mp_drawing = mp.solutions.drawing_utils
+    mp_pose = mp.solutions.pose
+    mp_hands = mp.solutions.hands
+    pose = mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5)
+    hands = mp_hands.Hands(min_detection_confidence=0.5, min_tracking_confidence=0.5)
+  </code></pre> </div>
+    <p> In conjunction with OpenCV, we can process each frame with the given Mediapipe landmarks in pose and hands to extract what position and orientation the wrist is in relative to the hip.
+        </p>
+        <div class="code-container align-left">
+        <button class="copy-button">Copy</button>
+        <pre><code class="language-python">    while cap.isOpened():
+        ret, frame = cap.read()
+        if not ret:
+            break
+
+        frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        pose_results = pose.process(frame_rgb)
+
+        if not pose_results.pose_world_landmarks:
+            continue
+
+        hip_pos = pose_results.pose_world_landmarks.landmark[R_Hip]
+        wrist_pos = pose_results.pose_world_landmarks.landmark[R_Wrist]
+        #... code for interpreting the landmarks and calculating the transform ...
+      </code></pre> </div>
+      See the <a href="https://github.com/Brevinbanks/ur5_mediapipe_motion/blob/main/python3files/ur5_arm_vision_2_trans_and_grip_python3_talker.py" target="_blank">full mediapipe to homogoneous transform and gripper control code</a> for more details.
+        <p> Simultaneousley, we observe the hand landmarks and pose estimation in an OpenCV window to verify tracking is working properly. This GUI also displays the estimated transform position and orientation for writst to hip.</p> 
+        
+        <figure>
+         <img 
+         src="assets/images/handtracking.jpg"
+         height= "auto"
+         alt="Hand Tracking"
+         style = "max-width: 80%"
+         loading="lazy"
+         class="basicparagraphrightim-img"
+         />
+        <figcaption>Fig.3 Hand Tracking</figcaption>
+       </figure>
+
+       <figure>
+        <img 
+         src="assets/images/posetracking.jpg"
+         height= "auto"
+         alt="Pose Tracking"
+         style = "max-width: 80%"
+         loading="lazy"
+         class="basicparagraphrightim-img"
+         />
+         <figcaption>Fig.4 Pose Tracking</figcaption>
+       </figure>
+
+        <p> My machine struggles to keep up with the real-time processing of the video stream, while communicating with ROS and Gazebo on the Web socket. Because of this, the simulation moves much slower than it would on a system with a deadicated GPU and linux OS (I am using VM workstation for Ubuntu 18.04 on Windows 10).
+          So to preserve loop rate fidelity, I don't draw every finger joint in the final version of the GUI, but the background processing is still done on the hand landmarks.
+      </p> 
+        <p> 
+        The hand state is classified by checking the distance between the thumb and index finger. If they are close together this means the hand is closed and vice versa.
+        This state is published to the ROS topic <code>/gripper_condition</code>
+        </p>
+        <p>
+          The pose state is classified by checking the distance between the wrist and hip. The hip is mapped to the origin of the UR5 robot, and the wrist is mapped to the goal pose end effector.
+          The relation is defined as 6DOF homogeneous transform that is published to the ROS topic <code>/mediapipe_transform</code>.
+          However this is not a perfect 1:1 mapping. The ur5 is longer than a typical human arm, and human arms differ in length. To compensate for this, we included a scaling factor the user can adjust that scales amount of movement in the X, Y, and Z directions.
+          The array 'scaling' has 3 respective values that a user can tune in ur5_arm_vision_2_trans_and_grip_python3_talker.py to make movement of the ur5 feel more natural and within a comfortable range for the users task.
+          For example, if the user needs the ur5 to move more in the x direction, they can increase the value of scaling[0] in the array to 2 for instance. This means that the ur5 will move twice as far in the x direction for every 1 unit of distance the wrist moves from the hip.
+        </p>
+        </section>
+
+
+
+
+ 
+    <section class="basicparagraphrightim" id="UR5 IK">
+      <div>
+        <h2>UR5 Trajectory IK</h2>
+        <p>
+          The most technically rigorous aspect of the robot control was the motion planning via IK. A robust algorithm that prevents jumping, avoids singularities, and ensures smooth motion is Broyden’s method.
+          <a href="https://en.wikipedia.org/wiki/Broyden%27s_method" target=_blank>Broyden's method</a> is a numerical method for solving nonlinear equations, which we adapted to compute the inverse kinematics of the UR5 robot. The method iteratively refines an initial guess for the joint angles until the end effector's position matches the desired target pose derived from the Mediapipe landmarks.
+          This is done via the damped pseudo-inverse of the Jacobian matrix where Broyden's method is introducing this dampng term to prevent the algorithm from jumping around. The damping term is a scalar that is added to the diagonal elements of the Jacobian matrix, which helps to stabilize the solution and prevents the algorithm from getting stuck in local minima.
+
+
+
+  <p>
+    In our system, the robot's joint angles <code>q</code> are calculated using inverse kinematics (IK) by aligning the robot's end effector pose with a desired transform from the user's hand. 
+    Since the UR5 robot’s forward kinematics are nonlinear, we can’t directly compute joint angles from a desired pose. Instead, we use a quasi-Newton iterative solver: <strong>Broyden’s method</strong>.
+  </p>
+
+  <p>
+    Broyden’s method solves the nonlinear equation:
+  </p>
+
+  <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+    <mi>F</mi><mo>(</mo><mi>q</mi><mo>)</mo><mo>=</mo>
+    <msub><mi>T</mi><mtext>desired</mtext></msub>
+    <mo>-</mo>
+    <mi>T</mi><mo>(</mo><mi>q</mi><mo>)</mo>
+  </math>
+
+  <p>
+    Here:
+    <ul>
+      <li><code>q</code> is the 6×1 vector of UR5 joint angles</li>
+      <li><code>T(q)</code> is the forward kinematics output pose</li>
+      <li><code>T<sub>desired</sub></code> is the target hand pose from Mediapipe</li>
+      <li><code>F(q)</code> is the pose error (both position and rotation)</li>
+    </ul>
+  </p>
+
+  <p>
+    Because calculating the true Jacobian <code>J = ∂F/∂q</code> at each step is costly or analytically complex, we use Broyden’s method to iteratively approximate the Jacobian:
+  </p>
+
+  <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+    <mi>B</mi><mo><sub>k+1</sub></mo><mo>=</mo>
+    <mi>B</mi><mo><sub>k</sub></mo><mo>+</mo>
+    <mfrac>
+      <mrow>
+        <mo>(</mo><mi>y</mi><mo>-</mo><mi>B</mi><mo><sub>k</sub></mo><mi>s</mi><mo>)</mo>
+        <mo>&#x2297;</mo>
+        <mi>s</mi>
+      </mrow>
+      <mrow><msup><mi>s</mi><mn>2</mn></msup></mrow>
+    </mfrac>
+  </math>
+
+  <p>
+    Where:
+    <ul>
+      <li><code>B<sub>k</sub></code> is the current Jacobian approximation</li>
+      <li><code>s = q<sub>k+1</sub> - q<sub>k</sub></code> is the change in joint angles</li>
+      <li><code>y = F(q<sub>k+1</sub>) - F(q<sub>k</sub>)</code> is the change in pose error</li>
+      <li><code>⊗</code> denotes the outer product</li>
+    </ul>
+  </p>
+
+  <h3>Damping for Stability</h3>
+
+  <p>
+    Near singular configurations or extreme joint limits, a direct inverse of the Jacobian can cause instability or large jumps. To handle this, we use <strong>damped least squares</strong>:
+  </p>
+
+  <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+    <mo>&#x2206;</mo><mi>q</mi><mo>=</mo>
+    <mo>(</mo><msup><mi>J</mi><mo>T</mo></msup><mi>J</mi><mo>+</mo><msup><mi>&lambda;</mi><mn>2</mn></msup><mi>I</mi><mo>)</mo><mo><sup>-1</sup></mo>
+    <msup><mi>J</mi><mo>T</mo></msup>
+    <mi>F</mi><mo>(</mo><mi>q</mi><mo>)</mo>
+  </math>
+
+  <p>
+    Where:
+    <ul>
+      <li><code>Δq</code> is the update to joint angles</li>
+      <li><code>J</code> is the Jacobian (or <code>B<sub>k</sub></code>)</li>
+      <li><code>λ</code> is the damping factor (tunable)</li>
+      <li><code>I</code> is the identity matrix</li>
+    </ul>
+    Damping helps the solver remain stable and prevents joint velocity spikes, especially when the pose error is small or the Jacobian is ill-conditioned.
+  </p>
+
+  <p>
+    We apply these updates frame-by-frame as the user moves, so the inverse kinematics solver runs in real-time and smoothly adapts to the user’s right-hand position and orientation. The result is a responsive and natural motion tracking experience that mimics human movement while maintaining numerical safety.
+  </p>
+</section>
+
+    
+
+
+
+
+      <section class="basicparagraphrightim" id="UR5 Visual Hand Control">
+        <h2>UR5 Visual Hand Control With Mediapipe</h2>
+
+        <p>
+          It all works! With a faster computer it would work even better. 
+          Here is a video of the UR5 robot being controlled by a webcam and mediapipe. The user is moving their hand in front of the camera, and the robot is following the motion of the hand. The gripper is also being controlled by the hand gesture.
+        
+        </p>
+  <div class="video-container" style="min-height: 500px;">
+    <iframe 
+      style="width: 100%; height: auto; min-height: 500px;" 
+      src="https://www.youtube.com/embed/SwkzAVxf8tw?autoplay=0" 
+      frameborder="0" 
+      allow="autoplay; encrypted-media" 
+      allowfullscreen>
+    </iframe>
+  </div>
+
+        
+        </section>
+
+  
+    <section class="basicparagraphleftim" id="Resources">
+      <h2 align="center">Resources</h2>
+      <p>
+        A special thanks again to Stefan Hustrulid and Baldur Hua for their contributions to this project.
+        <br><br>
+        All source code for this project and steps on how to run it can be found on <a href="https://github.com/Brevinbanks/ur5_mediapipe_motion/tree/main" target="_blank">my github page</a>.
+
+      </p>
+
+    </section>
+
+
+
+
+    <!-- Projects section -->
+    <script type="text/javascript" src="assets/js/shared_content.js">
+    </script>
+    <script type="text/javascript">    writeProjects();
+    </script>
+
+    <!-- Social accounts - Fixed to the right -->
+    <script type="text/javascript" src="assets/js/shared_content.js">
+    </script>
+    <script type="text/javascript">    writeSocials();
+    </script>
+
+    <!-- Scroll to top -->
+  
+    <div id="back-to-top" class="back-to-top animate__animated animate__backOutDown">Back to Top</div>
+
+
+    <!-- Website scripts -->
+    <!-- This script controls the hamburger menu -->
+    <script src="assets/js/app.js"></script>
+
+    <!-- This script will hide the back to top button or show it -->
+    <script type="text/javascript"
+    src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js">
+    </script>
+
+    <script type="text/javascript" language="javascript">
+      $(function () {
+          var $win = $(window);
+
+          $win.scroll(function () {
+              if ($win.scrollTop() < 5){
+                  document.getElementById("back-to-top").classList.remove('back-to-top:hover');
+                  document.getElementById("back-to-top").classList.remove('animate__animated', 'animate__backInUp');
+                  document.getElementById("back-to-top").classList.add('animate__animated', 'animate__backOutDown');
+                }
+                  else{
+                  document.getElementById("back-to-top").classList.add('back-to-top:hover');
+                  document.getElementById("back-to-top").classList.remove('animate__animated', 'animate__backOutDown');
+                  document.getElementById("back-to-top").classList.add('animate__animated', 'animate__backInUp');
+              }
+              
+            });
+          
+      });
+    </script>
+
+        <!-- Ion icons scripts -->
+        <script
+        type="module"
+        src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+      ></script>
+      <script
+        nomodule
+        src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+      ></script>
+
+
+          <!-- JavaScript for copy functionality -->
+    <script>
+      document.querySelectorAll('.copy-button').forEach((button) => {
+          button.addEventListener('click', () => {
+              const code = button.nextElementSibling.querySelector('code').textContent;
+              navigator.clipboard.writeText(code).then(() => {
+                  button.textContent = 'Copied!';
+                  setTimeout(() => (button.textContent = 'Copy'), 2000);
+              }).catch(err => {
+                  console.error('Failed to copy text: ', err);
+              });
+          });
+      });
+  </script>
+  </body>
+
+
+
+<!-- Fix the hamburger menu so tapping away will hide it -->
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Example with Copy</title>
+
+    <!-- Include Prism.js -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+    <!-- Optional CSS for Copy Button -->
+    <style>
+        .code-container {
+            position: relative;
+            background-color: #2d2d2d;
+            padding: 1em;
+            border-radius: 2px;
+            margin-bottom: 1em;
+            max-width: 800px; /* Limit width of code boxes */
+            margin-left: 0; /* Align the code box to the left */
+        }
+        
+
+        .copy-button {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background-color: #15ad7d;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .copy-button:hover {
+            background-color: #157557;
+        }
+
+        /* Aligning code boxes */
+        .align-left {
+            margin-left: 0; /* Default alignment to the left */
+        }
+
+        .align-right {
+            margin-left: auto; /* Align box to the right */
+        }
+
+        .video-embed {
+          display: flex;
+          justify-content: center;  /* Centers the video horizontally */
+          align-items: center;      /* Centers the video vertically if needed */
+          height: 20vh;            /* Optional: makes the parent container take full viewport height */
+        }
+
+        .video-container {
+          display: flex;
+          justify-content: center;  /* Centers iframe horizontally */
+          width: 100%;
+          padding: 5;   /* Aspect ratio 16:9 (9/16 = 0.5625, hence 56.25%) */
+        }
+        .video-embed iframe {
+          width: 100%;        /* Allow full width but limit with max-width */
+          max-width: 50%;     /* Make sure it doesn't exceed 30% of the container */
+          height: auto;
+        }
+
+
+    </style>
+</head>
+
+</html>
