@@ -91,14 +91,6 @@ function writeProjects(){
   document.write("          loading=\"lazy\"");
   document.write("          class=\"socicon\"");
   document.write("      \/><\/a>");
-  document.write("      <a href=\"https:\/\/app.joinhandshake.com\/stu\/users\/43200986\" target=\"_blank\"");
-  document.write("        ><img");
-  document.write("          src=\"assets\/icons\/icons8-handsharke.png\"");
-  document.write("          alt=\"Handshake\"");
-  document.write("          title=\"Handshake\"");
-  document.write("          loading=\"lazy\"");
-  document.write("          class=\"socicon\"");
-  document.write("      \/><\/a>");
   document.write("      <a href=\"https:\/\/github.com\/Brevinbanks\" target=\"_blank\"");
   document.write("        ><img");
   document.write("          src=\"assets\/icons\/icons8-smallgit.png\"");
