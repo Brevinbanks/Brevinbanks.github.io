@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!--CSS Styles -->
+    <link rel="stylesheet" href="assets/css/styles.css" />
+
+    <!-- Favicons -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="assets/icons/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="assets/icons/favicon-32x32.png"
+    />
+
+    <!-- Animate CSS CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <title>Brevin Banks | Cartesian Robot 3 Axis CNC Style Machine</title>
+    
+
+    <style>
+    div.backhead {
+      padding: 1.1rem;
+      background-image: url(page-back3AxisGears.png);
+      background-repeat: no-repeat;
+      /* background-attachment: fixed; */
+      text-shadow: -1px 1px #000000;
+      background-size: cover;
+    }
+
+    div.backblank {
+
+      padding: 1rem;
+      background-color: rgb(255, 255, 255);
+      background-repeat: no-repeat;
+      /* background-attachment: fixed; */
+      
+    
+      background-size: cover;
+    }
+
+
+    </style>
+    
+
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <nav>
+
+  <div class="logo-title">
+
+    <h1>Brevin Banks</h1>
+  </div>
+      <ul class="navigation">
+        <li><a href="./index.html" class="nav-link">Home</a></li>
+        <li><a href="#description" class="nav-link">Description</a></li>
+        <li><a href="#CartRobot" class="nav-link">Cartesian Robots</a></li>
+        <li><a href="#Kinematics" class="nav-link">Kinematics</a></li>
+        <li><a href="#Electronics" class="nav-link">Electronics</a></li>
+        <li><a href="#Programming" class="nav-link">Programming</a></li>
+        <li><a href="#Functionality" class="nav-link">Functionality</a></li>
+        <li><a href="#Resources" class="nav-link">Resources</a></li>
+        <li><a href="./index.html#contact" class="nav-link">Contact</a></li>
+        <li><a href="./more.html" class="nav-link">More</a>
+          <ul>
+            <li><a href="./projectportfolio.html">Project Portfolio</a></li>
+            <li><a href="./revdev.html">Revyn Development</a></li>
+            <li><a href="./resources.html">Resources</a></li>
+            <li><a href="./gamedev.html">Game Development</a></li>
+          </ul>
+        </li>
+      </ul>
+      <button class="burger-menu" id="burger-menu">
+        <ion-icon class="bars" name="menu-outline"></ion-icon>
+        <!-- <ion-icon class="times" name="close-outline"></ion-icon> -->
+      </button>
+    </nav>
+    
+    <div class="backhead">
+      <h2 style="color:white;">Cartesian Robot 3 Axis CNC Style Machine</h2>
+    </div>
+
+    <div class="backblank">
+
+    </div>
+
+
+
+          <figure style="text-align: center;">
+        <img
+        src="assets/images/3axisrenderandreal.png"
+        height = "auto"
+        style="max-width: 40%; height: auto;"
+        alt = "Isometric View of Cartesian Robot"
+        loading ="lazy"
+        />
+        <figcaption>Fig.1 My Cartesian Robot.</figcaption>
+      </figure>
+    <!-- More about -->
+    <section class="basicparagraphrightim" id="description">
+
+
+        <h2>Project Description</h2>
+        <p>
+I had an itch to test my rapid prototyping skills. During the summer I gave myself 2 weeks to design, build, and program a cartesian robot from scratch.
+I wanted the architecture to be completley custom, without a lot of outside research that would bias my design from my own raw ideas.
+The project was a success, but because I was working in isolation I definitely made a few mistakes that I've learned much from. I could easily do this again much better.
+</p>
+<p>Anyway, that said... I the goal was to see if I could create a robot that worked similar to that of 3D printers and Laser Cutters. I designed the end effector to have an interchangeable interface for cylindrical tools like a pen or X-acto knife.
+  I did this project prior to my Laser Cutter build which you can learn more about here: <a href="LaserCutterDesign.html">Laser Cutter Design</a>.
+This project certainly laid the ground work for that laser cutter and resulted in a fun little desk machine. Don't mind the wacky gold and green coloring - I had to work with the old PLA I had on hand.</p>
+    </section>
+
+    
+
+ <section class="basicparagraphrightim" id="CartRobot"> 
+    <h2>Cartesian (3 DOF Linear Axis) Robots </h2>  
+             <div>
+          <figure>
+            <img 
+            src="assets/images/wikicart.png"
+            height= "auto"
+            alt="Cartesian Robot model from Wikipedia"
+            loading="lazy"
+            style = "max-width: 80%;"
+            class="basicparagraphrightim-img"
+            />
+            <figcaption>Cartesian Robot model from <a href="https://en.wikipedia.org/wiki/Cartesian_coordinate_robot" target="_blank">Wikipedia</a>.</figcaption>
+          </figure>  
+        </div>
+    <p> 
+      The manufacturing industry has widely used the term "Cartesian robot" to describe a robot with a linear actuator and a linear drive system. 
+      These robots are often used in industrial automation and are commonly found in assembly lines, 2D plotting machines, 3D printers, and CNC machines.
+      They are easily adopted because the hardware and setup is cheap, modular, and easy to program.
+    </p>
+    <p>
+      The robot typically features 3 linear actuators or rotary motors built on belt drives or rack and pinions to drive highly accurate and easily repeatable X-Y-Z motion.
+      Because of the simplicity of the design, programming the robots and solving the kinematics is as simple as mapping each independent axis actuation to the respective X, Y, and Z coordinates.
+      The frames are made of sturdy materials with vibration resistant fasteners and damping systems to ensure stability and longevity. 
+      The end effector can easily be swapped out for different tools according to the task need like a 3D printer extruder or a CNC drill.
+      With all this in mind, this task was slated as fairly simple to execute for me once I had the materials and parts.
+    </p>
+          <p>
+             The whole system was designed without any references or research so I often went with the first idea that came to mind. 
+             I decided to make use of a rack and pinion drive system for all 3 Axis. 
+             I am well experienced with the Fusion <a href="https://apps.autodesk.com/FUSION/en/Detail/Index?id=7406751190124311038&appLang=en&os=Win64" target="_blank">FM Gears </a> add on
+             which is a great tool for procedurally generating gears. I love it because it can do basic gears, internal gears, and rack and pinion gears.
+             You can also specify the number of teeth, pressure angle, and module size, pitch diameter, etc.
+          </p>
+          <p>
+            My familiarity with this tool and curisoity with the different gears I could make encouraged me to use them for the entire drive system. I know most systems
+            use belts and rotarty motors, but I didn't have belts on hand or high torque rotary motors that were as small as I needed. I was aiming for something that fits neatly
+            on a desk and most printable parts should be able to fit on my Ender 3 8"x8" build plate. The total range of motion of the robot is about 5"x8"X1" which isn't big,
+            but can fit automated tasks like drawing, engraving, or tapping on a small screen or card.
+          </p>
+    </section>
+
+
+ 
+    <section class="basicparagraphrightim" id="Kinematics">
+      <div>
+        <h2>Cartesian Kinematics</h2>
+
+
+ <p>
+      Because the Cartesian robot uses rack and pinion gears for all three axes, each step of the stepper motor translates into a specific linear motion. 
+      Solving the forward kinematics is straightforward: each axis is decoupled, and the motion can be computed by understanding the relation between 
+      stepper motor rotation and rack linear displacement.
+    </p>
+    <p>
+      The linear travel per motor step is determined by the pitch diameter of the gear and the number of steps per revolution of the motor. 
+      For rack and pinion systems, the linear travel per revolution is equal to the circumference of the gear:
+    </p>
+    <pre><code>
+      travel_per_rev = π × pitch_diameter
+      steps_per_inch = steps_per_rev / travel_per_rev
+      linear_distance = steps / steps_per_inch
+    </code></pre>
+     <div>
+          <figure>
+            <img 
+            src="assets/images/XYZCartesian.jpg"
+            height= "auto"
+            alt="XYZ Cartesian Robot"
+            loading="lazy"
+            style = "max-width: 50%;"
+            class="basicparagraphleftim-img"
+            />
+            <figcaption>Cartesian Robot XYZ Axis.</figcaption>
+          </figure>  
+        </br>
+        </div>
+        </p>
+        </div>
+    <p>Here's how it works for each axis in this design:</p>
+    <ul>
+      <li><strong>X Axis</strong>: Pitch Diameter = 0.8 in<br>
+        travel_per_rev = π × 0.8 ≈ 2.513 in<br>
+        steps_per_inch = 2048 / 2.513 ≈ <strong>815 steps/inch</strong>
+      </li>
+      <li><strong>Y Axis</strong>: Pitch Diameter = 1.6 in<br>
+        travel_per_rev = π × 1.6 ≈ 5.027 in<br>
+        steps_per_inch = 2048 / 5.027 ≈ <strong>407.5 steps/inch</strong>
+      </li>
+      <li><strong>Z Axis</strong>: Pitch Diameter = 0.6 in<br>
+        travel_per_rev = π × 0.6 ≈ 1.885 in<br>
+        steps_per_inch = 2048 / 1.885 ≈ <strong>1086 steps/inch</strong>
+      </li>
+    </ul>
+    <p>
+      So if you want to move the X axis by 1 inch, you’d send approximately 815 steps to the X stepper motor. 
+      The inverse kinematics are equally simple: desired linear motion is multiplied by steps/inch to calculate how many steps to send:
+    </p>
+    <pre><code>
+      steps = desired_inches × steps_per_inch
+    </code></pre>
+    <p>
+      This simple and deterministic mapping is one reason Cartesian robots are so reliable and easy to control. 
+      There’s no complex trigonometry or matrix math—just good old linear math and gear ratios.
+    </p>
+
+       
+          <p>
+            All the 3D models for the hardware printed for the robot can be found here: <a href="https://cgtrader.com" target=_blanks><code>dafdfadf</code></a>
+          </p>
+
+        </section>
+
+ 
+    <section class="basicparagraphrightim" id="Electronics">
+      <div>
+        <h2>UR5 Trajectory IK</h2>
+        <p>
+          The most technically rigorous aspect of the robot control was the motion planning via IK. A robust algorithm that prevents jumping, avoids singularities, and ensures smooth motion is Broyden’s method.
+          <a href="https://en.wikipedia.org/wiki/Broyden%27s_method" target=_blank>Broyden's method</a> is a numerical method for solving nonlinear equations, which we adapted to compute the inverse kinematics of the UR5 robot. The method iteratively refines an initial guess for the joint angles until the end effector's position matches the desired target pose derived from the Mediapipe landmarks.
+          This is done via the damped pseudo-inverse of the Jacobian matrix where Broyden's method is introducing this dampng term to prevent the algorithm from jumping around. The damping term is a scalar that is added to the diagonal elements of the Jacobian matrix, which helps to stabilize the solution and prevents the algorithm from getting stuck in local minima.
+
+
+
+  <p>
+    In our system, the robot's joint angles <code>q</code> are calculated using inverse kinematics (IK) by aligning the robot's end effector pose with a desired transform from the user's hand. 
+    Since the UR5 robot’s forward kinematics are nonlinear, we can’t directly compute joint angles from a desired pose. Instead, we use a quasi-Newton iterative solver: <strong>Broyden’s method</strong>.
+  </p>
+
+  <p>
+    Broyden’s method solves the nonlinear equation:
+  </p>
+
+  <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+    <mi>F</mi><mo>(</mo><mi>q</mi><mo>)</mo><mo>=</mo>
+    <msub><mi>T</mi><mtext>desired</mtext></msub>
+    <mo>-</mo>
+    <mi>T</mi><mo>(</mo><mi>q</mi><mo>)</mo>
+  </math>
+
+  <p>
+    Here:
+    <ul>
+      <li><code>q</code> is the 6×1 vector of UR5 joint angles</li>
+      <li><code>T(q)</code> is the forward kinematics output pose</li>
+      <li><code>T<sub>desired</sub></code> is the target hand pose from Mediapipe</li>
+      <li><code>F(q)</code> is the pose error (both position and rotation)</li>
+    </ul>
+  </p>
+
+  <p>
+    Because calculating the true Jacobian <code>J = ∂F/∂q</code> at each step is costly or analytically complex, we use Broyden’s method to iteratively approximate the Jacobian:
+  </p>
+
+  <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+    <mi>B</mi><mo><sub>k+1</sub></mo><mo>=</mo>
+    <mi>B</mi><mo><sub>k</sub></mo><mo>+</mo>
+    <mfrac>
+      <mrow>
+        <mo>(</mo><mi>y</mi><mo>-</mo><mi>B</mi><mo><sub>k</sub></mo><mi>s</mi><mo>)</mo>
+        <mo>&#x2297;</mo>
+        <mi>s</mi>
+      </mrow>
+      <mrow><msup><mi>s</mi><mn>2</mn></msup></mrow>
+    </mfrac>
+  </math>
+
+  <p>
+    Where:
+    <ul>
+      <li><code>B<sub>k</sub></code> is the current Jacobian approximation</li>
+      <li><code>s = q<sub>k+1</sub> - q<sub>k</sub></code> is the change in joint angles</li>
+      <li><code>y = F(q<sub>k+1</sub>) - F(q<sub>k</sub>)</code> is the change in pose error</li>
+      <li><code>⊗</code> denotes the outer product</li>
+    </ul>
+  </p>
+
+  <h3>Damping for Stability</h3>
+
+  <p>
+    Near singular configurations or extreme joint limits, a direct inverse of the Jacobian can cause instability or large jumps. To handle this, we use <strong>damped least squares</strong>:
+  </p>
+
+  <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+    <mo>&#x2206;</mo><mi>q</mi><mo>=</mo>
+    <mo>(</mo><msup><mi>J</mi><mo>T</mo></msup><mi>J</mi><mo>+</mo><msup><mi>&lambda;</mi><mn>2</mn></msup><mi>I</mi><mo>)</mo><mo><sup>-1</sup></mo>
+    <msup><mi>J</mi><mo>T</mo></msup>
+    <mi>F</mi><mo>(</mo><mi>q</mi><mo>)</mo>
+  </math>
+
+  <p>
+    Where:
+    <ul>
+      <li><code>Δq</code> is the update to joint angles</li>
+      <li><code>J</code> is the Jacobian (or <code>B<sub>k</sub></code>)</li>
+      <li><code>λ</code> is the damping factor (tunable)</li>
+      <li><code>I</code> is the identity matrix</li>
+    </ul>
+    Damping helps the solver remain stable and prevents joint velocity spikes, especially when the pose error is small or the Jacobian is ill-conditioned.
+  </p>
+
+  <p>
+    We apply these updates frame-by-frame as the user moves, so the inverse kinematics solver runs in real-time and smoothly adapts to the user’s right-hand position and orientation. The result is a responsive and natural motion tracking experience that mimics human movement while maintaining numerical safety.
+  </p>
+</section>
+
+    
+
+
+
+
+      <section class="basicparagraphrightim" id="Programming">
+        <h2>UR5 Visual Hand Control With Mediapipe</h2>
+
+        <p>
+          It all works! With a faster computer it would work even better. 
+          Here is a video of the UR5 robot being controlled by a webcam and mediapipe. The user is moving their hand in front of the camera, and the robot is following the motion of the hand. The gripper is also being controlled by the hand gesture.
+        
+        </p>
+  <div class="video-container" style="min-height: 500px;">
+    <iframe 
+      style="width: 100%; height: auto; min-height: 500px;" 
+      src="https://www.youtube.com/embed/SwkzAVxf8tw?autoplay=0" 
+      frameborder="0" 
+      allow="autoplay; encrypted-media" 
+      allowfullscreen>
+    </iframe>
+  </div>
+
+        
+        </section>
+
+        <section class="basicparagraphrightim" id="Functionality">
+        <h2>UR5 Visual Hand Control With Mediapipe</h2>
+
+        <p>
+          It all works! With a faster computer it would work even better. 
+          Here is a video of the UR5 robot being controlled by a webcam and mediapipe. The user is moving their hand in front of the camera, and the robot is following the motion of the hand. The gripper is also being controlled by the hand gesture.
+        
+        </p>
+  <div class="video-container" style="min-height: 500px;">
+    <iframe 
+      style="width: 100%; height: auto; min-height: 500px;" 
+      src="https://www.youtube.com/embed/SwkzAVxf8tw?autoplay=0" 
+      frameborder="0" 
+      allow="autoplay; encrypted-media" 
+      allowfullscreen>
+    </iframe>
+  </div>
+
+        
+        </section>
+    <section class="basicparagraphleftim" id="Resources">
+      <h2 align="center">Resources</h2>
+      <p>
+        A special thanks again to Stefan Hustrulid and Baldur Hua for their contributions to this project.
+        <br><br>
+        All source code for this project and steps on how to run it can be found on <a href="https://github.com/Brevinbanks/ur5_mediapipe_motion/tree/main" target="_blank">my github page</a>.
+
+      </p>
+
+    </section>
+
+
+
+
+    <!-- Projects section -->
+    <script type="text/javascript" src="assets/js/shared_content.js">
+    </script>
+    <script type="text/javascript">    writeProjects();
+    </script>
+
+    <!-- Social accounts - Fixed to the right -->
+    <script type="text/javascript" src="assets/js/shared_content.js">
+    </script>
+    <script type="text/javascript">    writeSocials();
+    </script>
+
+    <!-- Scroll to top -->
+  
+    <div id="back-to-top" class="back-to-top animate__animated animate__backOutDown">Back to Top</div>
+
+
+    <!-- Website scripts -->
+    <!-- This script controls the hamburger menu -->
+    <script src="assets/js/app.js"></script>
+
+    <!-- This script will hide the back to top button or show it -->
+    <script type="text/javascript"
+    src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js">
+    </script>
+
+    <script type="text/javascript" language="javascript">
+      $(function () {
+          var $win = $(window);
+
+          $win.scroll(function () {
+              if ($win.scrollTop() < 5){
+                  document.getElementById("back-to-top").classList.remove('back-to-top:hover');
+                  document.getElementById("back-to-top").classList.remove('animate__animated', 'animate__backInUp');
+                  document.getElementById("back-to-top").classList.add('animate__animated', 'animate__backOutDown');
+                }
+                  else{
+                  document.getElementById("back-to-top").classList.add('back-to-top:hover');
+                  document.getElementById("back-to-top").classList.remove('animate__animated', 'animate__backOutDown');
+                  document.getElementById("back-to-top").classList.add('animate__animated', 'animate__backInUp');
+              }
+              
+            });
+          
+      });
+    </script>
+
+        <!-- Ion icons scripts -->
+        <script
+        type="module"
+        src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+      ></script>
+      <script
+        nomodule
+        src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+      ></script>
+
+
+          <!-- JavaScript for copy functionality -->
+    <script>
+      document.querySelectorAll('.copy-button').forEach((button) => {
+          button.addEventListener('click', () => {
+              const code = button.nextElementSibling.querySelector('code').textContent;
+              navigator.clipboard.writeText(code).then(() => {
+                  button.textContent = 'Copied!';
+                  setTimeout(() => (button.textContent = 'Copy'), 2000);
+              }).catch(err => {
+                  console.error('Failed to copy text: ', err);
+              });
+          });
+      });
+  </script>
+  </body>
+
+
+
+<!-- Fix the hamburger menu so tapping away will hide it -->
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Example with Copy</title>
+
+    <!-- Include Prism.js -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+    <!-- Optional CSS for Copy Button -->
+    <style>
+        .code-container {
+            position: relative;
+            background-color: #2d2d2d;
+            padding: 1em;
+            border-radius: 2px;
+            margin-bottom: 1em;
+            max-width: 800px; /* Limit width of code boxes */
+            margin-left: 0; /* Align the code box to the left */
+        }
+        
+
+        .copy-button {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background-color: #15ad7d;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .copy-button:hover {
+            background-color: #157557;
+        }
+
+        /* Aligning code boxes */
+        .align-left {
+            margin-left: 0; /* Default alignment to the left */
+        }
+
+        .align-right {
+            margin-left: auto; /* Align box to the right */
+        }
+
+        .video-embed {
+          display: flex;
+          justify-content: center;  /* Centers the video horizontally */
+          align-items: center;      /* Centers the video vertically if needed */
+          height: 20vh;            /* Optional: makes the parent container take full viewport height */
+        }
+
+        .video-container {
+          display: flex;
+          justify-content: center;  /* Centers iframe horizontally */
+          width: 100%;
+          padding: 5;   /* Aspect ratio 16:9 (9/16 = 0.5625, hence 56.25%) */
+        }
+        .video-embed iframe {
+          width: 100%;        /* Allow full width but limit with max-width */
+          max-width: 50%;     /* Make sure it doesn't exceed 30% of the container */
+          height: auto;
+        }
+
+
+    </style>
+</head>
+
+</html>
