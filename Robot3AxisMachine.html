@@ -170,7 +170,7 @@ This project certainly laid the ground work for that laser cutter and resulted i
 
 
  
-    <section class="basicparagraphrightim" id="Kinematics">
+    <section class="basicparagraphleftim" id="Kinematics">
       <div>
         <h2>Cartesian Kinematics</h2>
 
@@ -234,142 +234,160 @@ This project certainly laid the ground work for that laser cutter and resulted i
 
        
           <p>
-            All the 3D models for the hardware printed for the robot can be found here: <a href="https://cgtrader.com" target=_blanks><code>dafdfadf</code></a>
+            All the 3D models for the hardware printed for the robot can be found here: <a href="https://www.cgtrader.com/3d-print-models/hobby-diy/robotics/3-axis-cartesian-robot-drive-3d-printable-cnc-plotter" target=_blanks><code>3 Axis Cartesian Robot Drive 3D Printable CNC Plotter 3D print model</code></a>
           </p>
+          <p> You can support me on CGTrader, or you are free to download these free models from the Brevengineering Repository Or find a free pack here: <a href="https://drive.google.com/drive/folders/1MLL-2SwL012iUAkYrXtkGgsgXF-g7imT?usp=sharing" target=_blanks><code>3D Printable CNC Plotter 3D print model</code></a>
 
         </section>
 
  
     <section class="basicparagraphrightim" id="Electronics">
       <div>
-        <h2>UR5 Trajectory IK</h2>
+        <h2>Electronics</h2>
+        <p> The electronics are fairly simple, but there are a handful of components. Everything was chosen to work with
+          an arduion MEGA, althought the 3D model shows an UNO. Previously, I figured there was enough space for the Adafruit LCD libraries and stepper libraries,
+          but I was running out of memory on the UNO. The MEGA has plenty of space and I was able to add a few more features, additionally, for all the I/O I really 
+          wanted to use, the MEGA was a better choice.
+        </p>
         <p>
-          The most technically rigorous aspect of the robot control was the motion planning via IK. A robust algorithm that prevents jumping, avoids singularities, and ensures smooth motion is Broyden’s method.
-          <a href="https://en.wikipedia.org/wiki/Broyden%27s_method" target=_blank>Broyden's method</a> is a numerical method for solving nonlinear equations, which we adapted to compute the inverse kinematics of the UR5 robot. The method iteratively refines an initial guess for the joint angles until the end effector's position matches the desired target pose derived from the Mediapipe landmarks.
-          This is done via the damped pseudo-inverse of the Jacobian matrix where Broyden's method is introducing this dampng term to prevent the algorithm from jumping around. The damping term is a scalar that is added to the diagonal elements of the Jacobian matrix, which helps to stabilize the solution and prevents the algorithm from getting stuck in local minima.
+          Here is a short BOM for the electronics and an electronics schematic:
+          <table border="1" cellpadding="6" cellspacing="0">
+  <caption><strong>Parts List</strong></caption>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Quantity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>PUSH BUTTON</td><td>5</td></tr>
+    <tr><td>2</td><td>SSD1306</td><td>1</td></tr>
+    <tr><td>3</td><td>21G MINI DIGITAL SERVO</td><td>1</td></tr>
+    <tr><td>4</td><td>12V (MIN 3A) POWER SUPPLY</td><td>1</td></tr>
+    <tr><td>5</td><td>ROCKER SWITCH 2 PIN SPST</td><td>1</td></tr>
+    <tr><td>6</td><td>LIMIT SWITCH Y</td><td>2</td></tr>
+    <tr><td>7</td><td>BUCK CONVERTER LM2596 ADJ 12V-&gt;5V</td><td>1</td></tr>
+    <tr><td>8</td><td>28BYJ-48 ULN2003</td><td>2</td></tr>
+    <tr><td>9</td><td>ARDUINO MEGA 2560</td><td>1</td></tr>
+    <tr><td>10</td><td>10KOHM POT</td><td>2</td></tr>
+  </tbody>
+</table>
 
+        </p>
 
-
-  <p>
-    In our system, the robot's joint angles <code>q</code> are calculated using inverse kinematics (IK) by aligning the robot's end effector pose with a desired transform from the user's hand. 
-    Since the UR5 robot’s forward kinematics are nonlinear, we can’t directly compute joint angles from a desired pose. Instead, we use a quasi-Newton iterative solver: <strong>Broyden’s method</strong>.
-  </p>
-
-  <p>
-    Broyden’s method solves the nonlinear equation:
-  </p>
-
-  <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
-    <mi>F</mi><mo>(</mo><mi>q</mi><mo>)</mo><mo>=</mo>
-    <msub><mi>T</mi><mtext>desired</mtext></msub>
-    <mo>-</mo>
-    <mi>T</mi><mo>(</mo><mi>q</mi><mo>)</mo>
-  </math>
-
-  <p>
-    Here:
-    <ul>
-      <li><code>q</code> is the 6×1 vector of UR5 joint angles</li>
-      <li><code>T(q)</code> is the forward kinematics output pose</li>
-      <li><code>T<sub>desired</sub></code> is the target hand pose from Mediapipe</li>
-      <li><code>F(q)</code> is the pose error (both position and rotation)</li>
-    </ul>
-  </p>
-
-  <p>
-    Because calculating the true Jacobian <code>J = ∂F/∂q</code> at each step is costly or analytically complex, we use Broyden’s method to iteratively approximate the Jacobian:
-  </p>
-
-  <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
-    <mi>B</mi><mo><sub>k+1</sub></mo><mo>=</mo>
-    <mi>B</mi><mo><sub>k</sub></mo><mo>+</mo>
-    <mfrac>
-      <mrow>
-        <mo>(</mo><mi>y</mi><mo>-</mo><mi>B</mi><mo><sub>k</sub></mo><mi>s</mi><mo>)</mo>
-        <mo>&#x2297;</mo>
-        <mi>s</mi>
-      </mrow>
-      <mrow><msup><mi>s</mi><mn>2</mn></msup></mrow>
-    </mfrac>
-  </math>
+             <div>
+          <figure>
+            <img 
+            src="assets/Drawings/Schematic_3AxisMachine_2025-08-09.svg"
+            height= "auto"
+            alt="Robot Electronics Schematic"
+            loading="lazy"
+            style = "max-width: 100%;"
+            class="basicparagraphleftim-img"
+            />
+            <figcaption>Robot Electronics Schematic.</figcaption>
+          </figure>  
+        </br>
+        </div>
+        </p>
+        </div>
 
   <p>
-    Where:
-    <ul>
-      <li><code>B<sub>k</sub></code> is the current Jacobian approximation</li>
-      <li><code>s = q<sub>k+1</sub> - q<sub>k</sub></code> is the change in joint angles</li>
-      <li><code>y = F(q<sub>k+1</sub>) - F(q<sub>k</sub>)</code> is the change in pose error</li>
-      <li><code>⊗</code> denotes the outer product</li>
-    </ul>
+  It took some finangling to get the mega to fit where the arduino UNO was supposed to go, but I was able to make it work. The wiring is simple. If you use the ULN2003 Breakout boards
+  that support direct pin connections from the steppers, motors it makes the wiring nicer. You may notice that the Z axis isn't actually a stepper motor. It's a servo. While one could program the machine to work as defined in our kinematic section,
+  I found that my application was better done with an inprecise servo that just went to an on off location. This could be changed by reviewing the code and exchanging the hard coded servo locations, for relative rotations.
+  I didn't do this because when it comes to drawing, stamping, etc. I found I just need the tool to go do and then go back up.  
   </p>
 
-  <h3>Damping for Stability</h3>
-
-  <p>
-    Near singular configurations or extreme joint limits, a direct inverse of the Jacobian can cause instability or large jumps. To handle this, we use <strong>damped least squares</strong>:
-  </p>
-
-  <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
-    <mo>&#x2206;</mo><mi>q</mi><mo>=</mo>
-    <mo>(</mo><msup><mi>J</mi><mo>T</mo></msup><mi>J</mi><mo>+</mo><msup><mi>&lambda;</mi><mn>2</mn></msup><mi>I</mi><mo>)</mo><mo><sup>-1</sup></mo>
-    <msup><mi>J</mi><mo>T</mo></msup>
-    <mi>F</mi><mo>(</mo><mi>q</mi><mo>)</mo>
-  </math>
-
-  <p>
-    Where:
-    <ul>
-      <li><code>Δq</code> is the update to joint angles</li>
-      <li><code>J</code> is the Jacobian (or <code>B<sub>k</sub></code>)</li>
-      <li><code>λ</code> is the damping factor (tunable)</li>
-      <li><code>I</code> is the identity matrix</li>
-    </ul>
-    Damping helps the solver remain stable and prevents joint velocity spikes, especially when the pose error is small or the Jacobian is ill-conditioned.
-  </p>
-
-  <p>
-    We apply these updates frame-by-frame as the user moves, so the inverse kinematics solver runs in real-time and smoothly adapts to the user’s right-hand position and orientation. The result is a responsive and natural motion tracking experience that mimics human movement while maintaining numerical safety.
-  </p>
 </section>
 
     
 
 
+      </br>
+      </br>
+      </br>
+      </br>
+      </br>
 
-
-      <section class="basicparagraphrightim" id="Programming">
-        <h2>UR5 Visual Hand Control With Mediapipe</h2>
+      <section class="basicparagraphleftim" id="Programming">
+      </br>
+      </br>
+      </br>
+      </br>
+      </br>
+      </br>
+      </br>
+        <h2>Programming</h2>
 
         <p>
-          It all works! With a faster computer it would work even better. 
-          Here is a video of the UR5 robot being controlled by a webcam and mediapipe. The user is moving their hand in front of the camera, and the robot is following the motion of the hand. The gripper is also being controlled by the hand gesture.
-        
+          The robot controller takes advantage of the servo.h and stepper.h libraries for motor control inline. The approach allows motors to move simultaneously to perform multi-axis movements, which you don't get with typical motor libraries.
+          The code is written in C++ and is designed to run on an Arduino Mega 2560. The code is fairly simple, but it does require some understanding of the Arduino libraries and how to use them.
+          The code is available on my GitHub page: <a href="https://github.com/Brevinbanks/3AxisMachine" target=_blanks><code>3AxisMachine</code></a>
         </p>
-  <div class="video-container" style="min-height: 500px;">
-    <iframe 
-      style="width: 100%; height: auto; min-height: 500px;" 
-      src="https://www.youtube.com/embed/SwkzAVxf8tw?autoplay=0" 
-      frameborder="0" 
-      allow="autoplay; encrypted-media" 
-      allowfullscreen>
-    </iframe>
-  </div>
-
+        <p>
+          <b>The code is fairly simple, but it does require some understanding of the Arduino libraries and how to use them.</b>
+          <ul>
+            <li>Uses the <code>Stepper</code> library to control the stepper motors.</li>
+                  </br>
+            <li>Uses the <code>Servo</code> library to control the servo motor.</li>      </br>
+            <li>Uses the <code>Wire</code> library to communicate with the SSD1306 OLED display.</li>      </br>
+            <li>Includes a simple user interface for controlling the robot via buttons and a potentiometer.</li>      </br>
+            <li>Includes a programable patterns with up to 30 different commands (movements, pauses, and tool actions) that can be executed in sequence.</li>      </br>
+            <li>Includes a simple calibration routine to set the home position of the robot.</li>      </br>
+            <li>Stores the current position of the robot in EEPROM to preserve it between power cycles.</li>      </br>
+            <li>Also uses EEPROM to store the programmed patterns for persistence between power cycles.</li>      </br>
+            <li>Includes automation routines to execute the programmed patterns automatically for n number of desired cycles.</li>      </br>
+          </ul>
+          These functions are all designed to make the robot easy to use and program, even for those who are not familiar with Arduino programming.
+          The SSD1306 OLED display is used to provide feedback to the user, such as the current position of the robot, the current pattern being executed, and the status of the robot.
+          So it's import to ensure the screen is wired and working correctly. If too much space of the board is used, then the screen will freeze, fail to update or initialize, and cascade errors.
+          The robot inputs are handled by the 2 potentiometers, 5 push buttons, and the rocker switch. The potentiometers are used to control the position of the motors.
+          The push buttons are used to control the robot's state, such as starting and stopping the robot, selecting the pattern to execute, and moving the robot manually.
+          The rocker switch is used to turn the robot on and off. The robot can be controlled manually or automatically, depending on the user's preference.
+        </p>
+                     <div>
+          <figure>
+            <img 
+            src="assets/images/ScreenView3Axis.png"
+            height= "auto"
+            alt="Robot Control Screen"
+            loading="lazy"
+            style = "max-width: 30%;"
+            class="basicparagraphrightim-img"
+            />
+            <figcaption>Robot Control Screen.</figcaption>
+          </figure>  
+        </br>
+        </div>
+        </p>
+        </div>
+        <p>
+          The idea behind the code is a state machine. The state machine is a simple way to manage the robot's behavior. It's a finite state machine that can be in one of a few states. 
+          The states are:
+          <ul>
+            <li>MENU - The default state. The user can select a command from the menu.</li>
+            <li>MANUAL_M - Setting which responds to button inputs and potentiometer inputs for manual movements.</li>
+            <li>AUTO_M - Setting which allows the user to select preprogrammed patterns to execute automatically.</li>
+            <li>HOMING - Bacground state that moves the robot to the home position.</li>
+            <li>PROGRAMMING - Much like manual mode, but the user can save movements to the EEPROM.</li>
+          </ul>
+        </p>
         
         </section>
 
         <section class="basicparagraphrightim" id="Functionality">
-        <h2>UR5 Visual Hand Control With Mediapipe</h2>
+        <h2>Functionality</h2>
 
         <p>
-          It all works! With a faster computer it would work even better. 
-          Here is a video of the UR5 robot being controlled by a webcam and mediapipe. The user is moving their hand in front of the camera, and the robot is following the motion of the hand. The gripper is also being controlled by the hand gesture.
-        
+          See the robot in action! The robot is capable of performing a variety of tasks, including drawing and tapping on a small screen.
+          
         </p>
   <div class="video-container" style="min-height: 500px;">
     <iframe 
       style="width: 100%; height: auto; min-height: 500px;" 
-      src="https://www.youtube.com/embed/SwkzAVxf8tw?autoplay=0" 
+      src="https://www.youtube.com/embed/U41lbCXK1ZA?autoplay=0"
       frameborder="0" 
       allow="autoplay; encrypted-media" 
       allowfullscreen>
@@ -381,7 +399,6 @@ This project certainly laid the ground work for that laser cutter and resulted i
     <section class="basicparagraphleftim" id="Resources">
       <h2 align="center">Resources</h2>
       <p>
-        A special thanks again to Stefan Hustrulid and Baldur Hua for their contributions to this project.
         <br><br>
         All source code for this project and steps on how to run it can be found on <a href="https://github.com/Brevinbanks/ur5_mediapipe_motion/tree/main" target="_blank">my github page</a>.
 
